@@ -1,0 +1,31 @@
+<div class="citrixDialog alertDialog" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+	<div class="citrixDialogTitleBar">
+        <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title"></span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+	</div>
+    <div class="citrixDialogPaneContent">
+        <ul class="connectDevice" dojoType="citrix.common.Repeater" dojoEventHandler="this" name="getNetworks" uniqueId="path">
+            <li template networkPath="%path%">
+                <div class="device" templateType="citrix.common.BoundWidget" binding="disabled" bind="unavailable" dojoAttachEvent="onClick: onNicSelect">
+                    <div class="deviceItem deviceName" templateType="citrix.common.BoundWidget" bind="description" mask="value" map="{'${BRIDGED_MASK}': 'BRIDGED', '${SHARED_MASK}': 'SHARED', '${INTERNAL_MASK}': 'INTERNAL', '${WIFI_MASK}': 'WIFI', '${MODEM_MASK}': 'MODEM', '${VPN_MASK}': 'VPN'}"></div>
+                    <div class="deviceItem" templateType="citrix.common.BoundWidget" bind="name"></div>
+                    <div templateType="citrix.common.BoundWidget" binding="display" bind="deviceAvailable" map="{'none': true, '': false}">
+                        <div class="deviceItem deviceStatus" templateType="citrix.common.BoundWidget" bind="device" mask="${DEVICE_MASK}"></div>
+                    </div>
+                    <div templateType="citrix.common.BoundWidget" binding="display" bind="deviceAvailable" map="{'': true, 'none': false}">
+                        <div class="deviceItem deviceStatus">${DEVICE_UNAVAILABLE}</div>
+                    </div>                    
+                </div>
+            </li>
+            <li empty class="noDevices">${NONE_AVAILABLE}</li>
+        </ul>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right">
+            <button dojoAttachPoint="addButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onExecute">${ADD_ACTION}</button>
+            <button dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onCancel">${CANCEL_ACTION}</button>
+        </span>
+    </div>
+</div>

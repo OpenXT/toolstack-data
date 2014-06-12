@@ -1,0 +1,13 @@
+<div class="citrixDialog alertDialog" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+	<div class="citrixDialogTitleBar">
+        <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title" tabindex="0"></span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+	</div>
+    <div class="citrixDialogPaneContent">
+        <div dojoAttachPoint="iconNode"></div>
+        <div class="alertMessage" dojoAttachPoint="messageNode"></div>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent"></div>
+</div>

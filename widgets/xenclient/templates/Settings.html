@@ -1,0 +1,283 @@
+<div class="citrixDialog" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+	<div class="citrixDialogTitleBar">
+	    <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title">${SYS_INFO_HEADER}</span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+	</div>
+    <div class="citrixDialogPaneContent">
+        <div class="settingsTabContainer" dojoType="citrix.common.TabContainer" dojoAttachPoint="tabContainer">
+            <div dojoType="citrix.common.ContentPane" title="${SYS_INFO_WALLPAPER_TITLE}" selected="true">
+                <h1>${SYS_INFO_WALLPAPER_TITLE}</h1>
+                <p>${WALLPAPER_HEADER}</p>
+                <ul dojoAttachPoint="wallpaperSelect" dojoType="citrix.common.ImageSelect" editing="true" itemClass="citrixImageItem citrixImage100" name="wallpaper"></ul>
+            </div>
+            <div dojoType="citrix.common.ContentPane" title="${SYS_INFO_VM_MODE_TITLE}" dojoAttachPoint="vmModeContainer">
+                <h1>${SYS_INFO_VM_MODE_TITLE}</h1>
+                <br/>
+                <input id="singleVMMode" type="radio" dojoType="citrix.common.RadioButton" value="single" name="vm_mode" dojoAttachEvent="onClick: _onNativeRadioChange" />
+                <label for="singleVMMode">${VM_MODE_NATIVE_LABEL}</label>
+                <div class="nativeItem">
+                    <select dojoAttachPoint="nativeVMNode" class="citrix value" dojoType="citrix.common.Select" name="native_vm">
+                    </select>
+                </div>
+                <div class="nativeItem">
+                    <label dojoType="citrix.common.Label" title="${VM_MODE_NATIVE_TOOLTIP}">${TELL_ME_MORE}</label>
+                </div>
+                <br/>
+                <input id="multipleVMMode" type="radio" dojoType="citrix.common.RadioButton" value="multiple" name="vm_mode" dojoAttachEvent="onClick: _onNativeRadioChange" />
+                <label for="multipleVMMode">${VM_MODE_NOT_NATIVE_LABEL}</label>
+                <div class="nativeItem">
+                    <label dojoType="citrix.common.Label" title="${VM_MODE_NOT_NATIVE_TOOLTIP}">${TELL_ME_MORE}</label>
+                </div>
+                <div class="alignBottom">
+                    <div class="alertBox blueBox">
+                        <span class="alertIcon alertIconSmall alertIconInformation"></span>
+                        <div>${XENCLIENT_ACCESS_TIP}</div>
+                    </div>
+                </div>
+            </div>
+            <div dojoAttachPoint="languageTab" dojoType="citrix.common.ContentPane" title="${LANGUAGE_HEADER}">
+                <h1>${LANGUAGE_HEADER}</h1>
+                <span class="citrix" dojoAttachPoint="languageNode" dojoType="citrix.common.Select" name="language"></span>
+            </div>
+            <div dojoType="citrix.common.ContentPane" title="${SYS_INFO_TOUCHPAD_TITLE}">
+                <h1>${KEYBOARD_LAYOUT}</h1>
+                <span class="citrix" dojoAttachPoint="keyboardNode" dojoType="citrix.common.Select" name="keyboard_layout"></span>
+                <hr class="horizontalSeparator" />
+                <h1 class="laptop">${TOUCHPAD_OPTIONS}</h1>
+                <div class="citrixTabPaneField laptop">
+                    <label for="touchpad_tap_click">${TAP_TO_CLICK_LABEL}</label>
+                    <select class="citrix value" dojoType="citrix.common.Select" name="touchpad_tap_click">
+                        <option value="true">${ON_TEXT}</option>
+                        <option value="false">${OFF_TEXT}</option>
+                    </select>
+                </div>
+                <div class="citrixTabPaneField laptop">
+                    <label for="touchpad_scrolling">${SCROLLING_LABEL}</label>
+                    <select class="citrix value" dojoType="citrix.common.Select" name="touchpad_scrolling">
+                        <option value="true">${ON_TEXT}</option>
+                        <option value="false">${OFF_TEXT}</option>
+                    </select>
+                </div>
+                <div class="laptop">
+                    <h1>${SPEED_LABEL}</h1>
+                    <span class="speedContainer">${SLOW}</span>
+                    <span class="speedContainer">
+                        <label for="speedRadio_1">1</label>
+                        <input id="speedRadio_1" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="1" name="touchpad_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="speedRadio_2">2</label>
+                        <input id="speedRadio_2" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="2" name="touchpad_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="speedRadio_3">3</label>
+                        <input id="speedRadio_3" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="3" name="touchpad_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="speedRadio_4">4</label>
+                        <input id="speedRadio_4" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="4" name="touchpad_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="speedRadio_5">5</label>
+                        <input id="speedRadio_5" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="5" name="touchpad_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="speedRadio_6">6</label>
+                        <input id="speedRadio_6" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="6" name="touchpad_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="speedRadio_7">7</label>
+                        <input id="speedRadio_7" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="7" name="touchpad_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="speedRadio_8">8</label>
+                        <input id="speedRadio_8" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="8" name="touchpad_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="speedRadio_9">9</label>
+                        <input id="speedRadio_9" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="9" name="touchpad_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="speedRadio_10">10</label>
+                        <input id="speedRadio_10" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="10" name="touchpad_speed" />
+                    </span>
+                    <span class="speedContainer">${FAST}</span>
+                </div>
+                <hr class="horizontalSeparator laptop" />
+                <div>
+                    <h1>${MOUSE_SPEED_LABEL}</h1>
+                    <span class="speedContainer">${SLOW}</span>
+                    <span class="speedContainer">
+                        <label for="mouseRadio_1">1</label>
+                        <input id="mouseRadio_1" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="1" name="mouse_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="mouseRadio_2">2</label>
+                        <input id="mouseRadio_2" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="2" name="mouse_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="mouseRadio_3">3</label>
+                        <input id="mouseRadio_3" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="3" name="mouse_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="mouseRadio_4">4</label>
+                        <input id="mouseRadio_4" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="4" name="mouse_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="mouseRadio_5">5</label>
+                        <input id="mouseRadio_5" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="5" name="mouse_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="mouseRadio_6">6</label>
+                        <input id="mouseRadio_6" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="6" name="mouse_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="mouseRadio_7">7</label>
+                        <input id="mouseRadio_7" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="7" name="mouse_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="mouseRadio_8">8</label>
+                        <input id="mouseRadio_8" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="8" name="mouse_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="mouseRadio_9">9</label>
+                        <input id="mouseRadio_9" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="9" name="mouse_speed" />
+                    </span>
+                    <span class="speedContainer">
+                        <label for="mouseRadio_10">10</label>
+                        <input id="mouseRadio_10" class="speedRadio" type="radio" dojoType="citrix.common.RadioButton" value="10" name="mouse_speed" />
+                    </span>
+                    <span class="speedContainer">${FAST}</span>
+                </div>
+                <h1>${POINTER_TRAIL}</h1>
+                <input id="pointerRadioNone" type="radio" dojoType="citrix.common.RadioButton" value="0" name="pointer_trail_timeout" />
+                <label for="pointerRadioNone">${NONE_TEXT}</label><br />
+                <input id="pointerRadioShort" type="radio" dojoType="citrix.common.RadioButton" value="100" name="pointer_trail_timeout" />
+                <label for="pointerRadioShort">${SHORT_TEXT}</label><br />
+                <input id="pointerRadioLong" type="radio" dojoType="citrix.common.RadioButton" value="200" name="pointer_trail_timeout" />
+                <label for="pointerRadioLong">${LONG_TEXT}</label><br />
+            </div>
+            <div dojoType="citrix.common.ContentPane" title="${SYS_INFO_DISPLAY_TITLE}">
+                <h1>${BRIGHTNESS_LABEL}</h1>
+                <button dojoType="citrix.common.Button" dojoAttachEvent="onClick: increaseBrightness"><img src="images/buttons/increase_brightness.png" /></button>
+                <button dojoType="citrix.common.Button" dojoAttachEvent="onClick: decreaseBrightness"><img src="images/buttons/decrease_brightness.png" /></button>
+                <div class ="screenlock">
+                    <hr class="horizontalSeparator" />
+                    <h1>${AUTH_TIMEOUT_HEADER}</h1>
+                    <p class="auth local managed">${AUTH_SET_TIMEOUT_TEXT}</p>
+                    <div class="auth local managed" dojoType="citrix.common.Timeout" smallDelta="1" largeDelta="5" max="60" name="lock_timeout" onLabel="${SCREEN_LOCK_ON_LABEL}" unitLabelPlural="${MINUTES}" unitLabelSingular="${MINUTE}" offLabel="${SCREEN_LOCK_OFF_LABEL}"></div>
+                    <p class="auth none">${SCREEN_LOCK_HELP}</p>
+                </div>
+                <hr class="horizontalSeparator multipleGPU" />
+                <h1 class="multipleGPU">${ADAPTER_HEADER}</h1>
+                <p class="multipleGPU">${ADAPTER_LABEL}</p>
+                <ul class="multipleGPU" dojoType="citrix.common.OrderableList" name="gpuPlacement" dojoAttachPoint="gpuPlacementNode"></ul>
+                <hr class="horizontalSeparator multipleGPU" />
+                <span class="gpuPlacementFooter left multipleGPU">${LEFT}</span><span class="gpuPlacementFooter right multipleGPU">${RIGHT}</span>
+                <hr class="horizontalSeparator multipleGPU" />
+                <h1 class="multipleGPU">${SEAMLESS_HEADER}</h1>
+                <div class="citrixTabPaneField multipleGPU">
+                    <label for="switcher_enabled">${SWITCHER_LABEL}</label>
+                    <span class="citrix value" dojoType="citrix.common.Select" options="[{'label': '${ON_TEXT}', 'value': true}, {'label': '${OFF_TEXT}', 'value': false}]" name="switcher_enabled" dojoAttachPoint="switcherNode" dojoAttachEvent="onChange: _onSwitcherChange"></span>
+                </div>
+                <div class="citrixTabPaneField multipleGPU">
+                    <label for="keyboard_follows_mouse">${KEYBOARD_LABEL}</label>
+                    <span class="citrix value" dojoType="citrix.common.Select" options="[{'label': '${ON_TEXT}', 'value': true}, {'label': '${OFF_TEXT}', 'value': false}]" name="keyboard_follows_mouse" dojoAttachPoint="switcherKeyboardNode"></span>
+                </div>
+                <div class="citrixTabPaneField multipleGPU">
+                    <label for="switcher_resistance">${RESISTANCE_LABEL}</label>
+                    <span class="citrix value" dojoType="citrix.common.NumberSpinner" smallDelta="1" largeDelta="2" constraints="{min: 0, max: 10, places: 0}" name="switcher_resistance" dojoAttachPoint="switcherResistanceNode"></span>
+                </div>
+            </div>
+            <div dojoType="citrix.common.ContentPane" title="${SYS_INFO_AUDIO_TITLE}">
+                <h1>${AUDIO_LABEL}</h1>
+                <div class="citrixTabPaneField">
+                    <label for="capture_device">${AUDIO_INPUT_LABEL}</label>
+                    <span class="citrix value" dojoAttachPoint="captureNode" dojoType="citrix.common.Select" name="capture_device"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="playback_device">${AUDIO_OUTPUT_LABEL}</label>
+                    <span class="citrix value" dojoAttachPoint="playbackNode" dojoType="citrix.common.Select" name="playback_device"></span>
+                </div>
+                <h1>${AUDIO_CONTROL_LABEL}</h1>
+                <fieldset dojoAttachPoint="audioFieldsWrap" class="citrixTabPaneColumn scrollableTab"></fieldset>                
+            </div>
+            <div dojoAttachPoint="powerTab" dojoType="citrix.common.ContentPane" title="${SYS_INFO_POWER_TITLE}">
+                <h1>${SYSTEM_SLEEP_HEADER}</h1>
+                <p>${SYSTEM_SLEEP_LABEL}</p>
+                <div dojoType="citrix.common.Timeout" smallDelta="1" largeDelta="5" max="60" name="idle_time_threshold" onLabel="${SYSTEM_SLEEP_ON_LABEL}" unitLabelPlural="${MINUTES}" unitLabelSingular="${MINUTE}" offLabel="${SYSTEM_SLEEP_OFF_LABEL}"></div>
+                <h1 class="laptop">${LID_CLOSE_LABEL}</h1>
+                <p class="laptop">${LID_CLOSE_AC_POWER_LABEL}</p>
+                <input class="laptop" id="acRadioSleep" type="radio" dojoType="citrix.common.RadioButton" value="sleep" name="ac_lid_close_action" />
+                <label class="laptop" for="acRadioSleep">${SLEEP_ALL_OPTION}</label><br class="laptop" />
+                <input class="laptop" id="acRadioNothing" type="radio" dojoType="citrix.common.RadioButton" value="nothing" name="ac_lid_close_action" />
+                <label class="laptop" for="acRadioNothing">${DO_NOTHING_OPTION}</label><br class="laptop" />
+                <p class="laptop">${LID_CLOSE_BATTERY_LABEL}</p>
+                <input class="laptop" id="battRadioSleep" type="radio" dojoType="citrix.common.RadioButton" value="sleep" name="battery_lid_close_action" />
+                <label class="laptop" for="battRadioSleep">${SLEEP_ALL_OPTION}</label><br class="laptop" />
+                <input class="laptop" id="battRadioNothing" type="radio" dojoType="citrix.common.RadioButton" value="nothing" name="battery_lid_close_action" />
+                <label class="laptop" for="battRadioNothing">${DO_NOTHING_OPTION}</label>
+            </div>
+            <div dojoAttachPoint="updateTab" dojoType="citrix.common.ContentPane" title="${SYS_INFO_SOFTWARE_TITLE}" saveable="false">
+                <h1 class="updateHeader">
+                    <label dojoType="citrix.common.Label" title="${UPDATE_TOOLTIP}">${UPDATE_TITLE}</label>
+                </h1>
+                <div class="update ready">
+                    <input type="text" dojoType="citrix.common.ValidationTextBox" dojoAttachPoint="updateURLNode" dojoAttachEvent="onChange: _onUpdateURLChange" />
+                    <button class="updateButton right" dojoType="citrix.common.Button" dojoAttachPoint="checkUpdateButton" dojoAttachEvent="onClick: checkUpdate">${UPDATE_ACTION}</button>
+                </div>
+                <div class="update downloading">
+                    <span class="updateProgressDetails" dojoType="citrix.common.ProgressBar" dojoAttachPoint="progressNode"></span>
+                    <button class="updateButton right" dojoType="citrix.common.Button" dojoAttachEvent="onClick: cancelUpdate">${CANCEL_DOWNLOAD_ACTION}</button>
+                </div>
+                <div class="update downloaded">
+                    <span>${UPDATE_SHUTDOWN}</span>
+                </div>
+                <div class="update failed">
+                    <span class="updateText" dojoType="citrix.common.BoundWidget" dojoAttachPoint="updateErrorNode"></span>
+                    <button class="updateButton right" dojoType="citrix.common.Button" dojoAttachEvent="onClick: cancelUpdate">${DISCARD_UPDATE_ACTION}</button>
+                </div>
+                <h1>${SOFTWARE_TITLE}</h1>
+                <div class="citrixTabPaneField">
+                    <label for="build_version">${XENCLIENT_VERSION_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="build_version"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="Build">${XENCLIENT_BUILD_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" mask="${XENCLIENT_BUILD_MASK}" name="getBuild"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="build_tools">${TOOLS_VERSION_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="build_tools"></span>
+                </div>
+            </div>
+            <div dojoType="citrix.common.ContentPane" title="${SYS_INFO_AUTH_TITLE}">
+                <h1>${AUTH_PASSWORD_HEADER}</h1>
+                <p class="auth none">${AUTH_SET_PASSWORD_TEXT}</p>
+                <button class="actionButton auth none" dojoType="citrix.common.Button" dojoAttachEvent="onClick: changePassword">${SET_PASSWORD_ACTION}</button>
+                <p class="auth managed">${AUTH_MANAGED_TEXT}</p>
+                <div class="citrixTabPaneField auth local">
+                    <label for="auth_on_boot">${AUTH_REQUIRED_TEXT}</label>
+                    <span class="citrix value" dojoType="citrix.common.Select" options="[{'label': '${ON_TEXT}', 'value': true}, {'label': '${OFF_TEXT}', 'value': false}]" name="auth_on_boot"></span>
+                </div>
+                <p class="auth local">${CHANGE_PASSWORD_HELP}</p>
+                <button class="actionButton auth local" dojoType="citrix.common.Button" dojoAttachEvent="onClick: changePassword">${CHANGE_PASSWORD_ACTION}</button>
+            </div>
+            <div dojoType="citrix.common.ContentPane" title="${SYS_INFO_ADVANCED}">
+                <h1>${PLUGINS_HEADER}</h1>
+                <div class="citrixTabPaneField">
+                    <label dojoType="citrix.common.Label" for="drm_enabled">${ENABLE_DRM}</label>
+                    <span class="citrix value" dojoType="citrix.common.Select" options="[{'label': '${DRM_ENABLED}', 'value': true}, {'label': '${DRM_DISABLED}', 'value': false}]" name="drm_enabled"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right">
+            <button dojoAttachPoint="saveButton" dojoType="citrix.common.Button" class="citrixDialogItemRight editNode" dojoAttachEvent="onClick: save">${SAVE_ACTION}</button>
+            <button dojoAttachPoint="closeButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onCancel">${CLOSE_ACTION}</button>
+        </span>
+    </div>
+</div>

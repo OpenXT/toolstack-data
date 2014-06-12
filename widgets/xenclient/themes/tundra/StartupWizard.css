@@ -1,0 +1,11 @@
+.tundra .citrixWizard .eulaPage {
+    height: 305px;
+}
+
+.tundra .citrixWizard .eula {
+    height: 240px;
+    width: 600px;
+    overflow: auto;
+    white-space: pre;
+    font-family: 'DejaVu Sans Mono', monospace;
+}

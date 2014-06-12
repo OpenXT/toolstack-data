@@ -1,0 +1,50 @@
+<div class="citrixDialog" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+	<div class="citrixDialogTitleBar">
+	    <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title">${SERVICE_VMS_HEADER}</span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+	</div>
+    <div class="citrixDialogPaneContent serviceVMList">
+        <table class="citrixTable" dojoType="citrix.common.Repeater" dojoEventHandler="this" name="serviceVMs" uniqueId="vm_path">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th class="name">${NAME_TH}</th>
+                    <th class="description">${DESCRIPTION_TH}</th>
+                    <th>${ACTIONS_TH}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr template deviceId="%vm_path%">
+                    <td class="serviceLogoCell">
+                        <img templateType="citrix.common.BoundWidget" binding="src" bind="get_service_image_path" class="serviceLogo" />
+                    </td>
+                    <td>
+                        <span class="name" templateType="citrix.common.BoundWidget" bind="name"></span>
+                    </td>
+                    <td>
+                        <span class="description" templateType="citrix.common.BoundWidget" bind="description"></span>
+                    </td>
+                    <td>
+                        <button templateType="citrix.common.Button" dojoAttachEvent="onClick: onEdit">${EDIT_ACTION}</button>
+                    </td>
+                </tr>
+                <tr empty>
+                    <td colspan="4">${NO_SERVICE_VMS}</td>
+                </tr>
+            </tbody>
+            <tfoot style="display: none;">
+                <tr>
+                    <td colspan="4">
+                    </td>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right">
+            <button dojoAttachPoint="closeButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onCancel">${CLOSE_ACTION}</button>
+        </span>
+    </div>
+</div>

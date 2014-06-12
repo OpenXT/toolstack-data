@@ -1,0 +1,24 @@
+<div class="citrixDialog alertDialog" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+    <div class="citrixDialogTitleBar">
+        <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title"></span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+    </div>
+    <div class="citrixDialogPaneContent">
+        <ul class="connectDevice" dojoType="citrix.common.Repeater" dojoEventHandler="this" name="getSnapshots" uniqueId="path">
+            <li template deviceId="%path%">
+                <div class="device" templateType="citrix.common.BoundWidget" dojoAttachEvent="onClick: onDeviceSelect">
+                    <div class="deviceItem deviceName" templateType="citrix.common.BoundWidget" mask="${AGE_MASK}" bind="age"></div>
+                </div>
+            </li>
+            <li empty class="noDevices">${NONE_AVAILABLE}</li>
+        </ul>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right">
+            <button dojoAttachPoint="restoreButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onExecute">${RESTORE_ACTION}</button>
+            <button dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onCancel">${CANCEL_ACTION}</button>
+        </span>
+    </div>
+</div>

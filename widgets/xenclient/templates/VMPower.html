@@ -1,0 +1,12 @@
+<div class="citrixVMPower" dojoAttachPoint="containerNode">
+    <img class="vmPowerImage left" dojoType="citrix.common.BoundWidget" binding="src" name="get_image_path" />
+    <div class="vmPowerTextContainer left">
+        <span dojoType="citrix.common.BoundWidget" name="fullNameWhenTruncated" binding="title">
+            <div dojoType="citrix.common.BoundWidget" name="truncatedName" mask="${NAME_MASK}"></div>
+        </span>
+        <div class="vmPowerState" dojoType="citrix.common.BoundWidget" name="getTranslatedState" mask="${STATUS_MASK}"></div>
+        <div dojoType="citrix.common.BoundWidget" name="slot" mask="${SLOT_MASK}"></div>
+    </div>
+    <button class="Buttons right force_shutdownAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconForceStop" dojoAttachEvent="onClick: onForceStop">${FORCE_SHUT_DOWN}</button>
+    <button class="ICAButtons right force_shutdownAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconDisconnect" dojoAttachEvent="onClick: onForceStop">${ICAFORCE_SHUT_DOWN}</button>
+</div>

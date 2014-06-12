@@ -1,0 +1,113 @@
+.tundra .citrixButton {
+    position: relative;
+    cursor: pointer;
+    min-width: 72px;
+}
+
+.tundra .imageButton {
+    height: 70px;
+}
+
+.tundra .citrixButtonContents {
+    display: block;
+    text-align: center;
+}
+
+.tundra .imageButton .citrixButtonContents {
+    max-width: 97px;
+}
+
+.tundra .smallImageButton .imageButton .citrixButtonContents {
+    width: 75px;
+}
+
+.tundra .citrixButtonText {
+    font-size: 13px;
+}
+.tundra .imageButton .citrixButtonText {
+    font-size: 11px; /* should be a minimum of 12px for ja and sc text */
+}
+.tundra .dijitDisabled .citrixButtonText {
+	color: rgb(127, 127, 127);
+}
+.tundra .dijitButtonHover .citrixButtonText {
+    color: rgb(36, 60, 95);
+}
+
+.tundra .dijitButtonText {
+    padding: 1px 0 0 4px;
+}
+
+.tundra .citrixImageButton {
+    display: block;
+    margin: 5px auto;
+}
+
+/* enabled state - inner */
+.tundra .citrixButtonCenter {
+    margin: 0 7px;
+	padding: 0 7px;
+    height: 23px;
+    line-height: 23px;
+	background: url("/images/buttons/075_ButtonNormalCenter_h32bit_1x23.png") repeat-x;
+}
+.tundra .citrixButtonLeft {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+	background: url("/images/buttons/075_ButtonNormalLeft_h32bit_7x23.png") no-repeat;
+}
+.tundra .citrixButtonRight {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+	background: url("/images/buttons/075_ButtonNormalRight_h32bit_7x23.png") no-repeat right;
+}
+
+/* disabled state - inner */
+.tundra .dijitButtonDisabled .citrixButtonCenter {
+	background: url("/images/buttons/075_ButtonDisabledCenter_h32bit_1x23.png") repeat-x;
+}
+.tundra .dijitButtonDisabled .citrixButtonLeft {
+	background: url("/images/buttons/075_ButtonDisabledLeft_h32bit_7x23.png") no-repeat;
+}
+.tundra .dijitButtonDisabled .citrixButtonRight {
+	background: url("/images/buttons/075_ButtonDisabledRight_h32bit_7x23.png") no-repeat right;
+}
+
+/* hover state - inner */
+.tundra .dijitButtonHover .citrixButtonCenter {
+	background: url("/images/buttons/075_ButtonHoverCenter_h32bit_1x23.png") repeat-x;
+}
+.tundra .dijitButtonHover .citrixButtonLeft {
+	background: url("/images/buttons/075_ButtonHoverLeft_h32bit_7x23.png") no-repeat;
+}
+.tundra .dijitButtonHover .citrixButtonRight {
+	background: url("/images/buttons/075_ButtonHoverRight_h32bit_7x23.png") no-repeat right;
+}
+
+/* active state - inner (for when you are pressing a normal button */
+.tundra .dijitButtonActive .citrixButtonCenter {
+	background: url("/images/buttons/075_ButtonClickedCenter_h32bit_1x23.png") repeat-x;
+}
+.tundra .dijitButtonActive .citrixButtonLeft {
+	background: url("/images/buttons/075_ButtonClickedLeft_h32bit_7x23.png") no-repeat;
+}
+.tundra .dijitButtonActive .citrixButtonRight {
+	background: url("/images/buttons/075_ButtonClickedRight_h32bit_7x23.png") no-repeat right;
+}
+
+/* focused state */
+.tundra .dijitButtonFocused .citrixButtonCenter {
+	background: url("/images/buttons/075_ButtonFocusedCenter_h32bit_1x23.png") repeat-x;
+}
+.tundra .dijitButtonFocused .citrixButtonLeft {
+	background: url("/images/buttons/075_ButtonFocusedLeft_h32bit_7x23.png") no-repeat;
+}
+.tundra .dijitButtonFocused .citrixButtonRight {
+	background: url("/images/buttons/075_ButtonFocusedRight_h32bit_7x23.png") no-repeat right;
+}

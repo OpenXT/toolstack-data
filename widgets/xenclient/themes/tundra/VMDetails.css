@@ -1,0 +1,105 @@
+/* preload images */
+body:after {
+    display: none;
+    content: url(/images/borders/system_dialog.png) url(/images/borders/system_panel.png) url(/images/borders/system_panel_focus.png);
+}
+
+.tundra .vmDetails .scrollableTab {
+    max-height: 320px;
+    overflow-y: auto;
+}
+
+.tundra .vmDetails .scrollableTabSpace {
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+.tundra .vmDetails .alertContainer {
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.tundra .detailsTabContainer {
+    width: 860px;
+    height: 330px;
+}
+
+.tundra .detailsTabContainer .citrixTabPaneField label {
+    min-width: 150px;
+    max-width: 190px;
+}
+
+.tundra .vmDetailActions {
+    height: 65px;
+    display: inline-block;
+}
+
+.tundra .vmTransferDetails {
+    font-size: 13px;
+}
+
+.tundra .vmTransferSeparator {
+    padding-bottom: 10px;
+}
+
+.tundra .vmTransferTitle {
+    font-size: 14px;
+    position: absolute;
+    margin: -25px 0 0 22px;
+    background: white;
+}
+
+.tundra .vmTransferText {
+    text-transform: capitalize;
+}
+
+.tundra .vmTransferInfo {
+    padding-left: 10px;
+}
+
+.tundra .citrixTabPaneField .citrixProgressBar.vmProgressDetails {
+    width: 420px;
+    display: inline-block;
+}
+
+.tundra .vmConnectedDevices thead tr th:nth-child(1) {
+    min-width: 200px;
+}
+
+.tundra .vmConnectedDevices .deviceName {
+    width: 249px;
+    word-wrap: break-word;
+    display: inline-block;
+    white-space: pre;
+}
+
+.tundra .vmConnectedDevices .deviceRow
+.tundra .vmNics .nicRow {
+    padding-left: 10px;
+}
+
+.tundra .versionDescription {
+    height: 30px;
+    overflow: auto;
+}
+
+.tundra .vmDevices {
+    overflow: auto;
+}
+
+.tundra .vmDevices .citrix.dijitTextBox {
+    width: 250px !important;
+}
+
+.tundra .vmDetails .citrixTabPaneField .editTip {
+    padding-top: 2px;
+    position: absolute;
+}
+
+.tundra .vmDisks .dijitSelect {
+  width: 110px !important;
+}
+
+.tundra .diskButton .citrixButton {
+  width: 110px;
+}

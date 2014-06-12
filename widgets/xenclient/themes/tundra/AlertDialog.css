@@ -1,0 +1,33 @@
+.tundra .alertDialog {
+    font-size: 12px;
+}
+
+.tundra .alertDialog .alertMessage {
+    font-size: 12px;
+    padding: 10px 0px 10px 70px;
+    min-width: 270px;
+    max-width: 400px;
+    min-height: 30px;
+    white-space: pre-line;
+}
+
+.tundra .alertDialog .notAgainCheckbox {
+    margin: 15px 0 15px 10px;
+}
+
+.tundra .alertDialog .ctrlText {
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 25px;
+}
+
+.tundra .alertDialog .ctrlButton {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 14px;
+    padding: 5px;
+    border-width: 15px 18px;
+    -webkit-border-image: url(/images/buttons/ctrlButton.png) 15 18 15 18 stretch;
+    display: inline-block;
+    min-width: 10px;
+    margin: 0 10px;
+}

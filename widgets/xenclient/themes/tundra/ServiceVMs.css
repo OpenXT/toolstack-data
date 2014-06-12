@@ -1,0 +1,14 @@
+.tundra .serviceVMList {
+  max-height: 400px;
+  min-width: 400px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+
+.tundra .serviceVMList .serviceLogo {
+  max-height: 45px;
+}
+
+.tundra .serviceVMList .serviceLogoCell {
+  text-align: center;
+}

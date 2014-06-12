@@ -1,0 +1,50 @@
+.tundra .citrixProgressBar {
+	margin:2px 0 2px 0;
+}
+
+.tundra .citrixProgressBarEmpty{
+    /* outer container and background of the bar that's not finished yet*/
+	position:relative;overflow:hidden;
+	border: 1px solid rgb(140, 160, 190);
+	z-index: 0;			/* establish a stacking context for this progress bar */
+	background: #fff;
+    height: 14px;
+}
+
+.tundra .citrixProgressBarFull {
+	/* outer container for background of bar that is finished */
+	position:absolute;
+	overflow:hidden;
+	z-index: -1;
+	top:0;
+	width:100%;
+	border-right:1px solid rgb(140, 160, 190);
+}
+
+.tundra .citrixProgressBarTile{
+	/* inner container for finished portion when in 'tile' (image) mode */
+	position:absolute;
+	overflow:hidden;
+	top:0;
+	left:0;
+	bottom:0;
+	right:0;
+	margin:0;
+	padding:0;
+	width:auto;
+	height:auto;
+	background-color: #aaa;
+	background-attachment: fixed;
+	background:#f0f0f0 url(/images/backgrounds/progressBarAnim.gif) repeat-x center center;
+}
+
+.tundra .citrixProgressBarLabel {
+	/* Set to a color that contrasts with both the "Empty" and "Full" parts. */
+    display:block;
+	position:static;
+	width:100%;
+	text-align:center;
+	background-color:transparent !important;
+	color: rgb(40, 60, 75);
+    line-height: 14px;
+}

@@ -1,0 +1,73 @@
+.tundra .settingsTabContainer {
+    width: 660px;
+    height: 440px;
+}
+
+.tundra .settingsTabContainer .citrix.dijitSelect {
+	width: 200px !important;
+}
+
+.tundra .settingsTabContainer .citrixTabPaneField label {
+    min-width: 150px;
+}
+
+.tundra .settingsTabContainer .citrixImageSelect {
+    height: 360px;
+}
+
+.tundra .settingsTabContainer .scrollableTab {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.tundra .speedContainer {
+    line-height: 20px;
+    display: inline-block;
+    text-align: center;
+    margin: 0 5px;
+}
+
+.tundra .speedRadio {
+    display: block;
+}
+
+.tundra .gpuPlacementFooter {
+    font-size: 14px;
+    margin: -15px 15px 0;
+    background: white;
+}
+
+.tundra .actionButton {
+    padding: 10px 0;
+}
+
+.tundra .updateButton {
+    margin: 0;
+}
+
+.tundra .update {
+    height: 33px;
+    overflow: hidden;
+}
+
+.tundra .updateText {
+    float: left;
+    width: 280px;
+}
+
+.tundra .update .dijitTextBox {
+    width: 230px;
+}
+
+.tundra .updateProgressDetails {
+    width: 230px;
+    display: inline-block;
+}
+
+.tundra .nativeItem {
+    padding: 3px 0 0 17px;
+}
+
+.tundra .nativeItem label {
+    margin-left: 2px;
+}

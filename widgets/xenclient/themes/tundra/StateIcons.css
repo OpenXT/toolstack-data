@@ -1,0 +1,10 @@
+.tundra .stateIcon {
+	background: url(/images/sprites/stateIcons.png) no-repeat 0 0;
+	height: 17px;
+	padding: 0 19px;
+	line-height: 18px;
+}
+
+.tundra .stateIconOff { background-position-y: 0px; }
+.tundra .stateIconOn { background-position-y: -17px; }
+.tundra .stateIconPaused { background-position-y: -34px; }

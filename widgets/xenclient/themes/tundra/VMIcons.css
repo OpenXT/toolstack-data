@@ -1,0 +1,32 @@
+.tundra .vmIcon {
+	background: url(/images/sprites/vmIcons.png) no-repeat 0 0;
+	width: 28px;
+	height: 28px;
+	text-align: center;
+}
+.tundra .dijitButtonHover .vmIcon { background-position-x: -28px; }
+.tundra .dijitButtonActive .vmIcon { background-position-x: -56px; }
+.tundra .dijitButtonFocused .vmIcon { background-position-x: -84px; }
+.tundra .dijitButtonDisabled .vmIcon { background-position-x: -112px; }
+
+.tundra .vmIconStart { background-position-y: 0px; }
+.tundra .vmIconStop { background-position-y: -28px; }
+.tundra .vmIconForceStop { background-position-y: -56px; }
+.tundra .vmIconReboot { background-position-y: -84px; }
+.tundra .vmIconHibernate { background-position-y: -112px; }
+.tundra .vmIconSleep { background-position-y: -140px; }
+.tundra .vmIconLock { background-position-y: -168px; }
+.tundra .vmIconDetails { background-position-y: -196px; }
+.tundra .vmIconAdd { background-position-y: -224px; }
+.tundra .vmIconDelete { background-position-y: -252px; }
+.tundra .vmIconBackup { background-position-y: -280px; }
+.tundra .vmIconCheck { background-position-y: -308px; }
+.tundra .vmIconUpload { background-position-y: -336px; }
+.tundra .vmIconPause { background-position-y: -364px; }
+.tundra .vmIconResume { background-position-y: -392px; }
+.tundra .vmIconRetry { background-position-y: -420px; }
+.tundra .vmIconCancel { background-position-y: -448px; }
+.tundra .vmIconConnect { background-position-y: -476px; }
+.tundra .vmIconDisconnect { background-position-y: -504px; }
+.tundra .vmIconWake { background-position-y: -532px; }
+.tundra .vmIconSwitch { background-position-y: -560px; }

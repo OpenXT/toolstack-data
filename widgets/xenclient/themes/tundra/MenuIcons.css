@@ -1,0 +1,23 @@
+.tundra .menuIcon {
+	background: url(/images/sprites/menuIcons.png) no-repeat 0 0;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+}
+
+.tundra .dijitHover .menuIcon { background-position-x: -50px; }
+.tundra .dijitFocused .menuIcon { background-position-x: -100px; }
+/*.tundra .dijitDisabled .menuIcon { background-position-x: -150px; }*/
+
+.tundra .menuIconPower { background-position-y: 0px; }
+.tundra .menuIconAdd { background-position-y: -50px; }
+.tundra .menuIconSystem { background-position-y: -100px; }
+.tundra .menuIconNetworks { background-position-y: -150px; }
+.tundra .menuIconCharge { background-position-y: -200px; }
+.tundra .menuIconInformation { background-position-y: -250px; }
+.tundra .menuIconDownload { background-position-y: -300px; }
+.tundra .menuIconConnect { background-position-y: -350px; }
+.tundra .menuIconServices { background-position-y: -400px; }
+.tundra .menuIconUSB { background-position-y: -450px; }
+.tundra .menuIconCD { background-position-y: -500px; }
+.tundra .menuIconDevices { background-position-y: -550px; }

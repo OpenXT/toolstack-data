@@ -1,0 +1,68 @@
+.tundra .keyboardWrapper {
+    font-size: 18px;
+    color: white;
+    text-align: center;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgb(70, 70, 70)), to(rgb(40, 40, 40)));
+}
+
+.tundra .closeKeyboard {
+    height: 21px;
+    width: 21px;
+    background-image: url(/images/buttons/keyboardClose.png);
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    cursor: pointer;
+}
+
+.tundra .keyboardContainer {
+    width: 800px;
+    margin: 0 auto;
+    padding: 8px 0;
+}
+
+.tundra .keyboardRowWrapper {
+    display: table;
+    width: 100%;
+}
+
+.tundra .keyboardRowWrapper:last-child {
+    width: auto;
+    margin: 0 auto;
+}
+
+.tundra .keyboardRow {
+    display: table-row;
+}
+
+.tundra .keyboardKey {
+    display: table-cell;
+    height: 56px;
+    width: 54px;
+    vertical-align: middle;
+    white-space: pre;
+}
+
+.tundra .keyboardKey>span {
+    display: block;
+    height: 50px;
+    width: auto;
+    line-height: 50px;
+    margin: 3px 2px;
+    border-radius: 5px;
+    background-color: #646464;
+    -webkit-box-shadow: rgba(0,0,0,0.45) 0px 1px 3px;
+}
+
+.tundra .keyboardKey.space {
+    width: 400px;
+}
+
+.tundra .keyboardKey.controlKey {
+    width: auto;
+}
+
+.tundra .keyboardKey>span.keyHover,
+.tundra .keyboardKey>span.keyPressed {
+    background-color: #8CBAEB;
+}

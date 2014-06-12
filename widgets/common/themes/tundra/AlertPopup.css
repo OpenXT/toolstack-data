@@ -1,0 +1,13 @@
+.tundra .alertPopup {
+    font-size: 12px;
+}
+
+.tundra .alertPopup .alertIcon {
+    padding: 0;
+    margin: 8px;
+}
+
+.tundra .alertPopup .alertMessage {
+    white-space: pre-line;
+    width: 400px;
+}

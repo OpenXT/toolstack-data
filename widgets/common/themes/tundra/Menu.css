@@ -1,0 +1,110 @@
+.tundra .citrixMenuBar {
+    border: 0;
+    height: 72px;
+    background: url(/images/frame/topBarBG.png) repeat-x;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.45) 0 2px 10px;
+    text-align: right;
+}
+
+.tundra .citrixMenuBarItem {
+    margin: 0;
+    cursor: pointer;
+}
+
+.tundra .citrixMenuBarItemContainer {
+    min-width: 72px;
+    max-width: 100px;
+    height: 50px;
+    text-align: center;
+}
+
+.tundra .citrixMenuBarItemIcon {
+    display: inline-block;
+}
+
+.tundra .citrixMenuBarItemText {
+    height: 20px;
+    line-height: 12px;
+    font-size: 11px; /* should be a minimum of 12px for ja and sc text */
+    position: relative;
+    top: -19px;
+    padding: 0 5px;
+    text-transform: capitalize;
+}
+
+.tundra .citrixMenuBarItemSplitter {
+    width: 2px;
+    height: 72px;
+    background: url(/images/frame/topBarDivider.png) no-repeat;
+}
+
+.tundra .citrixMenuBarAlert {
+    margin-top: 8px;
+}
+
+.tundra .citrixMenuPopup {
+    z-index: 3000 !important;
+    border-width: 10px 10px 10px 11px;
+    -webkit-border-image: url(/images/borders/l_menu_border.png) 10 10 10 11 repeat;
+}
+
+.tundra .citrixMenuPopupRight {
+    z-index: 3000 !important;
+    border-width: 10px 11px 10px 10px;
+    -webkit-border-image: url(/images/borders/r_menu_border.png) 10 11 10 10 repeat;
+}
+
+.tundra .citrixMenuPopup .dijitMenu {
+    border: 0;
+    background-color: #E8E8E8;
+}
+
+.tundra .citrixMenuPopup .dijitMenuItem {
+    font-size: 12px;
+    border: 1px solid #E8E8E8;
+    line-height: 22px;
+}
+
+.tundra .citrixMenuPopup .dijitMenuItemHover,
+.tundra .citrixMenuPopup .dijitMenuItemSelected {
+    color: #333;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgb(236, 243, 252)), to(rgb(147, 191, 238)));
+}
+
+.tundra .citrixMenuPopup .dijitMenuSeparatorTop {
+    border: 0;
+    height: 2px;
+    background: url(/images/backgrounds/menu_horiz_splitter.png) repeat-x;
+}
+
+.tundra .citrixFooterBar {
+    border: 0;
+    height: 35px;
+    overflow: hidden;
+    background: url(/images/frame/footer_bar_bgslice.png) repeat-x;
+}
+
+.tundra .citrixFooterBarItemLeft {
+    padding-left: 10px;
+    float: left;
+}
+
+.tundra .citrixFooterBarItemRight {
+    padding-right: 10px;
+    float: right;
+}
+
+.tundra .citrixFooterBarItemContainer {
+    height: 35px;
+}
+
+.tundra .citrixFooterBarItemIcon {
+    float: left;
+}
+
+.tundra .citrixFooterBarItemText {
+    line-height: 35px;
+    font-size: 11px; /* should be a minimum of 12px for ja and sc text */
+    padding-left: 5px;
+    float: right;
+}

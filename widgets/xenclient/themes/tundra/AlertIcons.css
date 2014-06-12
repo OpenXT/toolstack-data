@@ -1,0 +1,24 @@
+.tundra .alertIcon {
+	background: url(/images/sprites/alertIcons.png) no-repeat 0 0;
+	text-align: center;
+}
+
+.tundra .alertIconLarge {
+    background-position-x: 0px;
+	width: 48px;
+	height: 48px;
+}
+.tundra .alertIconMedium {
+    background-position-x: -48px;
+	width: 32px;
+	height: 32px;
+}
+.tundra .alertIconSmall {
+    background-position-x: -80px;
+	width: 16px;
+	height: 16px;
+}
+
+.tundra .alertIconInformation { background-position-y: 0px; }
+.tundra .alertIconWarning { background-position-y: -48px; }
+.tundra .alertIconError { background-position-y: -96px; }

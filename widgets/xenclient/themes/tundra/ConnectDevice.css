@@ -1,0 +1,72 @@
+.tundra .connectDevice {
+    list-style: none;
+    padding: 0;
+    border: 1px solid darkGray;
+    -webkit-border-radius: 6px;
+    width: 500px;
+    max-height: 350px;
+    overflow: auto;
+}
+
+.tundra .connectDevice li {
+    border-top: 1px solid darkGray;
+}
+
+.tundra .connectDevice li:first-child {
+    border-top: none;
+}
+
+.tundra .connectDevice .device {
+    position: relative;
+    min-height: 20px;
+    padding: 2px;
+}
+
+.tundra .connectDevice li:first-child .device {
+    -webkit-border-radius: 5px 5px 0 0;
+}
+
+.tundra .connectDevice li:last-child .device {
+    -webkit-border-radius: 0 0 5px 5px;
+}
+
+.tundra .connectDevice .device:hover {
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(189, 222, 236, 0.5)), color-stop(0.5, rgba(189, 222, 236, 0.5)), color-stop(0.5, rgba(174, 215, 232, 0.5)), to(rgba(174, 215, 232, 0.5)));
+    cursor: pointer;
+}
+
+.tundra .connectDevice .device.selected {
+    background: -webkit-gradient(linear, left top, left bottom, from(rgb(189, 222, 236)), color-stop(0.5, rgb(189, 222, 236)), color-stop(0.5, rgb(174, 215, 232)), to(rgb(174, 215, 232)));
+}
+
+.tundra .connectDevice .device.disabled {
+    opacity: 0.5;
+    background: none;
+    cursor: default;
+}
+
+.tundra .connectDevice .deviceIcon {
+    position: absolute;
+    top: 6px;
+    left: 3px;
+}
+
+.tundra .connectDevice .deviceItem {
+    padding: 0 5px;
+}
+
+.tundra .connectDevice .deviceName {
+    font-weight: bold;
+}
+
+.tundra .connectDevice .deviceStatus {
+    font-style: italic;
+}
+
+.tundra .connectDevice .deviceUSB {
+    margin-left: 17px;
+}
+
+.tundra .connectDevice .noDevices {
+    padding: 10px;
+}

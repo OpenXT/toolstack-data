@@ -1,0 +1,105 @@
+<div class="citrixDialog" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+	<div class="citrixDialogTitleBar">
+	    <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title">${HEADER}</span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+	</div>
+    <div class="citrixDialogPaneContent">
+        <div class="settingsTabContainer" dojoType="citrix.common.TabContainer" dojoAttachPoint="tabContainer">
+            <div dojoType="citrix.common.ContentPane" title="${SOFTWARE_TITLE}">
+                <h1>${SOFTWARE_TITLE}</h1>
+                <div class="citrixTabPaneField">
+                    <label for="build_version">${XENCLIENT_VERSION_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="build_version"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="Build">${XENCLIENT_BUILD_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" mask="${XENCLIENT_BUILD_MASK}" name="getBuild"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="build_tools">${TOOLS_VERSION_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="build_tools"></span>
+                </div>
+                <hr class="branding horizontalSeparator">
+                <iframe class="branding brandingBlurb" dojoAttachPoint="brandingNode"></iframe>
+            </div>
+            <div dojoType="citrix.common.ContentPane" title="${HARDWARE_TITLE}">
+                <h1>${HARDWARE_TITLE}</h1>
+                <div class="citrixTabPaneField">
+                    <label for="vendor">${VENDOR_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="vendor"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="model">${MODEL_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="model"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="bios_revision">${BIOS_REV_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="bios_revision"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="total_mem">${TOTAL_MEM_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" mask="${MEMORY_MASK}" name="total_mem"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="free_mem">${FREE_MEM_LABEL}</label>
+                    <span class="value" dojoAttachPoint="memoryNode" dojoType="citrix.common.BoundWidget" mask="${MEMORY_MASK}" name="free_mem"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="free_storage">${FREE_STORAGE_LABEL}</label>
+                    <span class="value" dojoAttachPoint="storageNode"  dojoType="citrix.common.BoundWidget" mask="${DISK_SPACE_MASK}" name="free_storage"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="total_storage">${TOTAL_STORAGE_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" mask="${DISK_SPACE_MASK}" name="total_storage"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="physical_cpu_model">${CPU_MODEL_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="physical_cpu_model"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="physical_gpu_model">${GPU_MODEL_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="physical_gpu_model"></span>
+                </div>
+            </div>
+            <div dojoType="citrix.common.ContentPane" title="${NETWORK_TITLE}">
+                <h1>${NETWORK_TITLE}</h1>
+                <div class="citrixTabPaneField">
+                    <label for="eth0_mac">${ETH0_MAC_ADDRESS_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="eth0_mac"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="eth0_model">${ETH0_MODEL_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="eth0_model"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="system_amt_pt">${HOST_AMT_PT_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" map="{'${ON_TEXT}': true, '${OFF_TEXT}': false}" name="system_amt_pt"></span>
+                </div>
+                <div class="citrixTabPaneField">
+                    <label for="wireless_model">${WIRELESS_MODEL_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.BoundWidget" name="wireless_model"></span>
+                </div>
+            </div>
+            <div dojoType="citrix.common.ContentPane" title="${STATUS_REPORT_HEADER}">
+                <h1>${STATUS_REPORT_HEADER}</h1>
+                <p>${STATUS_REPORT}</p>
+                <button class="actionButton" dojoType="citrix.common.Button" dojoAttachEvent="onClick: createReport">${CREATE_STATUS_REPORT}</button>
+                <h1>${STATUS_SERVER_HEADER}</h1>
+                <p>${STATUS_SERVER}</p>
+                <div class="alignBottom">
+                    <div class="alertBox blueBox">
+                        <span class="alertIcon alertIconSmall alertIconInformation"></span>
+                        <div>${STATUS_SERVER_INFO}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right">
+            <button dojoAttachPoint="closeButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onCancel">${CLOSE_ACTION}</button>
+        </span>
+    </div>
+</div>

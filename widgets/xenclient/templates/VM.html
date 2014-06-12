@@ -1,0 +1,53 @@
+<div class="citrixVM" dojoAttachPoint="containerNode" dojoAttachEvent="onmouseover: _onMouseMove, onmousemove: _onMouseMove, onmouseout: _onMouseOut">
+    <div class="citrixVMOuter">
+        <div class="citrixVMInner">
+            <div class="citrixVMContainer">
+                <div class="vmNameContainer">
+                    <span dojoType="citrix.common.BoundWidget" name="fullNameWhenTruncated" binding="title" pre="true">
+                        <div class="vmText vmName" dojoType="citrix.common.BoundWidget" name="name"></div>
+                    </span>
+                    <div class="vmNameIcon alertIcon alertIconSmall alertIconWarning" dojoAttachPoint="warningNode"></div>
+                </div>
+                <img class="vmImage" dojoAttachPoint="imageNode" dojoAttachEvent="onclick: _onClick" />
+                <div class="vmSpinner" dojoType="citrix.common.BoundWidget" binding="display" name="isBusy"></div>
+                <div class="badgeContainer">
+                    <span dojoType="citrix.common.BoundWidget" binding="display" name="isManaged" class="badgeIcon dark badgeIconManaged" title="${MANAGED_ENABLED}" position="above"></span>
+                    <span dojoType="citrix.common.BoundWidget" binding="display" name="isHdxRunning" class="badgeIcon dark badgeIconThreed" title="${THREED_GRAPHICS_ENABLED}" position="above"></span>
+                    <span dojoType="citrix.common.BoundWidget" binding="display" name="native_experience" class="dark badgeIcon badgeIconNative" title="${NATIVE_MODE_ENABLED}" position="above"></span>
+                    <span dojoType="citrix.common.BoundWidget" binding="display" name="allDisksReset" class="badgeIcon dark badgeIconDiskReset" title="${DISK_RESET_ENABLED}" position="above"></span>
+                    <span dojoType="citrix.common.BoundWidget" binding="display" name="allDisksEncrypted" class="badgeIcon dark badgeIconEncrypted" title="${ENCRYPTION_ENABLED}" position="above"></span>
+                    <span dojoType="citrix.common.BoundWidget" binding="display" name="hasCDLock" class="badgeIcon dark badgeIconCD" title="${CDLOCK_ENABLED}" position="above"></span>
+                    <span dojoType="citrix.common.BoundWidget" binding="display" name="hasUSBDevice" class="badgeIcon dark badgeIconUSB" title="${USB_ENABLED}" position="above"></span>                    
+                </div>
+                <div>
+                    <div class="vmText vmState stateIcon" dojoAttachPoint="stateIcon" dojoType="citrix.common.BoundWidget" name="getTranslatedState"></div>
+                </div>
+                <div class="vmFooter vmControl">
+                    <div class="vmShadow"></div>
+                    <span class="vmActions Buttons">
+                        <button class="smallImageButton startAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconStart" dojoAttachEvent="onClick: onStart">${START}</button>
+                        <button class="smallImageButton backgroundAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconStart" dojoAttachEvent="onClick: onBackground">${BACKGROUND_START}</button>
+                        <button class="smallImageButton wakeAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconWake" dojoAttachEvent="onClick: onWake">${WAKE}</button>
+                        <button class="smallImageButton shutdownAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconStop" dojoAttachEvent="onClick: onStop">${SHUT_DOWN}</button>
+                        <button class="smallImageButton force_shutdownAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconForceStop" dojoAttachEvent="onClick: onForceStop">${FORCE_SHUT_DOWN}</button>
+                        <button class="smallImageButton local_loginAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconLock" dojoAttachEvent="onClick: onLogin">${LOGIN}</button>
+                        <button class="smallImageButton detailsAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconDetails" dojoAttachEvent="onClick: onDetails">${DETAILS}</button>
+                    </span>
+                    <span class="vmActions ICAButtons">
+                        <button class="smallImageButton startAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconConnect" dojoAttachEvent="onClick: onStart">${ICASTART}</button>
+                        <button class="smallImageButton backgroundAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconConnect" dojoAttachEvent="onClick: onBackground">${ICABACKGROUND_START}</button>
+                        <button class="smallImageButton shutdownAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconDisconnect" dojoAttachEvent="onClick: onStop">${ICASHUT_DOWN}</button>
+                        <button class="smallImageButton force_shutdownAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconDisconnect" dojoAttachEvent="onClick: onForceStop">${ICAFORCE_SHUT_DOWN}</button>
+                        <button class="smallImageButton local_loginAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconLock" dojoAttachEvent="onClick: onLogin">${ICALOGIN}</button>
+                        <button class="smallImageButton detailsAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconDetails" dojoAttachEvent="onClick: onICADetails">${ICADETAILS}</button>
+                    </span>
+                </div>
+            </div>
+            <div dojoAttachPoint="transferNode" class="vmFooter vmTransfer">
+                <div class="vmShadow"></div>
+                <div class="vmProgress" dojoType="citrix.common.ProgressBar" dojoAttachPoint="progressNode" name="download_progress"></div>
+                <div class="vmText" dojoType="citrix.common.BoundWidget" dojoAttachPoint="transferStateNode">${VM_DOWNLOADING}</div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+.tundra .authentication .error {
+    width: 500px;
+    left: 50%;
+    margin-left: -250px;
+    top: 100px;
+}
+
+.tundra .authentication .controlContainer {
+    position: absolute;
+    padding-top: 30px;
+    left: 50%;
+}
+
+.tundra .authentication .controlContainer .content {
+    margin-top: 30px;
+}
+
+.tundra .authentication .citrixAuthField {
+    display: table-row;
+    font-size: 13px;
+}
+
+.tundra .authentication .citrixAuthField label {
+    display: table-cell;
+    font-weight: bold;
+    line-height: 30px;
+    padding-right: 30px;
+}
+
+.tundra .authentication .citrixAuthField .value {
+    width: 200px;
+}
+
+.tundra .authentication .controlContainer .footer {
+    font-size: 12px;
+    margin-top: 10px;
+    color: rgb(160, 160, 160);
+}
+
+.tundra .authentication .controlContainer .footer>div,
+.tundra .authentication .controlContainer .footer>span {
+    line-height: 20px;
+}

@@ -1,0 +1,222 @@
+.tundra .dijitBorderContainer,
+.tundra .dijitBorderContainerNoGutter {
+    width: 100%;
+    height: 100%;
+}
+
+.tundra .citrixFrame .wait {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1500; /* 4000 */
+    background-color: rgba(132, 132, 132, 0.6);
+    cursor: wait;
+}
+
+.tundra .citrixFrame .wait img {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: 50%;
+    left: 50%;
+    margin: -16px 0 0 -16px;
+}
+
+.tundra .citrixFrame .apply {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 6000;
+    background: url(/images/logos/boot_bg.png) no-repeat center bottom black;
+    cursor: none;
+    font-size: 14px;
+    color: #CCC;
+}
+
+.tundra .citrixFrame .apply .container {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    margin-top: -130px;
+    text-align: center;
+}
+
+.tundra .citrixFrame .apply .xenclient {
+    background: url(/images/logos/XClogo.png) no-repeat center;
+    height: 100px;
+    padding-bottom: 25px;
+}
+
+.tundra .citrixFrame .apply .spinner {
+    background: url(/images/000_Preloader_32x32.gif) no-repeat center;
+    height: 60px;
+}
+
+.tundra .citrixFrame .apply .logo {
+    position: absolute;
+    left: 50%;
+    bottom: 95px;
+    margin-left: -56px;
+}
+
+.tundra .citrixFrame .wallpaper {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.tundra .citrixFrame .badge {
+  position: absolute;
+}
+
+.tundra .citrixFrame .badge.tl {
+  top: 0px;
+  left: 0px;
+}
+
+.tundra .citrixFrame .badge.tr {
+  top: 0px;
+  right: 0px;
+}
+
+.tundra .citrixFrame .badge.br {
+  bottom: 0px;
+  right: 0px;
+}
+
+.tundra .citrixFrame .badge.bl {
+  bottom: 0px;
+  left: 0px;
+}
+
+.tundra .citrixFrame .hiddenContainer {
+    display: none;
+}
+
+.tundra .citrixMenus {
+    height: 72px;
+    overflow: visible;
+    z-index: 1700; /* 200 */
+}
+
+.tundra .ndvmName {
+    overflow: hidden;
+    white-space: pre;
+    text-overflow: ellipsis;
+}
+
+.tundra .citrixFooter {
+    z-index: 1600; /* 100 */
+}
+
+.tundra .citrixFooterBar .footerLogos {
+    position: absolute;
+    left: 50%;
+    width: 600px;
+    margin-left: -300px;
+    text-align: center;
+}
+
+.tundra .citrixFooterBar .footerLogos img {
+    height: 25px;
+    margin: 5px 0;
+}
+
+.tundra .citrixFooterBar .footerLogos .brandingLogo {
+    padding-right: 15px;
+}
+
+.tundra .citrixTitle {
+    position: absolute;
+    top: 25px;
+    height: 26px;
+    left: 50%;
+    width: 110px;
+    margin-left: -55px;
+    background: url(/images/logos/header_logo.png) no-repeat;
+}
+
+.tundra .citrixPointer {
+    position: absolute;
+    z-index: 5000;
+    display: none;
+    width: 10px;
+    height: 16px;
+}
+
+.tundra .stripe {
+    position: absolute;
+    z-index: 5000;
+    top: 220px;
+    height: 250px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    -webkit-box-shadow: rgba(0, 0, 0, 0.45) 0 2px 10px;
+}
+
+.tundra .stripe .logo {
+    position: absolute;
+    right: 50%;
+    background: url(/images/logos/logo.png) no-repeat;
+    margin: 60px 90px 0 0;
+    width: 240px;
+    height: 129px;
+}
+
+.tundra .stripe .logo .tagline {
+    margin-top: 60px;
+    position: absolute;
+    font-size: 13px;
+    color: rgb(160, 160, 160);
+}
+
+.tundra .stripe .container {
+    position: absolute;
+    left: 50%;
+    line-height: 20px;
+    margin-top: 60px;
+    width: 295px;
+}
+
+.tundra .stripe .container h1 {
+    font-size: 16px;
+}
+
+.tundra .stripe .container div {
+    font-size: 13px;
+    color: rgb(160, 160, 160);
+}
+
+.tundra .stripe .buttons {
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    width: 295px;
+}
+
+.tundra .stripe .buttons>div {
+    float: right;
+}
+
+.tundra .notificationContainer {
+    position: absolute;
+    width: 100%;
+    font-size: 16px;
+}
+
+.tundra .notificationBar {
+    line-height: 45px;
+    text-align: center;
+    background: -webkit-gradient(linear, left top, left bottom, from(rgb(255, 255, 240)), to(rgb(255, 255, 200)));
+    background: -moz-linear-gradient(top, rgb(255, 255, 240), rgb(255, 255, 200));
+    border-bottom: 1px solid #AA0;
+}

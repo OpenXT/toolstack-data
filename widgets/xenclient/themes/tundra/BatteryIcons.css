@@ -1,0 +1,16 @@
+.tundra .batteryIcon {
+	background: url(/images/sprites/batteryIcons.png) no-repeat 0 0;
+	width: 28px;
+	height: 14px;
+	text-align: center;
+	margin: 10px 0;
+}
+
+.tundra .batteryIconNormal { background-position-x: 0px; }
+.tundra .batteryIconCharging { background-position-x: -28px; }
+
+.tundra .batteryIcon100 { background-position-y: 0px; }
+.tundra .batteryIcon75 { background-position-y: -14px; }
+.tundra .batteryIcon50 { background-position-y: -28px; }
+.tundra .batteryIcon25 { background-position-y: -42px; }
+.tundra .batteryIcon0 { background-position-y: -56px; }

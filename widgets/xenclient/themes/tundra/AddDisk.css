@@ -1,0 +1,7 @@
+.tundra .addDiskDialog .citrix.dijitSelect {
+  width: 110px !important;
+}
+
+.tundra .addDiskDialog .citrixTabPaneColumn {
+  padding: 10px 50px 5px 35px;
+}

@@ -1,0 +1,9 @@
+<div>
+    <input type="radio" name="${id}_radio" bindIgnore="true" dojoType="citrix.common.RadioButton" value="true" dojoAttachPoint="onRadioNode" dojoAttachEvent="onChange: _onChildChange" />
+    <label dojoAttachPoint="onLabelNode">${onLabel}</label>
+    <span class="citrix" dojoAttachPoint="spinnerNode" dojoType="citrix.common.NumberSpinner" smallDelta="${smallDelta}" largeDelta="${largeDelta}" constraints="{min: 0, max: ${max}, places: 0}" value="${value}" dojoAttachEvent="onKeyUp: _onChildChange, _handleOnChange: _onChildChange"></span>
+    <span dojoAttachPoint="unitNode" dojoType="citrix.common.BoundWidget" map="[{value: 0, display: '${unitLabelPlural}'}, {value: 1, display: '${unitLabelSingular}'}, {value: 'n', display: '${unitLabelPlural}'}]"></span>
+    <br />
+    <input type="radio" name="${id}_radio" bindIgnore="true" dojoType="citrix.common.RadioButton" value="false" dojoAttachPoint="offRadioNode" dojoAttachEvent="onChange: _onChildChange" />
+    <label dojoAttachPoint="offLabelNode">${offLabel}</label>
+</div>

@@ -1,0 +1,30 @@
+<div class="citrixDialog alertDialog" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+	<div class="citrixDialogTitleBar">
+        <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title"></span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+	</div>
+    <div class="citrixDialogPaneContent">
+        <ul class="connectDevice" dojoType="citrix.common.Repeater" dojoEventHandler="this" name="getAvailableDevices" uniqueId="dev_id">
+            <li template deviceId="%dev_id%">
+                <div class="device" templateType="citrix.common.BoundWidget" binding="disabled" bind="cannotAssign" dojoAttachEvent="onClick: onDeviceSelect">
+                    <span class="alertIcon alertIconSmall alertIconWarning deviceIcon" templateType="citrix.common.BoundWidget" binding="display" bind="assignedToOtherVM"></span>
+                    <div class="deviceName deviceUSB" templateType="citrix.common.BoundWidget" bind="name"></div>
+                    <div class="deviceStatus deviceUSB" templateType="citrix.common.BoundWidget" bind="getStatus" mask="value" map="['${USB_STATE_0}', '${USB_STATE_1}', '${USB_STATE_2}', '${USB_STATE_3}', '${USB_STATE_4}', '${USB_STATE_5}', '${USB_STATE_6}', '${USB_STATE_7}', '${USB_STATE_8}', '${USB_STATE_9}', '${USB_STATE_10}', '${USB_STATE_11}']"></div>
+                </div>
+            </li>
+            <li empty class="noDevices">${USB_NONE_AVAILABLE}</li>
+        </ul>
+        <div dojoAttachPoint="alwaysUseContainer">
+            <input id="alwaysUse" type="checkbox" dojoType="citrix.common.CheckBox" dojoAttachPoint="alwaysUseNode"/>
+            <label for="alwaysUse">${USB_ALWAYS_USE}</label>
+        </div>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right">
+            <button dojoAttachPoint="connectButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onExecute">${CONNECT_USB_ACTION}</button>
+            <button dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onCancel">${CANCEL_USB_ACTION}</button>
+        </span>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<div class="citrixDialog alertDialog addDiskDialog" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+	<div class="citrixDialogTitleBar">
+        <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title"></span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+	</div>
+    <div class="citrixDialogPaneContent">
+        <fieldset class="citrixTabPaneColumn">
+            <div class="citrixTabPaneField">
+                <label for="ad_size">${DISK_SIZE}</label>
+                <input id="ad_size" class="citrix" name="size" dojoType="citrix.common.NumberSpinner" smallDelta="1" largeDelta="10" constraints="{min: 1, places: 0}" value="80" />
+                <span class="editTip grey">${GB_INDICATOR_TEXT}</span>
+            </div>
+            <div class="citrixTabPaneField">
+                <label for="ad_encrypt">${ENCRYPTION}</label>
+                <select id="ad_encrypt" class="citrix" dojoType="citrix.common.Select" name="encrypt">
+                    <option value="">${ENCRYPTION_NONE}</option>
+                    <option value="256">${ENCRYPTION_256}</option>
+                    <option value="512" selected="selected">${ENCRYPTION_512}</option>
+                </select>
+            </div>
+            <div class="progressBar" style="display: none;">
+                <p>${CREATING_DISK}</p>
+                <div dojoType="citrix.common.ProgressBar" value="-1"></div>
+            </div>
+        </fieldset>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right">
+            <button dojoAttachPoint="connectButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onSave">${SAVE}</button>
+            <button dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onCancel">${CANCEL}</button>
+        </span>
+    </div>
+</div>

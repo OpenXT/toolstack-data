@@ -1,0 +1,31 @@
+.tundra .networkPreloader {
+    display: inline-block;
+    position: absolute;
+    background: url(/images/000_Preloader_16x16.gif) no-repeat;
+    background-position: center center;
+    width: 50px;
+    height: 50px;
+    margin: -10px 0 0 -50px;
+}
+
+.tundra .networkIcon {
+	background: url(/images/sprites/networkIcons.png) no-repeat 0 0;
+	width: 50px;
+	height: 50px;
+	text-align: center;
+}
+.tundra .dijitHover .networkIcon { background-position-x: -50px; }
+.tundra .dijitFocused .networkIcon { background-position-x: -100px; }
+
+.tundra .networkIconNone { background-position-y: 0px; }
+.tundra .networkIconConnecting0 { background-position-y: -50px; }
+.tundra .networkIconConnecting1 { background-position-y: -100px; }
+.tundra .networkIconConnecting2 { background-position-y: -150px; }
+.tundra .networkIconWired { background-position-y: -200px; }
+.tundra .networkIconWWan { background-position-y: -250px; }
+.tundra .networkIconAdhoc { background-position-y: -300px; }
+.tundra .networkIconWireless00 { background-position-y: -350px; }
+.tundra .networkIconWireless25 { background-position-y: -400px; }
+.tundra .networkIconWireless50 { background-position-y: -450px; }
+.tundra .networkIconWireless75 { background-position-y: -500px; }
+.tundra .networkIconWireless100 { background-position-y: -550px; }

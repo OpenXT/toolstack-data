@@ -1,0 +1,137 @@
+.tundra .citrixWizard {
+    width: 738px;
+    margin: -10px -15px;
+}
+
+.tundra .citrixWizardSpacer {
+    border-width: 1px 0;
+    -webkit-border-image: url(/images/borders/h_separator.png) 0 0 1 0 stretch;
+    margin: 0px;
+}
+
+.tundra .citrixWizardStepsWrapper {
+    background: url(/images/backgrounds/wizard_step_bg.png) repeat-x 0 0;
+    font-size: 12px;
+    padding: 10px 0;
+    position: relative;
+}
+
+.tundra .citrixWizardSteps {
+    overflow: auto;
+    display: table;
+    margin: 0px auto;
+    text-align: center;
+    position: relative;
+}
+
+.tundra .citrixWizardSteps ul {
+    display: table-row;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.tundra .citrixWizardStepItem, .tundra .citrixWizardStepMarker {
+    display: table-cell;
+    text-align: center;
+    vertical-align: top;
+    width: 120px;
+    position: relative;
+    color: rgb(153, 153, 153);
+}
+
+.tundra .citrixWizardStepMarker .citrixWizardStepLabel {
+    position: relative;
+    height: 22px;
+}
+
+.tundra .citrixWizardStepMarker .citrixWizardStepLabel div:first-child {
+    position: absolute;
+    top: 9px;
+    right: 0;
+    left: 0;
+    background-color: rgb(204, 204, 204);
+    height: 4px;
+}
+
+.tundra .citrixWizardStepMarker .citrixWizardStepLabel div:last-child {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-image: url(/images/icons/greyOrb.png);
+    background-position: 50% 50%;
+}
+
+.tundra .citrixWizardStepMarker.citrixWizardStepSelected .citrixWizardStepLabel div:last-child {
+    background-image: url(/images/icons/blueOrb.png);
+}
+
+.tundra .citrixWizardStepMarker:first-child .citrixWizardStepLabel div:first-child {
+    left: 65px;
+}
+
+.tundra .citrixWizardStepMarker:last-child .citrixWizardStepLabel div:first-child {
+    right: 65px;
+}
+
+.tundra .citrixWizardStepItem .citrixWizardStepLabel {
+    padding-bottom: 4px;
+}
+
+.tundra .citrixWizardStepItem.citrixWizardStepSelected {
+    color: rgb(23, 123, 173);
+    font-weight: bold;
+}
+
+.tundra .citrixWizardContainer {
+    display: table;
+    width: 100%;
+    position:relative;
+}
+
+.tundra .citrixWizard .dijitContentPane {
+    min-height: 285px;
+    overflow: hidden;
+    position: relative;
+    font-size: 13px;
+    padding: 20px 5px 5px;
+}
+
+.tundra .citrixWizard .alignBottom {
+    margin-left: -5px;
+    margin-bottom: 5px;
+}
+
+.tundra .citrixWizard .dijitContentPane.dijitVisible {
+    text-align: center;
+}
+
+.tundra .citrixWizard .citrixTabPaneColumn {
+    text-align: left;
+}
+
+.tundra .citrixWizard .citrixTabPaneColumn.single {
+    display: inline-block;
+}
+
+.tundra .citrixWizard .citrixTabPaneColumn.double .citrix.dijitTextBox,
+.tundra .citrixWizard .citrixTabPaneColumn.double .citrix.dijitSelect {
+    width: 220px !important;
+}
+
+.tundra .citrixWizard .citrixTabPaneColumn.double .citrix.dijitSelect .dijitSelectLabel {
+    max-width: 200px !important;
+}
+
+.tundra .citrixWizard .citrixTabPaneColumn.double .citrix.dijitTextArea {
+    width: 214px !important;
+}
+
+.tundra .citrixWizard .citrixTabPaneField.smallHeight {
+    height: 25px;
+}
+
+.tundra .citrixWizard .citrixTabPaneField .value {
+    margin-bottom: 5px;
+}

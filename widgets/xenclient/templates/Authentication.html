@@ -1,0 +1,37 @@
+<div class="authentication">
+    <div class="alertBox redBox error hidden" dojoAttachPoint="errorBox">
+        <span class="alertIcon alertIconSmall alertIconError"></span>
+        <div dojoAttachPoint="errorNode"></div>
+    </div>
+    <div class="stripe">
+        <div class="logo">
+            <label class="tagline">${TAGLINE}</label>
+        </div>
+        <div class="controlContainer">
+            <div class="content">
+                <div class="citrixAuthField hidden" dojoAttachPoint="usernameContainer">
+                    <label>${USERNAME_LABEL}</label>
+                    <span class="value" dojoType="citrix.common.ValidationTextBox" dojoAttachPoint="usernameNode" name="username"></span>
+                    <span class="value hidden" dojoAttachPoint="localUsernameNode" name="local_username"></span>
+                </div>
+                <div class="citrixAuthField hidden" dojoAttachPoint="oldPasswordContainer">
+                    <label for="old_password">${OLD_PASSWORD_LABEL}</label>
+                    <span class="value" type="password" dojoType="citrix.common.ValidationTextBox" dojoAttachPoint="oldPasswordNode" required="true" name="old_password"></span>
+                </div>
+                <div class="citrixAuthField hidden" dojoAttachPoint="passwordContainer">
+                    <label dojoAttachPoint="passwordLabel" for="password">${PASSWORD_LABEL}</label>
+                    <span class="value" type="password" dojoType="citrix.common.ValidationTextBox" dojoAttachPoint="passwordNode" required="true" name="password"></span>
+                </div>
+                <div class="citrixAuthField hidden" dojoAttachPoint="confirmContainer">
+                    <label for="confirm">${CONFIRM_PASSWORD_LABEL}</label>
+                    <span class="value" type="password" dojoType="citrix.common.ValidationTextBox" dojoAttachPoint="confirmNode" required="true" name="confirm"></span>
+                </div>
+            </div>
+            <div class="footer">
+                <div class="hidden" dojoAttachPoint="enterNode">${ENTER_BUTTON_LABEL}</div>
+                <div class="hidden" dojoAttachPoint="escapeNode">${ESC_BUTTON_LABEL}</div>
+                <div>${AUTH_HEADER}</div>
+            </div>
+        </div>
+    </div>
+</div>

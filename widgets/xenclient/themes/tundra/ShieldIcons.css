@@ -1,0 +1,20 @@
+.tundra .shieldIcon {
+	background: url(/images/sprites/shieldIcons.png) no-repeat 0 0;
+	text-align: center;
+}
+
+.tundra .shieldIconLarge {
+    background-position-x: 0px;
+	width: 43px;
+	height: 48px;
+}
+.tundra .shieldIconMedium {
+    background-position-x: -43px;
+	width: 20px;
+	height: 22px;
+	margin: 6px 0;
+}
+
+.tundra .shieldIconGreen { background-position-y: 0px; }
+.tundra .shieldIconYellow { background-position-y: -48px; }
+.tundra .shieldIconRed { background-position-y: -96px; }

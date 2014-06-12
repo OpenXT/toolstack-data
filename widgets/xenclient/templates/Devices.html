@@ -1,0 +1,99 @@
+<div class="citrixDialog" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+    <div class="citrixDialogTitleBar">
+        <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title">${HEADER}</span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+    </div>
+    <div class="citrixDialogPaneContent">
+        <table class="citrixTable multi">
+            <thead>
+                <tr>
+                    <th>${CDROMS}</th>
+                    <th>${ASSIGNMENT}</th>
+                    <th>${OPTIONS}</th>
+                    <th>${ACTIONS}</th>
+                </tr>
+            </thead>
+            <tbody dojoAttachPoint="cdromDevices" dojoType="citrix.common.Repeater" dojoEventHandler="this" name="cdromDevices" unbindDisabled="true" uniqueId="id">
+                <tr template deviceId="%id%">
+                    <td class="deviceRow">
+                        <span templateType="citrix.common.BoundWidget" bind="id" binding="title">
+                            <span templateType="citrix.common.BoundWidget" bind="name"></span>
+                        </span>                        
+                    </td>
+                    <td>
+                        <select class="citrix" templateType="citrix.common.Select" id="cd_select_%id%" optionsKey="cdVMList" bind="vm" dojoAttachEvent="onChange: _onCDChange"></select>
+                    </td>
+                    <td class="noWrap">
+                        <div templateType="citrix.common.BoundContainer" binding="display" bind="canMakeSticky">
+                            <span templateType="citrix.common.CheckBox" id="cd_check_%id%" bind="sticky" dojoAttachEvent="onChange: _onCDChange"></span>
+                            <label for="cd_check_%id%">${ALWAYS_USE}</label>
+                        </div>
+                    </td>
+                    <td>
+                        <button templateType="citrix.common.Button" dojoAttachEvent="onClick: onEject">${EJECT}</button>
+                    </td>
+                </tr>
+                <tr empty>
+                    <td class="deviceRow" colspan="4">${NO_DEVICES}</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td class="splitter" colspan="4">&nbsp;</td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th>${USB}</th>
+                    <th>${ASSIGNMENT}</th>
+                    <th colspan="2">${OPTIONS}</th>
+                </tr>
+            </thead>
+            <tbody dojoAttachPoint="usbDevices" dojoType="citrix.common.Repeater" dojoEventHandler="this" name="usbDevices" unbindDisabled="true" uniqueId="dev_id">
+                <tr template deviceId="%dev_id%">
+                    <td class="deviceRow">
+                        <span templateType="citrix.common.ValidationTextBox" id="usb_name_%dev_id%" bind="name" maxLength="60" required="true" regExpObject="XenConstants.Regex.USB_NAME" invalidMessage="${NAME_VALERROR}"></span>
+                    </td>
+                    <td>
+                        <select class="citrix" templateType="citrix.common.Select" id="usb_select_%dev_id%" optionsKey="usbVMList" bind="assigned_uuid" dojoAttachEvent="onChange: _onUSBChange"></select>
+                    </td>
+                    <td class="noWrap" colspan="2">
+                        <span templateType="citrix.common.CheckBox" id="usb_check_%dev_id%" bind="getSticky" dojoAttachEvent="onChange: _onUSBChange"></span>
+                        <label for="usb_check_%dev_id%">${ALWAYS_USE}</label>
+                    </td>
+                </tr>
+                <tr empty>
+                    <td class="deviceRow" colspan="4">${NO_DEVICES}</td>
+                </tr>
+            </tbody>
+            <tbody>
+                <tr>
+                    <td class="splitter" colspan="4">&nbsp;</td>
+                </tr>
+            </tbody>
+            <thead>
+                <tr>
+                    <th colspan="4">${PLATFORM_DEVICE}</th>
+                </tr>
+            </thead>
+            <tbody dojoType="citrix.common.Repeater" dojoEventHandler="this" name="getPlatformDevices">
+                <tr template>
+                    <td class="deviceRow" colspan="4">
+                        <span class="deviceName" templateType="citrix.common.BoundWidget" bind="name"></span>
+                    </td>
+                </tr>
+                <tr empty>
+                    <td class="deviceRow" colspan="4">${NO_DEVICES}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right">
+            <button dojoAttachPoint="saveButton" dojoType="citrix.common.Button" class="citrixDialogItemRight editNode" dojoAttachEvent="onClick: save">${SAVE_ACTION}</button>
+            <button dojoAttachPoint="closeButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onCancel">${CLOSE_ACTION}</button>
+        </span>
+    </div>
+</div>

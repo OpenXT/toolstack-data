@@ -1,0 +1,22 @@
+.tundra #ReportWizard.citrixWizard .citrixTabPaneColumn {
+    padding: 0 20px;
+}
+
+.tundra #ReportWizard.citrixWizard .dijitContentPane.smallText {
+    font-size: 12px;
+}
+
+.tundra #ReportWizard.citrixWizard .alertBox {
+    margin-top: 10px;
+}
+
+.tundra #ReportWizard.citrixWizard .progressBar label {
+    margin-left: 0;
+}
+
+.tundra .citrixWizard .terms {
+    height: 240px;
+    width: 600px;
+    overflow: auto;
+    font-family: 'DejaVu Sans Mono', monospace;
+}

@@ -1,0 +1,33 @@
+<div dojoAttachPoint="containerNode" class="citrixDialog" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+	<div class="citrixDialogTitleBar">
+	    <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title"></span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+	</div>
+    <div class="citrixDialogPaneContent" style="width: 430px; padding: 20px 10px;">
+        <fieldset class="citrixTabPaneColumn">
+            <div class="citrixTabPaneField">
+                <label for="name">${NAME_LABEL}</label>
+                <span class="value" dojoAttachPoint="nameNode" dojoType="citrix.common.ValidationTextBox" name="name" maxLength=60 required="true" regExpObject="XenConstants.Regex.VM_NAME" invalidMessage="${NAME_ERROR}"></span>
+            </div>
+            <div class="citrixTabPaneField">
+                <label for="url">${URL_LABEL}</label>
+                <span>
+                    <input class="value" dojoAttachPoint="urlNode" dojoType="citrix.common.ValidationTextBox" name="url" required="true" regExpObject="XenConstants.Regex.URL" invalidMessage="${URL_ERROR}" />
+                    <div class="grey instruction">${URL_EXAMPLE}</div>
+                </span>
+            </div>
+        </fieldset>
+        <div class="alertBox blueBox">
+            <span class="alertIcon alertIconSmall alertIconInformation"></span>
+            <div>${RCVR_INSTR}</div>
+        </div>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right">
+            <button disabled dojoAttachPoint="finishButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onFinish">${FINISH}</button>
+            <button dojoAttachPoint="closeButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onCancel">${CANCEL}</button>
+        </span>
+    </div>
+</div>

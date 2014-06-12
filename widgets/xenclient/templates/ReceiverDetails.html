@@ -1,0 +1,113 @@
+<div class="citrixDialog vmDetails" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+	<div class="citrixDialogTitleBar">
+        <img dojoType="citrix.common.BoundWidget" binding="src" name="get_image_path" class="citrixDialogTitleIcon" />
+	    <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title"></span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+	</div>
+    <div class="citrixDialogPaneContent">
+        <span class="vmDetailActions">
+            <button dojoAttachPoint="startAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconConnect" dojoAttachEvent="onClick: onStart">${ICASTART}</button>
+            <button dojoAttachPoint="backgroundAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconConnect" dojoAttachEvent="onClick: onBackground">${ICABACKGROUND_START}</button>
+            <button dojoAttachPoint="switchAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconSwitch" dojoAttachEvent="onClick: onSwitch">${ICASWITCH}</button>
+            <button dojoAttachPoint="shutdownAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconDisconnect" dojoAttachEvent="onClick: onStop">${ICASHUT_DOWN}</button>
+            <button dojoAttachPoint="force_shutdownAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconDisconnect" dojoAttachEvent="onClick: onForceStop">${ICAFORCE_SHUT_DOWN}</button>
+            <button dojoAttachPoint="local_loginAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconLock" dojoAttachEvent="onClick: onLogin">${ICALOGIN}</button>
+        </span>
+        <span class="vmDetailActions right">
+            <button dojoAttachPoint="addAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconAdd" dojoAttachEvent="onClick: onAddDevice">${ADD_DEVICE}</button>
+            <button dojoAttachPoint="deleteAction" dojoType="citrix.common.ImageButton" iconClass="vmIcon vmIconDelete" dojoAttachEvent="onClick: onDelete">${DELETE}</button>
+        </span>
+        <hr class="horizontalSeparator"/>
+        <div class="detailsTabContainer" dojoType="citrix.common.TabContainer">
+            <div dojoType="citrix.common.ContentPane" title="${GENERAL}" selected="true">
+                <fieldset class="citrixTabPaneColumn">
+                    <div class="citrixTabPaneField">
+                        <label for="name">${CONNECTION_NAME}</label>
+                        <span class="value" dojoType="citrix.common.EditableWidget" editor="citrix.common.ValidationTextBox" name="name" editorParams="{maxLength: 60, required: true, regExpObject: 'XenConstants.Regex.VM_NAME', invalidMessage: '${NAME_VALERROR}'}"></span>
+                    </div>
+                    <div class="citrixTabPaneField">
+                        <label for="name">${URL}</label>
+                        <span class="value" dojoType="citrix.common.EditableWidget" editor="citrix.common.ValidationTextBox" name="url" editorParams="{required: true, regExpObject: 'XenConstants.Regex.URL', invalidMessage: '${URL_VALERROR}'}"></span>
+                    </div>
+                    <div class="citrixTabPaneField">
+                        <label for="slot">${SWITCHER_KEY}</label>
+                        <span class="value" dojoAttachPoint="slotSelect" dojoType="citrix.common.EditableWidget" editor="citrix.common.Select" mask="${SWITCHER_KEY_MASK}" name="slot"></span>
+                    </div>
+                    <div class="citrixTabPaneField">
+                        <label for="hidden_in_switcher">${DISPLAY_VM}</label>
+                        <span class="value" dojoType="citrix.common.EditableWidget" editor="citrix.common.Select" map="{'${ENABLED}': false, '${DISABLED}': true}" name="hidden_in_switcher"></span>
+                    </div>
+                    <div class="citrixTabPaneField">
+                        <label for="description">${DESCRIPTION}</label>
+                        <span class="value textArea" dojoType="citrix.common.EditableWidget" editor="citrix.common.ValidationTextarea" name="description" editorParams="{maxLength: 200, regExpObject: 'XenConstants.Regex.VM_DESCRIPTION', invalidMessage: '${DESCRIPTION_VALERROR}'}"></span>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="vmDevices" dojoType="citrix.common.ContentPane" title="${DEVICES}">
+                <div class="bottomSpaceTab">
+                    <table class="citrixTable vmConnectedDevices" dojoType="citrix.common.Repeater" dojoEventHandler="this" name="connectedDevices" uniqueId="dev_id">
+                        <thead>
+                            <tr>
+                                <th>${PRIVATE_DEVICE}</th>
+                                <th>${OPTIONS}</th>
+                                <th>${ACTIONS}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr template deviceId="%dev_id%">
+                                <td class="deviceRow">
+                                    <span class="deviceName" templateType="citrix.common.EditableWidget" editor="citrix.common.ValidationTextBox" bind="name" editorParams="{maxLength: 60, required: true, regExpObject: 'XenConstants.Regex.USB_NAME', invalidMessage: '${NAME_VALERROR}'}"></span>
+                                </td>
+                                <td class="noWrap">
+                                    <span templateType="citrix.common.EditableWidget" editor="citrix.common.CheckBox" editorParams="{id: 'check_%dev_id%'}" readOnlyEditor="true" bind="getSticky"></span>
+                                    <label for="check_%dev_id%">${ALWAYS_USE}</label>
+                                </td>
+                                <td>
+                                    <button templateType="citrix.common.Button" dojoAttachEvent="onClick: onUsbDetach">${DISCONNECT}</button>
+                                </td>
+                            </tr>
+                            <tr empty>
+                                <td class="deviceRow" colspan="3">${NO_DEVICES}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table class="citrixTable vmConnectedDevices" dojoType="citrix.common.Repeater" dojoEventHandler="this" name="getPlatformDevices">
+                        <thead>
+                            <tr>
+                                <th>${PLATFORM_DEVICE}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr template>
+                                <td class="deviceRow">
+                                    <span class="deviceName" templateType="citrix.common.BoundWidget" bind="name"></span>
+                                </td>
+                            </tr>
+                            <tr empty>
+                                <td class="deviceRow">${NO_DEVICES}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <fieldset class="citrixTabPaneColumn alignBottom">
+                    <div class="citrixTabPaneField">
+                        <label for="usb_grab_devices" dojoAttachPoint="usbGrabDevicesLabel" dojoType="citrix.common.Label">${USB_GRAB_DEVICES}</label>
+                        <span class="value" dojoAttachPoint="usbGrabDevices" dojoType="citrix.common.EditableWidget" editor="citrix.common.Select" map="{'${ENABLED}': true, '${DISABLED}': false}" name="usb_grab_devices"></span>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right">
+            <span dojoAttachPoint="editButtons">
+                <button dojoAttachPoint="editButton" dojoType="citrix.common.Button" class="citrixDialogItemRight editNode" dojoAttachEvent="onClick: edit">${EDIT}</button>
+                <button dojoAttachPoint="saveButton" dojoType="citrix.common.Button" class="citrixDialogItemRight editNode" dojoAttachEvent="onClick: save">${SAVE}</button>
+                <button dojoAttachPoint="cancelButton" dojoType="citrix.common.Button" class="citrixDialogItemRight editNode" dojoAttachEvent="onClick: cancel">${CANCEL}</button>
+            </span>
+            <button dojoAttachPoint="closeButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onCancel">${CLOSE}</button>
+        </span>
+    </div>
+</div>

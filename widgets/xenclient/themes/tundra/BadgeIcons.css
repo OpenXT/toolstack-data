@@ -1,0 +1,18 @@
+.tundra .badgeIcon {
+	background: url(/images/sprites/badgeIcons.png) no-repeat 0 0;
+	width: 24px;
+	height: 20px;
+	text-align: center;
+    display: inline-block;
+}
+
+.tundra .badgeIcon.dark { background-position-x: -24px; }
+
+.tundra .badgeIconManaged { background-position-y: 0px; }
+.tundra .badgeIconThreed { background-position-y: -20px; }
+.tundra .badgeIconPublish { background-position-y: -40px; }
+.tundra .badgeIconNative { background-position-y: -60px; }
+.tundra .badgeIconDiskReset { background-position-y: -80px; }
+.tundra .badgeIconEncrypted { background-position-y: -100px; }
+.tundra .badgeIconCD { background-position-y: -120px; }
+.tundra .badgeIconUSB { background-position-y: -140px; }

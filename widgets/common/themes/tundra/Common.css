@@ -1,0 +1,388 @@
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    overflow:hidden;
+    background-color: #e1e1e1;
+    color: #333;
+}
+
+body, img {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+}
+
+*[tabindex]:focus {
+  outline: none;
+  /* border: $FOCUS_OUTLINE; */
+}
+
+.tundra .left {
+    float: left;
+}
+
+.tundra .right {
+    float: right;
+}
+
+.tundra .horizontalSeparator {
+    clear: both;
+    border-width: 1px 17px 0 17px;
+    -webkit-border-image: url(/images/borders/h_separator.png) 1 17 0 17 repeat;
+}
+
+.tundra .verticalSeparator {
+    padding-right: 5px;
+    border-width: 0 1px 0 0;
+    -webkit-border-image: url(/images/borders/v_separator.png) 0 1 0 0 stretch;
+}
+
+.tundra .alignBottom {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.tundra .alertBox {
+    position: relative;
+    margin: 3px 10px;
+    text-align: left;
+    display: inline-block;
+    border-radius: 6px 6px;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.45) 0 1px 5px;
+}
+
+.tundra .alertBox > img,
+.tundra .alertBox > span {
+    position: absolute;
+    top: 8px;
+    bottom: auto;
+    left: 10px;
+    right: auto;
+}
+
+.tundra .alertBox > div,
+.tundra .alertBox > ul {
+    padding: 10px 10px 10px 41px;
+    font-size: 12px;
+}
+
+.tundra .blueBox {
+    border: 1px solid white; /*rgb(30, 120, 180);*/
+    background: -webkit-gradient(radial, 50% 0, 0, 50% 0, 600, from(rgb(255, 255, 255)), to(rgb(30, 145, 210)));
+}
+
+.tundra .orangeBox {
+    border: 1px solid rgb(245, 130, 40);
+    background: -webkit-gradient(radial, 50% 0, 0, 50% 0, 600, from(rgb(255, 255, 255)), to(rgb(245, 175, 120)));
+}
+
+.tundra .yellowBox {
+    border: 1px solid rgb(250, 240, 40);
+    background: -webkit-gradient(radial, 50% 0, 0, 50% 0, 600, from(rgb(255, 255, 255)), to(rgb(250, 240, 140)));
+}
+
+.tundra .redBox {
+    border: 1px solid rgb(250, 80, 80);
+    background: -webkit-gradient(radial, 50% 0, 0, 50% 0, 600, from(rgb(255, 255, 255)), to(rgb(250, 80, 80)));
+}
+
+.tundra .dojoDndTarget {
+    padding: 5px 0 0 0;
+    margin: 0;
+}
+
+.tundra .dndItem {
+    list-style: none;
+}
+
+.tundra .dndItem.dojoDndItemBefore {
+    padding-top: 10px;
+    border: none;
+}
+
+.tundra .dndItem.dojoDndItemAfter {
+    padding-bottom: 10px;
+    border: none;
+}
+
+.tundra .dndWrapper {
+    background: #DDD;
+    border: 1px solid #BBB;
+    margin: 0 0 -1px 0;
+    line-height: 10px;
+}
+
+.tundra .dndText {
+    cursor: move;
+    padding: 5px;
+    display: inline-block;
+}
+
+.tundra .dndDelete {
+    float: right;
+    display: inline-block;
+    width: 19px;
+    height: 18px;
+    background: url(/images/sprites/buttonIcons.png) no-repeat 0 0;
+}
+
+.tundra .dndItemFocused .dndDelete {
+    background-position: -19px 0;
+}
+
+.tundra .dojoDndAvatarHeader {
+    display: none;
+}
+
+.tundra .dojoDndAvatar .dojoDndAvatarItem {
+    background-color: rgb(245, 130, 130);
+}
+
+.tundra .dojoDndAvatarCanDrop .dojoDndAvatarItem {
+    background-color: rgb(150, 230, 140);
+}
+
+.dijitDialogUnderlay {
+    background-color: rgb(72, 72, 72);
+    opacity: 0.6;
+}
+
+.tundra table.dijitInline {
+    display: inline-block;
+}
+
+.tundra .dijitError {
+    border-color: rgb(245, 130, 40) !important;
+    background-color: rgb(255, 240, 230);
+    background-image: none;
+}
+
+.tundra .dijitValidationIcon {
+    background: url(/images/sprites/alertIcons.png) no-repeat 0 0;
+    width: 16px;
+    height: 16px;
+    background-position-x: -80px;
+	background-position-y: -48px;
+    border: 0 !important;
+}
+
+.tundra .dijitArrowButtonInner {
+    background: url(/images/sprites/arrowIcons.png) no-repeat 0 0;
+    width: 10px;
+    height: 10px;
+    margin: 0 2px;
+}
+
+.tundra .dijitDisabled .dijitArrowButtonInner {
+    display: none;
+}
+
+.tundra .dijitUpArrowButton .dijitArrowButtonInner {
+    background-position: 0 0;
+}
+
+.tundra .dijitDownArrowButton .dijitArrowButtonInner {
+    background-position: 0 -10px;
+}
+
+.tundra .dijitSelect .dijitButtonNode,
+.tundra .dijitTextBoxDisabled {
+    background: white url("/lib/dijit/themes/tundra/images/validationInputBg.png") repeat-x top left;
+}
+
+.tundra .dijitTextBoxDisabled .dijitButtonNode {
+    background: none;
+}
+
+.tundra .citrixTabPaneField .dijitTextBox,
+.tundra .citrixTabPaneField .dijitSpinner,
+.tundra .citrixTabPaneField .dijitTextArea,
+.tundra .citrixTabPaneField .dijitSelect {
+    margin: 0 0 0 -5px !important;
+}
+
+.tundra .dijitTextArea {
+    font-size: 13px;
+    color: #333;
+}
+
+.tundra .dijitSelect,
+.tundra .dijitTextBox {
+    border: solid 2px lightGrey;
+    -webkit-border-radius: 4px;
+    height: 19px;
+}
+
+.tundra .dijitButtonNode {
+    border: none;
+    background: none;
+}
+
+.tundra .dijitSelectFocused,
+.tundra .dijitTextBoxFocused {
+    border-color: rgb(140, 186, 235);
+    outline: none;
+}
+
+.tundra .dijitTextArea {
+    resize: none;
+    padding: 1px 3px;
+}
+
+.tundra .dijitSelect td.dijitStretch {
+    width: 100%;
+}
+
+.tundra .dijitSpinner .dijitSpinnerButtonInner {
+    margin: 2px 0;
+}
+
+.tundra .dijitSelectMenu {
+    font-size: 13px;
+    border: 1px solid rgb(140, 186, 235) !important;
+}
+
+.tundra .dijitMenuItemHover,
+.tundra .dijitMenuItemSelected {
+    background-color: rgb(50, 90, 170);
+}
+
+.tundra .dijitSelect .dijitButtonNode .dijitArrowButtonInner {
+    margin: 4px 2px 0 0;
+}
+
+.tundra .dijitTextBox .dijitInputField {
+    padding: 2px 0 0 3px;
+}
+
+.tundra .dijitDisabled .dijitButtonText {
+    color: rgb(154, 154, 154);
+}
+
+.tundra .dijitFocusedLabel {
+    background-color: rgb(195, 215, 235);
+    outline: none;
+}
+
+.tundra .dijitCheckBoxFocused:not(.dijitChecked) {
+	background-position: -80px;
+}
+
+.tundra .dijitRadioFocused:not(.dijitChecked) {
+    background-position: -176px;
+}
+
+.tundra .citrixTooltipAnchor span {
+    border-bottom: 1px dashed;
+    cursor: pointer;
+}
+
+.tundra .citrixTooltipAnchor.dijitHover,
+.tundra .citrixTooltipAnchor.dijitFocused {
+    color: #A0CFE5;
+}
+
+/* midori doesn't honour opacity for radios and checkboxes, but will understand this */
+.tundra .dijitCheckBoxInput {
+    -webkit-appearance: none;
+}
+
+.tundra .citrixTable {
+    border: solid 1px #CCC;
+    border-spacing: 0px;
+    color: black;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.tundra .citrixTable>thead>tr,
+.tundra .citrixTable>tfoot>tr {
+    text-align: left;
+    background: -webkit-gradient(linear, left top, left bottom, from(white), to(rgb(231, 231, 231)));
+}
+
+.tundra .citrixTable>thead>tr>th {
+    border-bottom: solid 1px rgb(204, 204, 204);
+}
+
+.tundra .citrixTable>tfoot>tr>td {
+    border-top: solid 1px rgb(204, 204, 204);
+}
+
+.tundra .citrixTable>thead>tr>td,
+.tundra .citrixTable>tbody>tr>td,
+.tundra .citrixTable>tfoot>tr>td {
+    height: 35px;
+}
+
+.tundra .citrixTable>thead>tr>th,
+.tundra .citrixTable>thead>tr>td,
+.tundra .citrixTable>tbody>tr>th,
+.tundra .citrixTable>tbody>tr>td,
+.tundra .citrixTable>tfoot>tr>th,
+.tundra .citrixTable>tfoot>tr>td {
+    padding: 5px;
+  border-left: solid 1px white;
+  border-right: solid 1px rgb(232, 232, 232);
+}
+
+.tundra .citrixTable>thead>tr>th:first-child,
+.tundra .citrixTable>thead>tr>td:first-child,
+.tundra .citrixTable>tbody>tr>th:first-child,
+.tundra .citrixTable>tbody>tr>td:first-child,
+.tundra .citrixTable>tfoot>tr>th:first-child,
+.tundra .citrixTable>tfoot>tr>td:first-child {
+    border-left: none;
+}
+
+.tundra .citrixTable>thead>tr>th:last-child,
+.tundra .citrixTable>thead>tr>td:last-child,
+.tundra .citrixTable>tbody>tr>th:last-child,
+.tundra .citrixTable>tbody>tr>td:last-child,
+.tundra .citrixTable>tfoot>tr>th:last-child,
+.tundra .citrixTable>tfoot>tr>td:last-child {
+    border-right: none;
+}
+
+.tundra .citrixTable>tbody>tr:nth-child(2n) {
+    background-color: rgb(245, 245, 245);
+}
+
+.tundra .citrixTable .noWrap {
+    white-space: nowrap;
+}
+
+.tundra .citrixTable .centreAlign {
+    text-align: center;
+}
+
+.tundra .citrixTable.multi {
+    border: none;
+}
+
+.tundra .citrixTable.multi>thead>tr>th {
+    border-top: solid 1px #CCC;
+}
+
+.tundra .citrixTable.multi>thead>tr>th:first-child,
+.tundra .citrixTable.multi>tbody>tr>td:first-child {
+    border-left: solid 1px #CCC;
+}
+
+.tundra .citrixTable.multi>thead>tr>th:last-child,
+.tundra .citrixTable.multi>tbody>tr>td:last-child {
+    border-right: solid 1px #CCC;
+}
+
+.tundra .citrixTable.multi>tbody>tr:last-child>td {
+    border-bottom: solid 1px #CCC;
+}
+
+.tundra .citrixTable.multi>tbody>tr>td.splitter {
+    padding: 0;
+    height: 20px;
+    border: none;
+}

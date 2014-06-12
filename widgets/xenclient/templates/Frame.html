@@ -1,0 +1,36 @@
+<div class="citrixFrame">
+
+    <img data-dojo-attach-point="pointerNode" class="citrixPointer" src="images/icons/pointer.png" />
+
+    <div class="wait" data-dojo-attach-point="waitNode">
+        <img src="images/000_Preloader_32x32.gif" />
+    </div>
+
+    <div class="apply" data-dojo-attach-point="updateNode" style="display: none;">
+        <div class="container">
+            <div class="xenclient"></div>
+            <div>${APPLY}</div>
+            <div class="spinner"></div>
+        </div>
+    </div>
+
+    <div class="stripe" data-dojo-attach-point="nativeNode" style="display: none;">
+        <div class="logo">
+            <label class="tagline">${TAGLINE}</label>
+        </div>
+        <div class="container">
+            <h1>${NATIVE_TITLE}</h1>
+            <div>${NATIVE_TEXT}</div>
+            <br/>
+            <div>${NATIVE_INSTRUCTION}</div>
+        </div>
+        <div class="buttons">
+            <div>
+                <button data-dojo-attach-point="cancelButton" data-dojo-type="citrix.common.Button" data-dojo-attach-event="onClick: cancelNative">${CANCEL}</button>
+                <button data-dojo-attach-point="continueButton" data-dojo-type="citrix.common.Button" data-dojo-attach-event="onClick: hideNative">${CONTINUE}</button>
+            </div>
+        </div>
+    </div>
+
+    <div data-dojo-attach-point="containerNode"></div>
+</div>

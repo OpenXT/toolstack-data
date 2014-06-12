@@ -1,0 +1,13 @@
+.tundra .footerIcon {
+	background: url(/images/sprites/footerIcons.png) no-repeat 0 0;
+	width: 24px;
+	height: 16px;
+    text-align: center;
+    margin: 8px 0;
+}
+
+.tundra .dijitHover .footerIcon { background-position-x: -24px; }
+.tundra .dijitFocused .footerIcon { background-position-x: -48px; }
+
+.tundra .footerIconLock { background-position-y: 0px; }
+.tundra .footerIconKeyboard { background-position-y: -16px; }

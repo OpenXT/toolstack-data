@@ -1,0 +1,159 @@
+<div class="citrixDialog" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+  	<div class="citrixDialogTitleBar">
+        <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title">${CREATE_FROM_MEDIA}</span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+	  </div>
+    <div class="citrixDialogPaneContent">
+        <div id="${wizardId}" dojoType="citrix.common.WizardContainer" dojoAttachPoint="wizard">
+            <div dojoType="citrix.common.WizardPage" title="${CREATE_VM_WIZARD_NAME_HEADER}" selected="true">
+                <fieldset class="citrixTabPaneColumn single">
+                    <div class="citrixTabPaneField"></div>
+                    <div class="citrixTabPaneField">
+                        <label for="mw_name">${VM_NAME_LABEL}</label>
+                        <input id="mw_name" class="citrix" dojoType="citrix.common.ValidationTextBox" dojoAttachPoint="name" name="name" maxLength="60" required="true" regExpObject="XenConstants.Regex.VM_NAME" invalidMessage="${NAME_VALERROR}" />
+                    </div>
+                    <div class="citrixTabPaneField">
+                        <label for="mw_template">${TEMPLATE_LABEL}</label>
+                        <select id="mw_template" class="citrix" dojoType="citrix.common.Select" dojoAttachPoint="template" name="template"></select>
+                    </div>
+                    <div class="citrixTabPaneField">
+                        <label for="mw_description">${DESCRIPTION_LABEL}</label>
+                        <textarea id="mw_description" class="citrix" dojoType="citrix.common.ValidationTextarea" dojoAttachPoint="description" name="description" maxLength="200" regExpObject="XenConstants.Regex.VM_DESCRIPTION" invalidMessage="${DESCRIPTION_VALERROR}"></textarea>
+                    </div>
+                </fieldset>
+            </div>
+            <div dojoType="citrix.common.WizardPage" title="${CREATE_VM_WIZARD_ICON_HEADER}">
+                <fieldset class="citrixTabPaneColumn single">
+                    <ul dojoType="citrix.common.ImageSelect" dojoAttachPoint="imagePath" itemClass="citrixImageItem citrixImage65" name="imagePath" editing="true"></ul>
+                </fieldset>
+            </div>
+            <div dojoType="citrix.common.WizardPage" title="${VM_MODE_HEADER}" dojoAttachPoint="vmModePage">
+                <fieldset class="citrixTabPaneColumn single">
+                    <div class="citrixTabPaneField radio">
+                        <input id="mw_vmmode_single" type="radio" dojoType="citrix.common.RadioButton" name="vmMode" value="single" /><label class="inline" for="mw_vmmode_single">${VM_MODE_NATIVE_LABEL}</label>
+                    </div>
+                    <div class="citrixTabPaneField radioInfo">
+                        <label>${VM_MODE_NATIVE_INFO}</label>
+                    </div>
+                    <div class="citrixTabPaneField radioInfo">
+                        <label dojoType="citrix.common.Label" title="${VM_MODE_NATIVE_TOOLTIP}">${TELL_ME_MORE}</label>
+                    </div>
+                    <div class="citrixTabPaneField radioInfo">
+                        <label>&nbsp;</label>
+                    </div>
+                    <div class="citrixTabPaneField radio">
+                        <input id="mw_vmmode_multiple" type="radio" dojoType="citrix.common.RadioButton" name="vmMode" value="multiple" checked="true"/><label class="inline" for="mw_vmmode_multiple">${VM_MODE_NOT_NATIVE_LABEL}</label>
+                    </div>
+                    <div class="citrixTabPaneField radioInfo">
+                        <label>${VM_MODE_NOT_NATIVE_INFO}</label>
+                    </div>
+                    <div class="citrixTabPaneField radioInfo">
+                        <label dojoType="citrix.common.Label" title="${VM_MODE_NOT_NATIVE_TOOLTIP}">${TELL_ME_MORE}</label>
+                    </div>
+                </fieldset>
+                <div class="alignBottom">
+                    <div class="alertBox blueBox">
+                        <span class="alertIcon alertIconSmall alertIconInformation"></span>
+                        <div>${XENCLIENT_ACCESS_TIP}</div>
+                    </div>
+                </div>
+            </div>
+            <div dojoType="citrix.common.WizardPage" title="${CREATE_VM_WIZARD_MEMORY_HEADER}">
+                <fieldset class="citrixTabPaneColumn single">
+                    <div class="citrixTabPaneField">
+                        <label for="mw_memory">${MEMORY_LABEL}</label>
+                        <input id="mw_memory" class="citrix" name="memory" dojoType="citrix.common.NumberSpinner" smallDelta="128" largeDelta="512" constraints="{min: 128, max: ${host.max_vm_memory}, places: 0}" value="1024"/>
+                        <span class="editTip grey">${MB_INDICATOR_TEXT}</span>
+                    </div>
+                    <div class="citrixTabPaneField smallHeight">
+                        <label>&nbsp;</label>
+                        <div class="grey" dojoAttachPoint="total_mem" dojoType="citrix.common.BoundWidget" name="total_mem" mask="${TOTAL_MEM_MASK}"></div>
+                    </div>
+                    <div class="citrixTabPaneField">
+                        <label>&nbsp;</label>
+                        <div class="grey" dojoAttachPoint="free_mem" dojoType="citrix.common.BoundWidget" name="free_mem" mask="${FREE_MEM_MASK}"></div>
+                    </div>
+                    <div class="citrixTabPaneField">
+                        <label for="mw_vcpus">${VCPUS_LABEL}</label>
+                        <input id="mw_vcpus" class="citrix" name="vcpus" dojoType="citrix.common.NumberSpinner" smallDelta="1" largeDelta="1" constraints="{min: 1, max: ${host.max_vm_vcpus}, places: 0}" value="2" />
+                    </div>
+                </fieldset>
+            </div>
+            <div dojoType="citrix.common.WizardPage" title="${CREATE_VM_WIZARD_STORAGE_HEADER}">
+                <fieldset class="citrixTabPaneColumn single">
+                    <div class="citrixTabPaneField">
+                        <label for="mw_storage">${STORAGE_LABEL}</label>
+                        <input id="mw_storage" class="citrix" name="storage" dojoType="citrix.common.NumberSpinner" smallDelta="1" largeDelta="10" constraints="{min: 1, places: 0}" value="80" />
+                        <span class="editTip grey">${GB_INDICATOR_TEXT}</span>
+                    </div>
+                    <div class="citrixTabPaneField">
+                        <label for="mw_encrypt">${ENCRYPT_LABEL}</label>
+                        <select id="mw_encrypt" class="citrix" dojoType="citrix.common.Select" name="encrypt">
+                            <option value="">${ENCRYPTION_NONE}</option>
+                            <option value="256">${ENCRYPTION_256}</option>
+                            <option value="512" selected="selected">${ENCRYPTION_512}</option>
+                        </select>
+                    </div>
+                    <div class="citrixTabPaneField spacer"></div>
+                    <div class="citrixTabPaneField">
+                        <label for="mw_wiredNetwork">${WIRED_LABEL}</label>
+                        <select id="mw_wiredNetwork" class="citrix wired some" dojoType="citrix.common.Select" name="wiredNetwork" dojoAttachPoint="wiredNetwork">
+                        </select>
+                        <span class="value citrix wired none">${NO_WIRED_NETWORK}</span>
+                    </div>
+                    <div class="citrixTabPaneField">
+                        <label for="mw_wirelessNetwork">${WIRELESS_LABEL}</label>
+                        <select id="mw_wirelessNetwork" class="citrix wireless some" dojoType="citrix.common.Select" name="wirelessNetwork" dojoAttachPoint="wirelessNetwork">
+                        </select>
+                        <span class="value citrix wireless none">${NO_WIRELESS_NETWORK}</span>
+                    </div>
+                </fieldset>
+                <div class="alignBottom">
+                    <div class="alertBox blueBox">
+                        <span class="alertIcon alertIconSmall alertIconInformation"></span>
+                        <div>${WIRED_NETWORK_INFORMATION}</div>
+                    </div>
+                </div>
+            </div>
+            <div dojoType="citrix.common.WizardPage" title="${CREATE_VM_WIZARD_FINISH_HEADER}" dojoAttachPoint="finishPage">
+                <fieldset class="citrixTabPaneColumn single">
+                    <p class="finishFields">${CREATE_VM_WIZARD_FINISH}</p>
+                    <div class="citrixTabPaneField radio finishFields" dojoAttachPoint="isoControl">
+                        <input dojoAttachPoint="autoStart_iso" id="autoStart_iso" type="radio" dojoType="citrix.common.RadioButton" dojoAttachEvent="onChange: _onBootChange" name="autoStart" value="iso"/><label class="citrix" for="autoStart_iso">${ISO_LABEL}</label>
+                        <select class="citrix" dojoAttachPoint="isos" dojoType="citrix.common.Select" name="iso"></select>
+                    </div>
+                    <div class="citrixTabPaneField radio finishFields" dojoAttachPoint="cdControl">
+                        <input dojoAttachPoint="autoStart_cd" id="autoStart_cd" type="radio" dojoType="citrix.common.RadioButton" dojoAttachEvent="onChange: _onBootChange" name="autoStart" value="cd"/><span class="cdWarning alertIcon alertInline alertIconSmall alertIconWarning" dojoAttachPoint="cdWarning" title="${CD_ROM_WARNING}" position="above"></span><label class="citrix" for="autoStart_cd">${CD_ROM_LABEL}</label>
+                        <span class="citrix" dojoAttachPoint="cds" dojoType="citrix.common.Select" name="cd"></span>
+                    </div>
+                    <div class="citrixTabPaneField radio finishFields">
+                        <input dojoAttachPoint="autoStart_network" id="autoStart_network" type="radio" dojoType="citrix.common.RadioButton" dojoAttachEvent="onChange: _onBootChange" name="autoStart" value="network"/><label class="citrix" for="autoStart_network">${NETWORK_LABEL}</label>
+                    </div>
+                    <div class="citrixTabPaneField radio finishFields">
+                        <input dojoAttachPoint="autoStart_off" id="autoStart_off" type="radio" dojoType="citrix.common.RadioButton" dojoAttachEvent="onChange: _onBootChange" name="autoStart" value="off" /><label class="citrix" for="autoStart_off">${AUTOSTART_OFF_LABEL}</label>
+                    </div>
+                    <div class="citrixTabPaneField spacer"></div>
+                    <div class="progressBar" dojoAttachPoint="creatingVM" style="display: none;">
+                        <p>${CREATING_VM}</p>
+                        <div dojoType="citrix.common.ProgressBar" value="-1"></div>
+                    </div>
+                </fieldset>
+                <div class="alignBottom">
+                    <div class="alertBox orangeBox" dojoAttachPoint="bootWarningNode">
+                        <span class="alertIcon alertIconSmall alertIconWarning"></span>
+                        <div dojoAttachPoint="bootWarning"></div>
+                    </div>
+                    <div class="alertBox blueBox" dojoAttachPoint="bootInfoNode">
+                        <span class="alertIcon alertIconSmall alertIconInformation"></span>
+                        <div dojoAttachPoint="bootInfo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right" wizardId="${wizardId}" dojoType="citrix.common.WizardNavigator" dojoAttachPoint="navigationNode"></span>
+    </div>
+</div>

@@ -1,0 +1,49 @@
+<div class="citrixDialog" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+  	<div class="citrixDialogTitleBar">
+        <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title">${DEFERRED_INSTALL_TITLE}</span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+    </div>
+    <div class="citrixDialogPaneContent">
+        <div id="${wizardId}" dojoType="citrix.common.WizardContainer" dojoAttachPoint="wizard">
+            <div dojoType="citrix.common.WizardPage" title="${LANGUAGE_HEADER}" isReturnable="false" selected="true" dojoAttachPoint="languagePage">
+                <fieldset class="citrixTabPaneColumn single">
+                    <p>${LANGUAGE_INSTR}</p>
+                    <div class="citrixTabPaneField">
+                        <select class="citrix" dojoType="citrix.common.Select" dojoAttachPoint="languageSelect" name="language"></select>
+                    </div>
+                </fieldset>
+            </div>
+            <div class="eulaPage" dojoType="citrix.common.WizardPage" title="${EULA_HEADER}" isReturnable="false" dojoAttachPoint="eulaPage">
+                <fieldset class="citrixTabPaneColumn single">
+                    <div class="eula" dojoAttachPoint="eulaContent"></div>
+                </fieldset>
+                <div class="alignBottom">
+                    <div class="alertBox orangeBox">
+                        <span class="alertIcon alertIconSmall alertIconWarning"></span>
+                        <div>${EULA_ERROR}</div>
+                    </div>
+                </div>
+            </div>
+            <div dojoType="citrix.common.WizardPage" title="${KEYBOARD_HEADER}" isReturnable="false" dojoAttachPoint="keyboardPage">
+                <fieldset class="citrixTabPaneColumn single">
+                    <p>${KEYBOARD_INSTR}</p>
+                    <div dojoType="citrix.common.Repeater" dojoAttachPoint="kbRepeater" dojoEventHandler="this">
+                        <div class="citrixTabPaneField radio" template>
+                            <input type="radio" templateType="citrix.common.RadioButton" bind="keyboard" id="kb_%id%" value="%id%" />
+                            <label for="kb_%id%">%label%</label>
+                        </div>
+                    </div>
+                </fieldset>
+            </div>
+            <div dojoType="citrix.common.WizardPage" title="${ROOT_PASSWORD_HEADER}" isReturnable="false" dojoAttachPoint="passwordPage">
+                <fieldset class="citrixTabPaneColumn single">
+                </fieldset>
+            </div>
+        </div>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right" wizardId="${wizardId}" dojoType="citrix.common.WizardNavigator" dojoAttachPoint="navigationNode"></span>
+    </div>
+</div>

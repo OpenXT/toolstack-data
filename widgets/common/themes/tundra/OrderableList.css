@@ -1,0 +1,42 @@
+.tundra .citrixDecreaseButton, .tundra .citrixIncreaseButton {
+}
+
+.tundra .citrixDecreaseButton {
+}
+
+.tundra .citrixIncreaseButton {
+}
+
+.tundra .citrixInfo {
+    width: 95px;
+    height: 55px;
+    text-align: center;
+    line-height: 45px;
+    background: url("/images/icons/gpu.png") no-repeat center center;
+    border: solid 2px lightGrey;
+    border-radius: 4px 4px;
+    padding: 5px;
+}
+
+.tundra .citrixOrderableHorizItem {
+    padding: 5px;
+}
+
+.tundra .citrixOrderableHorizItem .text {
+    background-color: rgba(255, 255, 255, 0.7);
+}
+
+.tundra .citrixOrderableHorizItem:first-child .citrixDecreaseButton {
+    display: none;
+}
+
+.tundra .citrixOrderableHorizItem:last-child .citrixIncreaseButton {
+    display: none;
+}
+
+.tundra .citrixOrderableList {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    text-align: center;
+}

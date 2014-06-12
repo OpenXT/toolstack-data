@@ -1,0 +1,16 @@
+.tundra .arrowIcon {
+	background: url(/images/sprites/arrowIcons.png) no-repeat 0 0;
+	width: 10px;
+    height: 10px;
+}
+
+.tundra .arrowIcon:hover {
+    cursor: pointer;
+}
+
+.tundra .citrixArrowIconFocused .arrowIcon { background-position-x: -10px; }
+
+.tundra .arrowIconUp { background-position-y: 0px; }
+.tundra .arrowIconDown { background-position-y: -10px; }
+.tundra .arrowIconLeft { background-position-y: -20px; }
+.tundra .arrowIconRight { background-position-y: -30px; }

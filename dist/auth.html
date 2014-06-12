@@ -1,0 +1,68 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<title>Authentication</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+	<link rel="icon" type="image/vnd.microsoft.icon" href="images/logos/000_XenClient_Combo_Vista.ico" />
+    <link rel="stylesheet" type="text/css" href="lib/dijit/themes/dijit.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/dijit/themes/tundra/tundra.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/citrix/common/themes/tundra/tundra.css"/>
+    <link rel="stylesheet" type="text/css" href="lib/citrix/xenclient/themes/tundra/tundra.css"/>
+
+    <script type="text/javascript" src="script/lib/utilities.js"></script>
+    <script type="text/javascript">
+        dojoConfig = {
+            // Comment out isSafari (line 91) in dojo/_firebug/firebug.js for console to work in Midori
+            isDebug: false,
+            popup: true,
+            // Controlled in script
+            parseOnLoad: false,
+            async: true,
+            // Fade durations at minimum
+            defaultDuration: 1,
+            locale: XUtils.parseQuery().locale || XUtils.parseCookie().locale
+        };
+    </script>
+    <script type="text/javascript" src="lib/dojo/dojo.js"></script>
+    <script type="text/javascript" src="lib/citrix/xenauth.js"></script>
+
+    <script type="text/javascript" src="script/lib/dojo_utilities.js"></script>
+    <script type="text/javascript" src="script/lib/xhr.js"></script>
+    <script type="text/javascript" src="script/lib/debug.js"></script>
+    <script type="text/javascript" src="script/lib/websocket.js"></script>
+    <script type="text/javascript" src="script/lib/repository.js"></script>
+    <script type="text/javascript" src="script/lib/dbus.js"></script>
+
+    <script type="text/javascript" src="script/services/ctxusb_daemon_client.js"></script>
+    <script type="text/javascript" src="script/services/input_daemon_client.js"></script>
+    <script type="text/javascript" src="script/services/xenmgr_client.js"></script>
+    <script type="text/javascript" src="script/services/xenmgr_host_client.js"></script>
+    <script type="text/javascript" src="script/services/surfman_client.js"></script>
+    <script type="text/javascript" src="script/services/network_daemon_client.js"></script>
+    <script type="text/javascript" src="script/services/org_freedesktop_upower_client.js"></script>
+    <script type="text/javascript" src="script/services/org_freedesktop_upower_device_client.js"></script>
+
+    <script type="text/javascript" src="script/models/hostModel.js"></script>
+    <script type="text/javascript" src="script/models/usbModel.js"></script>
+    <script type="text/javascript" src="script/constants.js"></script>
+
+    <script type="text/javascript" src="script/auth_cache.js"></script>
+    <script type="text/javascript" src="script/auth.js"></script>
+
+</head>
+<body class="tundra">
+
+    <script type="text/javascript">
+        XUtils.setFont();
+    </script>
+
+    <div data-dojo-type="citrix.xenclient.Frame">
+        <div data-dojo-type="citrix.common.ContentPane" region="center">
+            <div data-dojo-type="citrix.xenclient.Authentication"></div>
+        </div>
+    </div>
+
+</body>
+</html>

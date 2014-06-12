@@ -1,0 +1,63 @@
+.tundra .citrixDialog {
+}
+
+.tundra .citrixDialogError {
+    background-color: transparent;
+}
+
+.tundra .citrixDialog .center {
+    text-align: center;
+}
+
+.tundra .citrixDialogTitleBar {
+    height: 34px;
+    border-width: 0 11px;
+    -webkit-border-image: url(/images/borders/system_dialog.png) 0 11 55 11 stretch;
+}
+
+.tundra .citrixDialogTitleIcon {
+    max-height: 30px;
+    float: left;
+    padding-top: 5px;
+}
+
+.tundra .citrixDialogTitle {
+	font-size: 14px;
+    line-height: 38px;
+	font-weight: bold;
+	padding: 0px 10px;
+    white-space: pre;
+}
+
+.tundra .citrixDialogCloseIcon {
+    cursor: pointer;
+	background: url("/images/buttons/075_CloseWindow_h32bit_16x16.png") no-repeat right top;
+	position: absolute;
+	right: 12px;
+	top: 10px;
+	height: 16px;
+	width: 16px;
+}
+
+.tundra .citrixDialogPaneContent {
+	padding: 10px;
+    border-width: 0 11px;
+    -webkit-border-image: url(/images/borders/system_dialog.png) 34 11 54 11 repeat;
+}
+
+.tundra .citrixDialogCloseIconHover {
+}
+
+.tundra .citrixDialogFooterContent {
+    height: 54px;
+    border-width: 0 11px;
+    -webkit-border-image: url(/images/borders/system_dialog.png) 35 11 0 11 stretch;
+}
+
+.tundra .citrixDialogFooter {
+    padding: 8px 0 0 0;
+}
+
+.tundra .citrixDialogFooterItem {
+    margin: 12px 0 0 5px;
+}

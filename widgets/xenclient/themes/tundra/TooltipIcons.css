@@ -1,0 +1,51 @@
+.dj_webkit .tundra .dijitTooltip {
+    max-width: 400px;
+}
+
+.dj_webkit .tundra .dijitTooltipContainer {
+    border: 1px solid #666;
+    background: rgb(244, 244, 244);
+    padding: 15px;
+    -webkit-box-shadow: 3px 3px 3px #CCC;
+    -webkit-border-radius: 5px;
+}
+
+.dj_webkit .tundra .citrixTooltip .dijitTooltipContainer {
+    border: 1px solid rgb(187, 191, 196);
+    word-wrap: break-word;
+    -webkit-box-shadow: rgba(0, 0, 0, 0.45) 0 1px 3px;
+    background: rgb(246, 247, 249) url(/images/backgrounds/075_NotificationCenter_h32bit_1x90.png) repeat-x 0 bottom;
+}
+
+.tundra .dijitTooltipAbove .dijitTooltipConnector {
+	background: url(/images/sprites/tooltipIcons.png) no-repeat 0 0;
+}
+
+.tundra .dijitTooltipBelow .dijitTooltipConnector {
+	background: url(/images/sprites/tooltipIcons.png) no-repeat 0 -16px;
+}
+
+.tundra .dijitTooltipLeft .dijitTooltipConnector {
+	background: url(/images/sprites/tooltipIcons.png) no-repeat 0 -32px;
+}
+
+.tundra .dijitTooltipRight .dijitTooltipConnector {
+	background: url(/images/sprites/tooltipIcons.png) no-repeat 0 -48px;
+}
+
+.tundra .dijitTooltipAbove.citrixTooltip .dijitTooltipConnector {
+	background: url(/images/sprites/tooltipIcons.png) no-repeat 0 -64px;
+    bottom: 2px;
+}
+
+.tundra .dijitTooltipBelow.citrixTooltip .dijitTooltipConnector {
+	background: url(/images/sprites/tooltipIcons.png) no-repeat 0 -80px;
+}
+
+.tundra .dijitTooltipLeft.citrixTooltip .dijitTooltipConnector {
+	background: url(/images/sprites/tooltipIcons.png) no-repeat 0 -96px;
+}
+
+.tundra .dijitTooltipRight.citrixTooltip .dijitTooltipConnector {
+	background: url(/images/sprites/tooltipIcons.png) no-repeat 0 -112px;
+}

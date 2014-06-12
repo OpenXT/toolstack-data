@@ -1,0 +1,232 @@
+.tundra .citrixTabWrapper {
+    position: absolute;
+    width: 190px;
+    border-width: 10px;
+    -webkit-border-image: url(/images/borders/system_panel.png) 10 repeat;
+}
+
+.tundra .citrixTabWrapper.dijitFocused {
+    -webkit-border-image: url(/images/borders/system_panel_focus.png) 10 repeat;
+}
+
+.tundra .citrixTabContainerLeft-tabs {
+    left: -7px !important;
+    position: relative !important;
+    overflow: visible !important;
+    height: auto !important;
+}
+
+.tundra .citrixTabPaneWrapper {
+	border: none;
+	margin: 0;
+	padding: 5px;
+    font-size: 13px;
+}
+
+.tundra .citrixTab {
+    cursor: pointer;
+    line-height: 30px;
+    width: 202px;
+    padding: 1px 1px 0;
+    border-width: 1px 0;
+    -webkit-border-image: url(/images/borders/h_separator.png) 0 0 1 0 stretch;
+}
+
+.tundra .citrixTab:last-child {
+    border-width: 1px 0 0 0;
+}
+
+/* hovered tab */
+.tundra .citrixTabHover {
+    background: url(/images/dialog_panel/highlight_mid.png) no-repeat 1px 0;
+    opacity: 0.5;
+}
+
+/* selected */
+.tundra .citrixTabChecked {
+    background: url(/images/dialog_panel/highlight_mid.png) no-repeat 1px 0;
+    font-weight: bold;
+}
+
+.tundra .citrixTabInner {
+	padding: 0 18px;
+}
+
+.tundra .citrixTab .tabLabel {
+	display: inline-block;
+    font-size: 14px;
+}
+
+.tundra .citrixTabSpacer {
+    width: 20px;
+}
+
+.tundra .citrixDialogPaneContent h1 {
+    font-size: 13px;
+    line-height: 29px;
+    font-weight: normal;
+    padding: 0;
+    color: rgb(23, 123, 173);
+    margin: 0;
+}
+
+.tundra .citrixDialogPaneContent p {
+    font-size: 12px;
+    line-height: 14px;
+    margin: 8px 0;
+}
+
+.tundra .citrixTabPaneColumn {
+    border: 0;
+    margin: 0;
+    padding: 0;
+}
+
+.tundra .citrixTabPaneColumn.single {
+    clear: both;
+}
+
+.tundra .citrixTabPaneHR {
+    clear: both;
+}
+
+.tundra .citrixTabPaneField {
+    display: table-row;
+    height: 35px;
+    font-size: 13px;
+}
+
+.tundra .citrixTabPaneField.spacer {
+    height: 20px;
+}
+
+.tundra .citrixTabPaneField .value,
+.tundra .citrixTabPaneField .valueContainer {
+    margin-top: 3px;
+    display: inline-block;
+    word-wrap: break-word;
+}
+
+.tundra .citrixTabPaneField .value {
+    white-space: pre-wrap;
+}
+
+.tundra .citrixTabPaneField .value.textArea {
+    overflow-y: auto;
+    width: 333px;
+    height: 91px;
+}
+
+.tundra .citrixTabPaneField .dijitButton {
+    margin: 0 10px;
+}
+
+.tundra .citrixTabPaneField .citrixProgressBar {
+    width: 200px;
+}
+
+.tundra .citrixTabPaneField.radio {
+    height: 30px;
+}
+
+.tundra .citrixTabPaneField.radioInfo {
+    height: auto;
+}
+
+.tundra .citrixTabPaneField.radioInfo label {
+    padding-left: 21px;
+    padding-bottom: 2px;
+    font-size: 12px;
+}
+
+.tundra .citrixTabPaneField.radio .dijitRadio,
+.tundra .citrixTabPaneField.radio .dijitCheckBox {
+    padding-top: 5px;
+}
+
+.tundra .citrixTabPaneField.radio label.inline {
+    display: inline-block;
+    padding-left: 5px;
+}
+
+.tundra .citrixTabPaneField label {
+    display: table-cell;
+    vertical-align: top;
+    color: #666;
+    padding: 3px 15px 0 15px;
+    min-width: 90px;
+}
+
+.tundra .citrixTabPaneField.radio label {
+    border-right: 15px solid white;
+    border-bottom: 8px solid white;
+}
+
+.tundra .citrixTabPaneField .grey {
+    color: rgb(142, 142, 142);
+}
+
+.tundra .citrixTabPaneField .editTip {
+    padding-left: 10px;
+}
+
+.tundra .citrixTabPaneField.radio .editTip {
+    padding-left: 21px;
+    max-width: 450px;
+}
+
+.tundra .citrixTabPaneField.radio .specalPony {
+    margin: 0 2px 10px 21px;
+}
+
+.tundra .citrixTabPaneField .instruction {
+    padding: 5px 0 20px;
+    max-width: 330px;
+}
+
+.tundra .citrix.dijitTextBox {
+	width: 335px !important;
+}
+
+.tundra .citrix.dijitSelect {
+	width: 250px !important;
+}
+
+.tundra .citrix.dijitSelect .dijitSelectLabel {
+    max-width: 230px;
+    overflow: hidden;
+    padding-bottom: 1px;
+}
+
+.tundra .citrix.dijitTextArea {
+    width: 330px !important;
+    height: 90px;
+}
+
+.tundra .citrix.dijitSpinner {
+	width: 65px !important;
+}
+
+.tundra .citrix.dijitSpinner.longNumber {
+  width: 200px !important;
+}
+
+.tundra .dijitContentPane {
+    overflow: hidden;
+}
+
+.tundra .citrixTabPaneColumn.double {
+    float: left;
+    width: 50%;
+}
+
+.tundra .citrixTabPaneColumn.double .value {
+}
+
+.tundra .citrixTabPaneColumn.double .citrix.dijitTextBox,
+.tundra .citrixTabPaneColumn.double .citrix.dijitTextArea,
+.tundra .citrixTabPaneColumn.double .citrix.dijitSelect {
+}
+
+.tundra .citrixTabPaneColumn.double .citrix.dijitSelect .dijitSelectLabel {
+}
