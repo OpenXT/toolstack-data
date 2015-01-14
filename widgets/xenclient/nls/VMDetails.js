@@ -174,7 +174,7 @@
     DELETE_VM_STATUS: "You can only delete a virtual machine when its state is off or hibernated",
     FORCE_UPDATE: "Error force updating the VM",
     USB_DISABLED: "Unable to add a device as device management has been disabled for this VM",
-    USB_HOST_DISABLED: "Device management restricted by system policy",
+    USB_HOST_DISABLED: "Unable to add a device as device management has been disabled",
     LOADING: "Loading...",
     DISKS: "Disks",
     DISK_TH: "Disk",
