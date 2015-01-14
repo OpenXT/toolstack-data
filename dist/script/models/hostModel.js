@@ -60,6 +60,7 @@ XenClient.UI.HostModel = function() {
     this.policy_update = true; // Hide OTA URL stuffs
     this.policy_modify_settings = true; // Hide platform settings
     this.policy_modify_services = true; // Hide platform services button
+    this.policy_modify_usb_settings = true; // Disable USB settings
     this.policy_modify_vm_advanced = true; // Hide all VM advanced tabs
     this.policy_screen_lock = true; // Disable setting screen lock details
     this.configure_reboot_save = false;
@@ -159,6 +160,7 @@ XenClient.UI.HostModel = function() {
         ["supported_languages",                 interfaces.ui],
         ["policy_modify_settings",              interfaces.ui,      "modify-settings"],
         ["policy_modify_services",              interfaces.ui,      "modify-services"],
+        ["policy_modify_usb_settings",          interfaces.ui,      "modify-usb-settings"],
         ["policy_modify_vm_advanced",           interfaces.ui,      "modify-advanced-vm-settings"],
         ["available_isos",                      interfaces.host.list_isos],
         ["available_gpus",                      interfaces.host.list_gpu_devices],
