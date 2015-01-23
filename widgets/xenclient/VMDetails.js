@@ -345,11 +345,13 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
     },
 
     _descendantAction: function(action) {
-        dojo.forEach(this.getDescendants(), function(widget){
+        dojo.forEach(this.getDescendants(), dojo.hitch(this, function(widget){
             if(widget[action] && typeof(widget[action]) == "function") {
-                widget[action]();
+                if(widget.name != "connectedDevices" || this.vm.canAddDevice()){
+                    widget[action]();
+                }
             }
-        });
+        }));
     },
 
     _bindDijit: function() {
@@ -401,6 +403,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
         this._setDisplay(this.deleteAction, this.vm.deleteVisible());
         this._setEnabled(".nicButton", this.vm.canEditNics());
         this._setEnabled(".diskButton", this.vm.canEditDisk());
+        this._setEnabled(".usbButton", this.vm.canAddDevice());
         this._setEnabled(".pci", this.vm.canModifyPCI());
     },
 
@@ -555,7 +558,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
     },
 
     _updateTooltips: function() {
-        this.addAction.domNode.title = !this.vm.usb_enabled ? this.USB_DISABLED : (this.vm.canAddDevice()) ? "" : this.ADD_DEVICE_STATUS;
+        this.addAction.domNode.title = !this.vm.usb_enabled ? this.USB_DISABLED : (this.vm.canAddDevice()) ? "" : this.vm.getState() != XenConstants.VMStates.VM_RUNNING || !this.vm.tools_installed ? this.ADD_DEVICE_STATUS : this.USB_HOST_DISABLED;
         this.deleteAction.domNode.title = (this.vm.canDelete()) ? "" : this.DELETE_VM_STATUS;
     },
 

@@ -921,7 +921,7 @@ XenClient.UI.VMModel = function(vm_path) {
     };
 
     this.canAddDevice = function() {
-        if (!self.usb_enabled || self.getState() != XenConstants.VMStates.VM_RUNNING) {
+        if (!self.usb_enabled || self.getState() != XenConstants.VMStates.VM_RUNNING || !XUICache.Host.policy_modify_usb_settings) {
             return false;
         }
         if (self.hosting_type == XenConstants.VMTypes.ICA) {
