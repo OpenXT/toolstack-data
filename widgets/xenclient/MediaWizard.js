@@ -168,7 +168,7 @@ return declare("citrix.xenclient.MediaWizard", [_wizard], {
             list.push({
                 "label": this[mask].format(network.backend, network.name),
                 "value": network.path
-            });           
+            });
         }, this);
 
         this._setDisplay(".wired", false);
@@ -176,7 +176,7 @@ return declare("citrix.xenclient.MediaWizard", [_wizard], {
             wiredSelectList.unshift({
                 "label": this.NETWORK_NONE,
                 "value": ""
-            }); 
+            });
             this._setDisplay(".wired.some", true);
             this.wiredNetwork.set("options", wiredSelectList);
             this.wiredNetwork.set("value", defaultWired != "" ? defaultWired : wiredSelectList[0].value);
@@ -189,7 +189,7 @@ return declare("citrix.xenclient.MediaWizard", [_wizard], {
             wirelessSelectList.unshift({
                 "label": this.NETWORK_NONE,
                 "value": ""
-            }); 
+            });
             this._setDisplay(".wireless.some", true);
             this.wirelessNetwork.set("options", wirelessSelectList);
             this.wirelessNetwork.set("value", defaultWireless != "" ? defaultWireless : wirelessSelectList[0].value);
@@ -214,7 +214,7 @@ return declare("citrix.xenclient.MediaWizard", [_wizard], {
             }
             return { "label": iso, "value": iso, "disabled": toolsIso };
         }, this);
-        
+
         this.isos.set("options", isoMap);
         if (assignableISOs) this.isos.set("value", selectedIso);
         // Show ISO selection if we have found more than just the tools ISO
@@ -229,7 +229,7 @@ return declare("citrix.xenclient.MediaWizard", [_wizard], {
                 return true;
             }
         }, this);
-          
+
         // Hide dropdown
         this._setDisplay(this.cds, false);
         // Show the CD control if we can assign a CD

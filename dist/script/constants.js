@@ -299,7 +299,7 @@ XenClient.Resource.TopicTypes = {
     UI_VMS_LOADED           : "vmsloaded",
     UI_VMSTATE_CHANGED      : "vmstatechanged",
     UI_VMSLOT_CHANGED       : "vmslotchanged",
-    UI_VMNAME_CHANGED       : "vmnamechanged", 
+    UI_VMNAME_CHANGED       : "vmnamechanged",
 
     // UI NDVM Topics
     UI_NDVM_CREATED         : "ndvmcreated",
