@@ -56,7 +56,7 @@ XenClient.UI.Cache = (function() {
     var loadNDVM = function(ndvm_path, success, error) {
         var ndvm = new XenClient.UI.NDVMModel(ndvm_path);
         ndvm.include_networks = true;
-        XUICache.NDVMs[ndvm.ndvm_path] = ndvm;        
+        XUICache.NDVMs[ndvm.ndvm_path] = ndvm;
         ndvm.load(onAddNDVM.extend(success), error);
     };
     var loadNDVMs = function() {
@@ -150,7 +150,7 @@ XenClient.UI.Cache = (function() {
                                 }
                                 break;
                         }
-                        break;                    
+                        break;
                     case "com.citrix.xenclient.networkdaemon.notify":
                         switch(member) {
                             case "network_added":

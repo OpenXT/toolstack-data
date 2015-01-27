@@ -2,15 +2,15 @@
 Namespace("XenClient.UI");
 
 XenClient.UI.Debug = (function() {
-    
+
     function isConsoleEnabled() {
         return typeof (console) != "undefined";
     }
-    
+
     var logId = 0;
 
     return {
-        
+
         debug: function() {
             if (XUtils.debug() === true) {
                 this.log.apply(this, arguments);

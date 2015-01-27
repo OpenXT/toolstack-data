@@ -27,6 +27,6 @@ return declare("citrix.xenclient.AudioSelect", [select], {
             this.inherited(arguments);
         }
     }
-    
+
 });
 });

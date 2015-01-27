@@ -14,7 +14,7 @@ Function.prototype.getHashCode = (function() {
 })();
 
 // Build chains of functions.
-// e.g. 
+// e.g.
 //   a.extend(b);
 //   a(); // calls a; calls b after a returns
 Function.prototype.extend = function(fn) {
@@ -90,15 +90,15 @@ HTMLImageElement.prototype.greyScale = function(src) {
     var imgGrey = new Image();
     imgGrey.onload = function() {
         canvas.width = imgGrey.width;
-        canvas.height = imgGrey.height; 
-        context.drawImage(imgGrey, 0, 0); 
+        canvas.height = imgGrey.height;
+        context.drawImage(imgGrey, 0, 0);
         var pixels = context.getImageData(0, 0, canvas.width, canvas.height);
         for(var y = 0; y < pixels.height; y++) {
             for(var x = 0; x < pixels.width; x++) {
                 var i = (y * 4) * pixels.width + x * 4;
                 var average = (pixels.data[i] + pixels.data[i + 1] + pixels.data[i + 2]) / 3;
-                pixels.data[i] = average; 
-                pixels.data[i + 1] = average; 
+                pixels.data[i] = average;
+                pixels.data[i + 1] = average;
                 pixels.data[i + 2] = average;
             }
         }
@@ -180,7 +180,7 @@ XenClient.Utils = {
                 if (sheets[sheetIndex].cssRules || sheets[sheetIndex].rules) {
                     thisSheetRules = (sheets[sheetIndex].cssRules) ? //->>> http://www.quirksmode.org/dom/w3c_css.html
 					sheets[sheetIndex].cssRules : //w3
-					sheets[sheetIndex].rules; //ie 
+					sheets[sheetIndex].rules; //ie
                     var ruleIndex = thisSheetRules.length;
                     while (ruleIndex--) {
                         if (thisSheetRules[ruleIndex].style && thisSheetRules[ruleIndex].style.cssText) {
