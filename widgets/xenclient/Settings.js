@@ -324,7 +324,15 @@ return declare("citrix.xenclient.Settings", [dialog, _boundContainerMixin, _citr
                 var typeString = store.getValue(item, "type").toUpperCase();
                 var labelMask = this["AUDIO_MASK_" + typeString];
                 var wrap = domConstruct.create("div", { className: "citrixTabPaneField" }, this.audioFieldsWrap);
-                var labelNode = domConstruct.create("label", { innerHTML: labelMask.format(store.getValue(item, "name")) }, wrap);
+                
+                var vmName = store.getValue(item, "name");
+                
+                // Replace VM domid names
+                if(!!vmName.match(/(vm-\d+)/g)){
+                    var tmpVM = this.host.getVMByDomId(vmName.replace("vm-", ""));
+                    vmName = tmpVM ? tmpVM.name + " (Ctrl + " + tmpVM.slot + ")" : vmName;
+                }
+                var labelNode = domConstruct.create("label", { innerHTML: labelMask.format(vmName) }, wrap);
                 var span = domConstruct.create("span", null, wrap);
                 var bindingName = "audioControls.{0}.value".format(store.getValue(item, "id"));
                 switch(typeString) {
