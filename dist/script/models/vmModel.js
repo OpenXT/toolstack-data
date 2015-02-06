@@ -11,6 +11,7 @@ XenClient.UI.VMModel = function(vm_path) {
     this.publish_topic = vm_path;
     this.vm_path = vm_path;
     this.uuid = "";
+    this.domid = "";
     this.hosting_type = XenConstants.VMTypes.NORMAL;
     this.name = "";
     this.description = "";
@@ -101,6 +102,7 @@ XenClient.UI.VMModel = function(vm_path) {
     // Mappings
     var readOnlyMap = [
         ["uuid",                                interfaces.vm],
+        ["domid",                               interfaces.vm],
         ["hidden_in_ui",                        interfaces.vm],
         ["vmtype",                              interfaces.vm,                          "type"],
         ["state",                               interfaces.vm],
@@ -1130,3 +1132,4 @@ XenClient.UI.VMMiniModel = function(vm_path) {
         return !this.hidden_in_ui && !["svm", "pvm"].contains(this.type);
     };
 };
+
