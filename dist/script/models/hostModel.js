@@ -890,4 +890,14 @@ XenClient.UI.HostModel = function() {
             return 0;
         });
     };
+    
+    this.getVMByDomId = function(domId){
+        // Retrieve a vmModel by its "domid" from XUICache
+        // returns undefined if none found
+        for (var i in XUICache.VMs){
+            if(XUICache.VMs[i].domid == domId){
+                return XUICache.VMs[i];
+            }
+        }
+    }
 };
