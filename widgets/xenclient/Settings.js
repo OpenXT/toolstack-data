@@ -331,7 +331,7 @@ return declare("citrix.xenclient.Settings", [dialog, _boundContainerMixin, _citr
                 if(!!vmName.match(/(vm-\d+)/g)){
                     // Replace VM domid names if they exist
                     var tmpVM = this.host.getVMByDomIdName(vmName);
-                    vmName = tmpVM ? this.AUDIO_VM_LABEL.format(tmpVM.name, tmpVM.slot) : vmName;
+                    vmName = tmpVM ? tmpVM.name : vmName;
                 }
                 var labelNode = domConstruct.create("label", { innerHTML: labelMask.format(vmName) }, wrap);
                 var span = domConstruct.create("span", null, wrap);

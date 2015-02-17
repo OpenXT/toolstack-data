@@ -95,7 +95,6 @@
     AUDIO_MASK_VS: "{0} (%)",
     AUDIO_MASK_SW: "{0}",
     AUDIO_MASK_EN: "{0}",
-    AUDIO_VM_LABEL: "{0} (Ctrl + {1})",
     AUDIO_CHANGED: "Audio changes will not apply to running VMs until they are restarted.",
     DRM_CHANGED: "DRM plugin changes will not take effect until the host has been rebooted.\n\nIf 'Measured Launch' is enabled, this will also require a reseal.",
     LANGUAGE_WARNING: "The language setting has been changed and the user interface needs to restart.",
