@@ -539,6 +539,7 @@ XenClient.UI.VMModel = function(vm_path) {
     this.start = function() {
         self.background_start(function(){
             self.switchTo();
+            self.refresh();
         });
     };
 
