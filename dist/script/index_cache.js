@@ -308,6 +308,10 @@ XenClient.UI.Cache = (function() {
                         break;
                     case "com.citrix.xenclient.usbdaemon":
                         switch(member) {
+                            case "optical_device_detected":
+                                XUICache.Host.refresh();
+                                setTimeout(function() { XUICache.Host.refresh();}, 10);
+                                break;
                             case "devices_changed":
                             case "device_info_changed":
                                 XUICache.Host.refresh();
