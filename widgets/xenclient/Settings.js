@@ -47,6 +47,7 @@ return declare("citrix.xenclient.Settings", [dialog, _boundContainerMixin, _citr
     postCreate: function() {
         this.inherited(arguments);
         this.startup();
+        this._startupWidgets = null;
         this.tabContainer.closeChild(this.vmModeContainer); // XC-8538 temporarily hide native experience
         this.connect(this.tabContainer.tablist, "onSelectChild", "_onTabChange");
         this.subscribe(XUICache.Host.publish_topic, this._messageHandler);
