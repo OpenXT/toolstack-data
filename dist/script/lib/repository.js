@@ -214,6 +214,11 @@ XenClient.UI.Repository = function(model, readOnlyMap, readWriteMap, refreshIgno
                 fail(property);
             } else {
                 model[property] = value;
+                //Required to properly notify the UI when to update
+                //to show a newly plugged in USB CD Drive
+                if (property == "available_cds") {
+                    publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
+                }
                 publish(XenConstants.TopicTypes.MODEL_PROPERTY_CHANGED, property);
             }
         });

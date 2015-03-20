@@ -310,7 +310,6 @@ XenClient.UI.Cache = (function() {
                         switch(member) {
                             case "optical_device_detected":
                                 XUICache.Host.refresh();
-                                setTimeout(function() { XUICache.Host.refresh();}, 10);
                                 break;
                             case "devices_changed":
                             case "device_info_changed":
