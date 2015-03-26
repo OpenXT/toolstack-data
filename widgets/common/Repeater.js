@@ -102,6 +102,7 @@ return declare("citrix.common.Repeater", [_widget, _boundContainerMixin, _editab
         dojo.forEach(this._connectHandles, function(handle) {
             dojo.disconnect(handle);
         });
+        this._connectHandles = [];
         this.containerNode.innerHTML = "";
         this.optionWidgets = {};
     },

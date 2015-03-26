@@ -9,9 +9,11 @@ return declare("citrix.common._BoundContainerMixin", null, {
     _getPrefix: "get_",
     _setPrefix: "set_",
     _handles: [],
+    _secondaryHandles: [],
 
     constructor: function() {
         this._handles = [];
+        this._secondaryHandles = [];
     },
 
     postCreate: function() {
@@ -184,6 +186,13 @@ return declare("citrix.common._BoundContainerMixin", null, {
     _setupSave: function(/*Array | undefined*/ widgets) {
         if(this.saveButton) {
             var self = this;
+
+            if (this._secondaryHandles.length > 0 && widgets){
+                dojo.forEach(this._secondaryHandles, dojo.disconnect);
+                this._secondaryHandles = [];
+            }
+            var handles = widgets ? this._secondaryHandles : this._handles;
+
             var onChange = function(newValue) {
                 // 'this' is the widget context
                 // self._binding == false because we don't want undefined to equate to false
@@ -216,10 +225,10 @@ return declare("citrix.common._BoundContainerMixin", null, {
                     if(widget._handleOnChange) {
                         // context needs to be null/not specified so it carries through whatever context the function already has
                         // this is important for getting this to work correctly for bound widgets within a Repeater
-                        this._handles.push(dojo.connect(widget, "_handleOnChange", onChange));
+                        handles.push(dojo.connect(widget, "_handleOnChange", onChange));
                     }
                     if(widget.onKeyUp) {
-                        this._handles.push(dojo.connect(widget, "onKeyUp", widget, onKeyUp));
+                        handles.push(dojo.connect(widget, "onKeyUp", widget, onKeyUp));
                     }
                 }
             }, this);
@@ -252,6 +261,9 @@ return declare("citrix.common._BoundContainerMixin", null, {
 
     uninitialize: function() {
         dojo.forEach(this._handles, dojo.disconnect);
+        dojo.forEach(this._secondaryHandles, dojo.disconnect);
+        this._handles = [];
+        this._secondaryHandles = [];
     }
 });
 });

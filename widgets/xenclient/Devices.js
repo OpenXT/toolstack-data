@@ -33,6 +33,7 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
     postCreate: function() {
         this.inherited(arguments);
         this.startup();
+        this._startupWidgets = null;
         this.subscribe(XUICache.Host.publish_topic, this._messageHandler);
         this.subscribe(XUtils.publishTopic, this._messageHandler);
         this._bindDijit();
