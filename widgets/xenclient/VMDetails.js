@@ -436,7 +436,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
         var isoMap = {};
         isoMap[this.NONE] = "";
         dojo.forEach(XUICache.Host.available_isos, function(iso) {
-            isoMap[(XUICache.Host.available_isos.length == 1) ? this.TOOLS_CD : iso] = iso;
+            isoMap[(iso.indexOf(XenConstants.Defaults.TOOLS_ISO)>-1) ? this.TOOLS_CD : iso] = iso;
         }, this);
 
         this.isos.set("map", isoMap);
