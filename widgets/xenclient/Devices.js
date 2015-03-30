@@ -20,6 +20,11 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
 
     templateString: template,
     widgetsInTemplate: true,
+    ///PART OF TEMPORARY FIX
+    ///ref OXT-116: https://openxt.atlassian.net/browse/OXT-116
+    ///Fix can be removed after rewrite/modification of vusb daemon
+    _userChanged: false,
+    ///END PART OF TEMPORARY FIX
 
     constructor: function(args) {
         this.host = XUICache.Host;
@@ -74,7 +79,7 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
                             vm = XUICache.VMs[path];
                             if (vm.isRunning()) {
                                 usbCDAssigned = true;
-                            }                            
+                            }
                         }
                     }
 
@@ -106,7 +111,7 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
 
             }));
         });
-        
+
         if (forcedDevices.length > 0) {
             // Confirm stealing device from another VM
             var message = this.DEVICE_FORCE_REASSIGN.format(forcedDevices.join("<br/>"));
@@ -126,7 +131,7 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
     },
 
     _bindDijit: function() {
-        this._setupMaps();        
+        this._setupMaps();
         this.bind(this.host);
         this._onCDChange();
         this._onUSBChange();
@@ -162,10 +167,36 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
         }, this);
     },
 
+    ///TEMPORARY FIX
+    ///ref OXT-116: https://openxt.atlassian.net/browse/OXT-116
+    ///Fix can be removed after rewrite/modification of vusb daemon
+    _onUSBAssignmentChange: function() {
+        //Including original function so we don't break anything
+        this._onUSBChange();
+
+        //Save if the dialog is open and the user initiated the value change
+        if (this.open && this._userChanged){
+            this._userChanged = false;
+            this.save();
+        }
+    },
+    ///END TEMPORARY FIX
+
     _onUSBChange: function() {
         dojo.forEach(XUICache.Host.get_usbDevices(), function(usb) {
             this._setControls(usb.dev_id, "usb");
-        }, this);        
+        }, this);
+    },
+
+    // The next two functions are necessary to see if
+    // the select box value is being user changed or
+    // programatically changed
+    _setUserChanged: function() {
+        this._userChanged = true;
+    },
+
+    _unsetUserChanged: function() {
+        this._userChanged = false;
     },
 
     _setControls: function(deviceID, prefix) {
@@ -186,13 +217,13 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
                 this._setEnabled(check, false);
                 this._setEnabled(select, false);
             }
-        } 
+        }
         if (name) {
             if (prefix == "usb" && !this.host.policy_modify_usb_settings){
                 this._setEnabled(name, false);
             }
         }
-         
+
     },
 
     _messageHandler: function(message) {
@@ -208,7 +239,7 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
             case XenConstants.TopicTypes.UI_VMNAME_CHANGED: {
                 this._setupMaps();
                 break;
-            }            
+            }
         }
     }
 });
