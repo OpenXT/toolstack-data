@@ -1,6 +1,7 @@
 define([
     "dojo",
     "dojo/_base/declare",
+    "dijit/registry",
     // Resources
     "dojo/i18n!citrix/xenclient/nls/VMDetails",
     "dojo/i18n!citrix/xenclient/nls/VM",
@@ -22,6 +23,7 @@ define([
     "citrix/common/BoundWidget",
     "dojo/dom-construct",
     "dojo/NodeList-traverse",
+    "dijit/WidgetSet",
     // Required in template
     "citrix/common/ImageButton",
     "citrix/common/TabContainer",
@@ -37,12 +39,14 @@ define([
     "citrix/common/ProgressBar",
     "citrix/common/CheckBox"
 ],
-function(dojo, declare, vmDetailsNls, vmNls, template, dialog, _boundContainerMixin, _editableMixin, _citrixTooltipMixin, addNic, addDisk, connectDevice, connectPCI, restoreSnapshot, itemFileReadStore, editableWidget, label, boundWidget, domConstruct) {
+function(dojo, declare, registry, vmDetailsNls, vmNls, template, dialog, _boundContainerMixin, _editableMixin, _citrixTooltipMixin, addNic, addDisk, connectDevice, connectPCI, restoreSnapshot, itemFileReadStore, editableWidget, label, boundWidget, domConstruct) {
 return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _editableMixin, _citrixTooltipMixin], {
 
 	templateString: template,
     widgetsInTemplate: true,
     destroyOnHide: true,
+    _handles: [],
+    _connectHandles: [],
 
     constructor: function(args) {
         this.path = args.path;
@@ -61,10 +65,11 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
     postCreate: function() {
         this.inherited(arguments);
         this.startup();
-        this.subscribe(XUtils.publishTopic, this._messageHandler);
-        this.subscribe(this.vm.publish_topic, this._messageHandler);
-        this.subscribe(XUICache.Host.publish_topic, this._messageHandler);
-        this.subscribe("com.citrix.xenclient.xenmgr", this._messageHandler);
+        this._startupWidgets = null;
+        this._handles.push(this.subscribe(XUtils.publishTopic, this._messageHandler));
+        this._handles.push(this.subscribe(this.vm.publish_topic, this._messageHandler));
+        this._handles.push(this.subscribe(XUICache.Host.publish_topic, this._messageHandler));
+        this._handles.push(this.subscribe("com.citrix.xenclient.xenmgr", this._messageHandler));
         this._createCustomFields();
         this._bindDijit();
         if (this.vm.policy_modify_vm) {
@@ -75,7 +80,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
         } else {
             this.image_path.set("source", this.host.available_vmimages);
         }
-        this.connect(dojo.doc, "onblur", this._onBlur);
+        this._connectHandles.push(this.connect(dojo.doc, "onblur", this._onBlur));
     },
 
     edit: function() {
@@ -84,6 +89,25 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
         this._updateButtons();
         this.refreshResources();
 	},
+
+    destroyRecursive: function() {
+        dojo.forEach(this._handles, function(handle){
+            dojo.unsubscribe(handle);
+        });
+        this._handles.length = 0 ;
+
+        console.log(this._connectHandles.length);
+        dojo.forEach(this._connectHandles, function(handle){
+            dojo.disconnect(handle);
+        });
+        this._connectHandles.length = 0;
+
+        dojo.forEach(this.getDescendants(this.containerNode), function(widget){
+            widget.destroy(false);
+        });
+
+        this.inherited(arguments);
+    },
 
     save: function() {
         this.inherited(arguments);
