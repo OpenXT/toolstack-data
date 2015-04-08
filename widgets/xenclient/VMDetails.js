@@ -307,7 +307,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
     onRestoreSnapshot: function(event) {
         var path = this._getDeviceID(event.target);
         var popup = new restoreSnapshot({ vm_path: this.vm.vm_path, disk_path: path });
-        popup.show();        
+        popup.show();
     },
 
     onAudioChange: function(value) {
@@ -390,7 +390,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
             this._setDisplay(this[action + "Action"], allowedActions.contains(action));
             this._setEnabled(this[action + "Action"], !this.vm.powerClicked);
         }, this);
-        
+
         if(!this.vm.isUserVM()) {
             this._setDisplay(".userVmOnly", false);
             this._setEnabled(".userVmOnlyDisable", false);
@@ -623,6 +623,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
             case XenConstants.TopicTypes.MODEL_DISK_USAGE_CHANGED: {
                 this.bind(this.vm, this.diskTab.domNode);
                 this.bindTooltips();
+                this._setEnabled(".diskButton", this.vm.canEditDisk());
                 break;
             }
             case XenConstants.TopicTypes.MODEL_NIC_CHANGED: {
