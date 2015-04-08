@@ -86,7 +86,11 @@ return declare("citrix.xenclient.MediaWizard", [_wizard], {
                 // Initial properties for created VM
                 vm.vcpus = result.vcpus;
                 vm.memory = result.memory;
-                vm.cd = (result.autoStart == "iso") ? result.iso : XenConstants.Defaults.TOOLS_ISO;
+                var hasToolsISO = dojo.some(XUICache.Host.available_isos, function(iso) {
+                    return iso == XenConstants.Defaults.TOOLS_ISO;
+                }, this);
+                var toolsISO = hasToolsISO ? XenConstants.Defaults.TOOLS_ISO : "";
+                vm.cd = (result.autoStart == "iso") ? result.iso : toolsISO;
                 vm.boot = (result.autoStart == "network") ? "cn" : "cd";
 
                 var save = function() {
