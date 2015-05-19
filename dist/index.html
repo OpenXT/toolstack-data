@@ -26,6 +26,32 @@
             // extraLocale: ['de-de', 'en-us', 'es-es', 'fr-fr', 'ja-jp', 'zh-cn'],
             packages: [{name: "plugins", location: "../../plugins"}]
         };
+
+        //Only allow KeyUp event to continue if a KeyDown event fired first
+        //Otherwise, capture the KeyUp event and stop propagation
+        var keyIsDown = false;
+
+        document.onkeydown = function(e) {
+            e = e || window.event;
+            if (e.keyCode == dojo.keys.SPACE || e.keyCode == dojo.keys.ENTER){
+                keyIsDown = true;
+            }
+        };
+
+        _onKeyUp = function(e) {
+            e = e || window.event;
+            if (e.keyCode == dojo.keys.SPACE || e.keyCode == dojo.keys.ENTER){
+                if (!keyIsDown){
+                    e.stopImmediatePropagation();
+                } else {
+                    keyIsDown = false;
+                }
+            }
+        };
+
+        //capture events on the document level and fire our KeyUp handler
+        document.addEventListener("keyup", _onKeyUp, true);
+
     </script>
 
     <script type="text/javascript" src="lib/dojo/dojo.js"></script>
