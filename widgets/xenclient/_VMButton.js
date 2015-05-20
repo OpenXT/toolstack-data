@@ -13,13 +13,14 @@ return declare("citrix.xenclient._VMButton", [_widget, _templated, _contained, _
     widgetsInTemplate: true,
     _focusCounter: 0,
     _focusThreshold: 3,
+    _keyDown: false,
 
     postCreate: function() {
         this.containerNode.setAttribute("role", "button");
 		if(!this.containerNode.getAttribute("tabIndex")){
 			this.containerNode.setAttribute("tabIndex", 0);
 		}
-        this.on("keyup", this._onKeyPress);
+        this.on("keydown", this._onKeyPress);
         this.inherited(arguments);
     },
 
@@ -50,9 +51,20 @@ return declare("citrix.xenclient._VMButton", [_widget, _templated, _contained, _
     },
 
     _onKeyPress: function(event){
-        if (event.keyCode == dojo.keys.SPACE || event.keyCode == dojo.keys.ENTER) {
-            this.activate(event);
+        //only start listening for keyup after key down
+        if (!this.keyDown){
+            var signal = this.on("keyup", function() {
+                if (event.keyCode == dojo.keys.SPACE || event.keyCode == dojo.keys.ENTER) {
+                    this.activate(event);
+                }
+
+                this.keyDown = false;
+                //remove the listener so we need to get another
+                //keydown first
+                signal.remove();
+            });
         }
+        this.keyDown = true;
     }
 });
 });
