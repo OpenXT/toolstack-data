@@ -16,6 +16,7 @@ define([
     "citrix/xenclient/AddDisk",
     "citrix/xenclient/ConnectDevice",
     "citrix/xenclient/ConnectPCI",
+    "citrix/xenclient/DisplayPCI",
     "citrix/xenclient/RestoreSnapshot",
     "citrix/common/ItemFileReadStore",
     "citrix/common/EditableWidget",
@@ -39,7 +40,7 @@ define([
     "citrix/common/ProgressBar",
     "citrix/common/CheckBox"
 ],
-function(dojo, declare, registry, vmDetailsNls, vmNls, template, dialog, _boundContainerMixin, _editableMixin, _citrixTooltipMixin, addNic, addDisk, connectDevice, connectPCI, restoreSnapshot, itemFileReadStore, editableWidget, label, boundWidget, domConstruct) {
+function(dojo, declare, registry, vmDetailsNls, vmNls, template, dialog, _boundContainerMixin, _editableMixin, _citrixTooltipMixin, addNic, addDisk, connectDevice, connectPCI, displayPCI, restoreSnapshot, itemFileReadStore, editableWidget, label, boundWidget, domConstruct) {
 return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _editableMixin, _citrixTooltipMixin], {
 
 	templateString: template,
@@ -340,6 +341,24 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
             this.audioRecordingNode.set("value", value);
         }
     },
+
+    onThreeDChange: function(addr) {
+        // find all devices on the same bus
+        var devicesOnGPUBus = this.vm.getPCIDevices().filter(function(device){
+            return device.addr != addr && //difference address than gpu itself
+                   parseInt(device.addr.split(":")[1]) == parseInt(addr.split(":")[1]);
+            })         
+        if (addr && this.value.gpu != addr && devicesOnGPUBus.length){
+            var popup = new displayPCI({
+                path: this.vm.vm_path, 
+                devicesOnGPUBus: devicesOnGPUBus,
+                cancelCallback: dojo.hitch(this, function(){
+                    this.threed.set('value', this.vm.gpu);
+                })
+            });     
+            popup.show();
+         }      
+    },  
 
     onPciAdd: function() {
         var popup = new connectPCI({ path: this.vm.vm_path });
