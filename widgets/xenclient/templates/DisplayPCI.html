@@ -1,0 +1,27 @@
+<div class="citrixDialog alertDialog" dojoAttachPoint="containerNode" tabindex="-1" waiRole="dialog" waiState="labelledby-${id}_title">
+	<div class="citrixDialogTitleBar">
+        <span dojoAttachPoint="titleNode" class="citrixDialogTitle" id="${id}_title"></span>
+        <span dojoAttachPoint="closeButtonNode" class="citrixDialogCloseIcon" dojoAttachEvent="onclick: onCancel">
+            <span dojoAttachPoint="closeText"></span>
+        </span>
+	</div>
+    <div class="citrixDialogPaneContent">
+        <div class="left alertIcon alertIconLarge alertIconWarning"></div>
+        <div class="alertMessage" >${DEVICE_PROMPT}</div>
+        <ul class="connectDevice" dojoType="citrix.common.Repeater"  name="devicesOnGPUBus" uniqueId="addr" >
+            <li template deviceId="%addr%">
+                <div class="device" templateType="citrix.common.BoundWidget" binding="disabled"  >
+                    <div class="deviceItem deviceName" templateType="citrix.common.BoundWidget" bind="name"></div>
+                    <div class="deviceItem" templateType="citrix.common.BoundWidget" bind="info" mask="${PCI_INFO}"></div>
+                </div>
+            </li>
+            <li empty class="noDevices"></li>
+        </ul>
+    </div>
+    <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
+        <span class="citrixDialogFooter right">
+            <button dojoAttachPoint="continueButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onExecute">${DISPLAY_ACTION}</button>
+            <button dojoAttachPoint="closeButton" dojoType="citrix.common.Button" class="citrixDialogItemRight" dojoAttachEvent="onClick: onCancel">${DISPLAY_CANCEL}</button>
+        </span>
+    </div>
+</div>

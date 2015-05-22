@@ -74,7 +74,7 @@
                     </div>
                     <div class="citrixTabPaneField userVmOnly">
                         <label dojoType="citrix.common.Label" dojoAttachPoint="threedLabel" for="gpu" title="${HDX_TOOLTIP}">${THREED_GFX}</label>
-                        <span class="value userVmOnlyDisable" dojoAttachPoint="threed" dojoType="citrix.common.EditableWidget" editor="citrix.common.Select" name="gpu"></span>
+                        <span class="value userVmOnlyDisable" dojoAttachPoint="threed" dojoAttachEvent="onChange: onThreeDChange" dojoType="citrix.common.EditableWidget" editor="citrix.common.Select" name="gpu"></span>
                     </div>
                     <div class="citrixTabPaneField">
                         <label for="cd">${VIRTUAL_CD}</label>
