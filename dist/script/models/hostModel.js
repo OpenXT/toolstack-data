@@ -104,7 +104,7 @@ XenClient.UI.HostModel = function() {
         surfman:    new XenClient.DBus.SurfmanClient("com.citrix.xenclient.surfman", "/"),
         network:    new XenClient.DBus.NetworkDaemonClient("com.citrix.xenclient.networkdaemon", "/"),
         usb:        new XenClient.DBus.CtxusbDaemonClient("com.citrix.xenclient.usbdaemon", "/"),
-        upower:     new XenClient.DBus.OrgFreedesktopUpowerClient("org.freedesktop.UPower", "/org/freedesktop/UPower")
+        xcpmd:      new XenClient.DBus.XcpmdClient("com.citrix.xenclient.xcpmd", "/")
     };
 
     // Interfaces
@@ -119,7 +119,7 @@ XenClient.UI.HostModel = function() {
         input:      services.input.com.citrix.xenclient.input,
         surfman:    services.surfman.com.citrix.xenclient.surfman,
         network:    services.network.com.citrix.xenclient.networkdaemon,
-        upower:     services.upower.org.freedesktop.UPower,
+        xcpmd:      services.xcpmd.com.citrix.xenclient.xcpmd,
         usb:        services.usb.com.citrix.xenclient.usbdaemon
     };
 
@@ -332,7 +332,7 @@ XenClient.UI.HostModel = function() {
     this.createVhd = interfaces.manager.create_vhd;
     this.increaseBrightness = interfaces.surfman.increase_brightness;
     this.decreaseBrightness = interfaces.surfman.decrease_brightness;
-    this.listPowerDevices = interfaces.upower.EnumerateDevices;
+    this.listPowerDevices = interfaces.xcpmd.battery_is_present;
     this.listNDVMs = interfaces.network.list_backends;
     this.showStatusReport = interfaces.diag.status_report_screen;
     this.createStatusReport = interfaces.diag.create_status_report;
@@ -971,7 +971,7 @@ XenClient.UI.HostModel = function() {
             return 0;
         });
     };
-    
+
     this.getVMByDomId = function(domId){
         // Retrieve a vmModel by its "domid" from XUICache
         // returns undefined if none found
@@ -981,7 +981,7 @@ XenClient.UI.HostModel = function() {
             }
         }
     }
-    
+
     this.getVMByDomIdName = function(domIdName){
         // Retrieve a VM's name by its "vm-<domid>" name from XUICache
         // returns undefined if nonefound
