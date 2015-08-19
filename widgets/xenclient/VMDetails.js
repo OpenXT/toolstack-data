@@ -346,7 +346,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
         // find all devices on the same bus
         var devicesOnGPUBus = this.vm.getPCIDevices().filter(function(device){
             return device.addr != addr && //difference address than gpu itself
-                   parseInt(device.addr.split(":")[1]) == parseInt(addr.split(":")[1]);
+                   device.addr.split(":")[1] == addr.split(":")[1];
             })         
         if (!!addr &&                               // assigning new address 
             typeof this.value.gpu != "undefined" && // is undefined when vm is running 
