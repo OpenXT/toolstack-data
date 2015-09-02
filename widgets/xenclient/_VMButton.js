@@ -52,19 +52,19 @@ return declare("citrix.xenclient._VMButton", [_widget, _templated, _contained, _
 
     _onKeyPress: function(event){
         //only start listening for keyup after key down
-        if (!this.keyDown){
+        if (!this._keyDown){
             var signal = this.on("keyup", function() {
                 if (event.keyCode == dojo.keys.SPACE || event.keyCode == dojo.keys.ENTER) {
                     this.activate(event);
                 }
 
-                this.keyDown = false;
+                this._keyDown = false;
                 //remove the listener so we need to get another
                 //keydown first
                 signal.remove();
             });
         }
-        this.keyDown = true;
+        this._keyDown = true;
     }
 });
 });
