@@ -56,7 +56,7 @@ XenClient.UI.Cache = (function() {
     var loadNDVM = function(ndvm_path, success, error) {
         var ndvm = new XenClient.UI.NDVMModel(ndvm_path);
         ndvm.include_networks = true;
-        XUICache.NDVMs[ndvm.ndvm_path] = ndvm;        
+        XUICache.NDVMs[ndvm.ndvm_path] = ndvm;
         ndvm.load(onAddNDVM.extend(success), error);
     };
     var loadNDVMs = function() {
@@ -77,35 +77,40 @@ XenClient.UI.Cache = (function() {
             wait.finish();
         }, error);
     };
-    var loadBattery = function(device_path, success, error) {
-        var device = new XenClient.UI.PowerModel(device_path);
-        device.load(function() {
-            if(device.isBattery()) {
-                var battery = new XenClient.UI.BatteryModel(device_path);
-                XUICache.Batteries[battery.device_path] = battery;
-                battery.load(success, error);
-            } else if(success) {
-                success();
-            }
-        }, error);
-    };
-    var loadBatteries = function() {
-        var error = function(error) {
-            XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
-        };
 
-        XUICache.Host.listPowerDevices(function(device_paths) {
-            var wait = new XUtils.AsyncWait(function() {
-                XUtils.publish(XenConstants.TopicTypes.UI_BATTERIES_LOADED);
-            }, error);
-            dojo.forEach(device_paths, function(device_path) {
-                if (device_path) {
-                    loadBattery(device_path, wait.addCallback(), wait.error);
-                }
-            });
+    var loadBatteries = function() {
+        var batteries = [0, 1];
+        var error = function(error) {
+          XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
+        };
+        
+        var wait = new XenClient.Utils.AsyncWait(function() {
+            //  XUICache.Batteries[bat_num].refresh();
+              XUtils.publish(XenConstants.TopicTypes.UI_BATTERIES_LOADED);
+              });
+
+        dojo.forEach(batteries,function(bat_num){
+         XUICache.Host.listPowerDevices(parseInt(bat_num),
+             wait.addCallback(
+           function(exists){
+    
+              if (exists) {
+                var battery = new XenClient.UI.BatteryModel(bat_num);
+                XUICache.Batteries[bat_num] = battery;
+                XUICache.Batteries[bat_num].refresh();
+              }
+            }
+          , 
+          wait.error
+          ),
+            wait.error
+              );
+    
             wait.finish();
-        }, error);
-    };
+    
+          });
+    }
+
     var allVMPaths = function() {
         var all = [];
         for(var path in XUICache.VMs) {
@@ -136,21 +141,34 @@ XenClient.UI.Cache = (function() {
                 "com.citrix.xenclient.status_tool",
                 "com.citrix.xenclient.networkdaemon.notify",
                 "com.citrix.xenclient.networkdomain.notify",
-                "org.freedesktop.UPower.Device"
+                "com.citrix.xenclient.xcpmd"
             ],
             function (interface, member, object, params) {
                 var path, vm;
                 switch(interface) {
-                    case "org.freedesktop.UPower.Device":
+                    case "com.citrix.xenclient.xcpmd":
                         switch(member) {
-                            case "Changed":
-                                var device = XUICache.Batteries[object];
-                                if (device) {
-                                    device.refresh();
+                           case "battery_status_changed":
+                                for(var i=0;i<1;i++)
+                                {
+                                   var device = XUICache.Batteries[i];
+                                   if (device && device.present) {
+                                       device.refresh();
+                                   }
                                 }
                                 break;
+                                case "ac_adapter_state_changed":
+                                for(var i=0;i<1;i++)
+                                {
+                                   var device = XUICache.Batteries[i];
+                                   if (device && device.present) {
+                                       device.refresh();
+                                   }
+                                }
+                                break;
+
                         }
-                        break;                    
+                        break;
                     case "com.citrix.xenclient.networkdaemon.notify":
                         switch(member) {
                             case "network_added":

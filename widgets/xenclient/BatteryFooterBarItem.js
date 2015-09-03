@@ -10,7 +10,7 @@ function(dojo, declare, nls, footerBarItem) {
 return declare("citrix.xenclient.BatteryFooterBarItem", [footerBarItem], {
 
     constructor: function(args) {
-        this.battery = XUICache.Batteries[args.path];
+        this.battery = XUICache.Batteries[args.num];
     },
 
     postMixInProperties: function() {
@@ -53,7 +53,6 @@ return declare("citrix.xenclient.BatteryFooterBarItem", [footerBarItem], {
         this.set("iconClass", iconClass);
         this.set("label", percent + "%");
         this._setDisplay(this.focusNode, present);
-
         switch(this.battery.state) {
             case 0: {
                 break;

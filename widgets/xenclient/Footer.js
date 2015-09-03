@@ -48,11 +48,22 @@ return declare("citrix.xenclient.Footer", [_layoutWidget, _templated, _citrixWid
     },
 
     _addBatteries: function() {
-        for(var device_path in XUICache.Batteries) {
-            if(XUICache.Batteries.hasOwnProperty(device_path)) {
-                this.addChild(new battery({ path: device_path }));
-            }
-        }
+        var self = this;
+        var batteries = [0, 1];
+
+        var error = function(error) {
+          XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
+        };
+
+        var wait = new XenClient.Utils.AsyncWait(function(){});
+        dojo.forEach(batteries,function(bat_num){
+            XUICache.Host.listPowerDevices(parseInt(bat_num),
+               wait.addCallback(function(exists){
+                 if (exists) {
+                  self.addChild(new battery({num: bat_num}))
+                 }
+               }), error);
+         });
     },
 
     _messageHandler: function(message) {
@@ -60,7 +71,7 @@ return declare("citrix.xenclient.Footer", [_layoutWidget, _templated, _citrixWid
             case XenConstants.TopicTypes.UI_BATTERIES_LOADED: {
                 this._addBatteries();
                 break;
-            } 
+            }
             case XenConstants.TopicTypes.MODEL_CHANGED: {
                 this._bindDijit();
                 break;

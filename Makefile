@@ -39,8 +39,7 @@ IDLS=	xenmgr.xml \
 	network.xml \
 	network_daemon.xml \
 	network_domain.xml \
-	org_freedesktop_upower.xml \
-	org_freedesktop_upower_device.xml
+    xcpmd.xml
 
 JS_SRC=$(shell find widgets -type f -print )
 DIST_SRC=$(shell find dist -type f -print )
