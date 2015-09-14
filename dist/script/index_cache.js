@@ -56,7 +56,7 @@ XenClient.UI.Cache = (function() {
     var loadNDVM = function(ndvm_path, success, error) {
         var ndvm = new XenClient.UI.NDVMModel(ndvm_path);
         ndvm.include_networks = true;
-        XUICache.NDVMs[ndvm.ndvm_path] = ndvm;        
+        XUICache.NDVMs[ndvm.ndvm_path] = ndvm;
         ndvm.load(onAddNDVM.extend(success), error);
     };
     var loadNDVMs = function() {
@@ -77,35 +77,76 @@ XenClient.UI.Cache = (function() {
             wait.finish();
         }, error);
     };
-    var loadBattery = function(device_path, success, error) {
-        var device = new XenClient.UI.PowerModel(device_path);
-        device.load(function() {
-            if(device.isBattery()) {
-                var battery = new XenClient.UI.BatteryModel(device_path);
-                XUICache.Batteries[battery.device_path] = battery;
-                battery.load(success, error);
-            } else if(success) {
-                success();
-            }
-        }, error);
-    };
-    var loadBatteries = function() {
-        var error = function(error) {
-            XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
-        };
 
-        XUICache.Host.listPowerDevices(function(device_paths) {
-            var wait = new XUtils.AsyncWait(function() {
-                XUtils.publish(XenConstants.TopicTypes.UI_BATTERIES_LOADED);
-            }, error);
-            dojo.forEach(device_paths, function(device_path) {
-                if (device_path) {
-                    loadBattery(device_path, wait.addCallback(), wait.error);
-                }
-            });
-            wait.finish();
-        }, error);
+    var loadBatteries = function() {
+        var wait = new XenClient.Utils.AsyncWait(function() {
+            //  XUICache.Batteries[bat_num].refresh();
+              XUtils.publish(XenConstants.TopicTypes.UI_BATTERIES_LOADED);
+              });
+
+       var error = function(error) {
+          XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
+        };
+ 
+        XUICache.Host.listBatteries(wait.addCallback(
+           function(available_batteries){
+    
+              if (available_batteries) {
+                  // clear the XUICache.Batteries object and repopulate
+                XUICache.Batteries = []; 
+                XUICache.Host.available_batteries = available_batteries;
+                var arraynum=0;
+                
+                  dojo.forEach(available_batteries,function(bat_num){
+                   var battery = new XenClient.UI.BatteryModel(bat_num);
+                    XUICache.Batteries[arraynum] = battery;
+                   arraynum++;
+                  });
+                  var displaybatt = "block";
+                  if(arraynum>0)
+                  {
+                     refreshBatteries();
+                  }
+                  else
+                  {// no batteries, remove the icon from the footer
+                    displaybatt = "none";
+                  }
+                 var el = document.getElementById( 'citrix_xenclient_BatteryFooterBarItem_0' );
+                 if(el!=undefined)
+                 {
+                    el.style.display = displaybatt;
+                 }
+             }
+            }
+          , 
+          wait.error
+          ),
+            wait.error
+        );
+
+   };
+
+    var refreshBatteries = function(){
+        // refresh the batteries in reverse order to make sure the higher batteries are refreshed
+        // before the final (first) battery that's displayed is updated
+         var bat_count = -1;
+         for(var index in XUICache.Batteries)
+         {
+            if(XUICache.Batteries.hasOwnProperty(index))
+            {
+                bat_count++;
+            }    
+         }
+         for(var i=bat_count; i>-1;i--)
+         {
+           var device = XUICache.Batteries[i];
+           if (device && device.present) {
+               device.refresh();
+           }
+        }
+        XUtils.publish(XenConstants.TopicTypes.MODEL_CHANGED);
     };
+
     var allVMPaths = function() {
         var all = [];
         for(var path in XUICache.VMs) {
@@ -136,21 +177,29 @@ XenClient.UI.Cache = (function() {
                 "com.citrix.xenclient.status_tool",
                 "com.citrix.xenclient.networkdaemon.notify",
                 "com.citrix.xenclient.networkdomain.notify",
-                "org.freedesktop.UPower.Device"
+                "com.citrix.xenclient.xcpmd"
             ],
             function (interface, member, object, params) {
                 var path, vm;
                 switch(interface) {
-                    case "org.freedesktop.UPower.Device":
+                    case "com.citrix.xenclient.xcpmd":
                         switch(member) {
-                            case "Changed":
-                                var device = XUICache.Batteries[object];
-                                if (device) {
-                                    device.refresh();
-                                }
-                                break;
+                           case "battery_status_changed":
+                               refreshBatteries();    
+                               break;
+                            case "battery_info_changed": // batteries added or removed
+                            // tell the Footer to redraw
+                            // clear the Battery array first to avoid problems with attempting to update now non-existent batteries
+                               XUICache.Batteries = []; 
+                               loadBatteries();
+                               break;
+     
+                            case "ac_adapter_state_changed":
+                               refreshBatteries();
+                               break;
+
                         }
-                        break;                    
+                        break;
                     case "com.citrix.xenclient.networkdaemon.notify":
                         switch(member) {
                             case "network_added":
@@ -392,6 +441,9 @@ XenClient.UI.Cache = (function() {
         },
         onAddVM: function(func) {
             onAddVM = onAddVM.extend(func);
+        },
+        getBatteries: function() {
+            return loadBatteries;
         },
         onAddNDVM: function(func) {
             onAddNDVM = onAddNDVM.extend(func);
