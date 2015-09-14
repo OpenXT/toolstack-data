@@ -20,6 +20,10 @@
     BATTERY_CHARGING: "{0} hour(s) {1} minute(s) until full",
     BATTERY_CHARGED: "Fully charged",
     BATTERY_DISCHARGING: "{0} hour(s) {1} minute(s) until empty",
+    BATTERY_MSG1: "% available (charging) ",
+    BATTERY_MSG2: " (plugged in) ",
+    BATTERY_PCT_CHARGED: "% - Fully charged ",
+    BATTERY_PCT_REMAINING: "% remaining ",
     // Errors
     MAX_VMS: "You cannot have more than 9 virtual machines installed."
 })
