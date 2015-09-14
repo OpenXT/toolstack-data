@@ -1,56 +1,170 @@
 // Power device model
 Namespace("XenClient.UI");
 
-XenClient.UI.BatteryModel = function(device_path) {
+XenClient.UI.BatteryModel = function(bat_num) {
 
-    // Private stuffs
     var self = this;
 
     // Properties & Defaults
-    this.device_path = device_path;
-    this.publish_topic = device_path;
-    this.present = false;
+    this.bat_num = bat_num;
+    this.bat_index = XUICache.Host.available_batteries.indexOf(this.bat_num);
+    //publish topic has to be a string
+    this.publish_topic =XenConstants.TopicTypes.UI_BATTERIES_LOADED;//
+    this.present = true;
     this.state = 0; // 0: Unknown, 1: Charging, 2: Discharging, 3: Empty, 4: Fully charged, 5: Pending charge, 6: Pending discharge
-    this.percent = 0;
     this.timetoempty = 0; // Seconds, 0: Unknown
     this.timetofull = 0; // Seconds, 0: Unknown
-
+    this.percent = 0;
+    this.adapter_state = 0;
     // Services
     var services = {
-        upower:     new XenClient.DBus.OrgFreedesktopUpowerDeviceClient("org.freedesktop.UPower", device_path)
+        xcpmd:      new XenClient.DBus.XcpmdClient("com.citrix.xenclient.xcpmd", "/")
     };
 
     // Interfaces
     var interfaces = {
-        upower:     services.upower.org.freedesktop.UPower.Device
+        xcpmd:      services.xcpmd.com.citrix.xenclient.xcpmd
     };
 
-    // Mappings
-    var readOnlyMap = [
-        ["present",     interfaces.upower, "IsPresent"],
-        ["state",       interfaces.upower, "State"],
-        ["percent",     interfaces.upower, "Percentage"],
-        ["timetoempty", interfaces.upower, "TimeToEmpty"],
-        ["timetofull",  interfaces.upower, "TimeToFull"]
-    ];
-
-    // Repository
-    var repository = new XenClient.UI.Repository(this, readOnlyMap);
-
+    //private stuffs
     function fail(error) {
         self.publish(XenConstants.TopicTypes.MODEL_FAILURE, error);
     }
+
+    // Mappings
+    var readOnlyMap = [
+        ["present",     interfaces.xcpmd, "battery_is_present"],
+        ["state",       interfaces.xcpmd, "battery_state"],
+        ["percent",     interfaces.xcpmd, "battery_percentage"],
+        ["timetoempty", interfaces.xcpmd, "battery_time_to_empty"],
+        ["timetofull",  interfaces.xcpmd, "battery_time_to_full"]
+    ];
+
+      this._updatePresent= function(interfaces, error) {
+      interfaces.xcpmd.battery_is_present(this.bat_num,
+       dojo.hitch(this, function(present){
+        if (present == 0 || !!present) {
+          this.present = present;
+          if(this.bat_index>-1)
+          {
+              XUICache.Batteries[this.bat_index].present=present;
+          }
+         
+        }
+
+      }), error);
+    }
+
+    this._updatePercent= function(interfaces, error) {
+      interfaces.xcpmd.battery_percentage(this.bat_num,
+      dojo.hitch(this, function(percent){
+        if (percent == 0 || !!percent) {
+          this.percent = percent;
+           if(this.bat_index>-1)
+           {
+             XUICache.Batteries[this.bat_index].percent=percent;
+             self.publish(XenConstants.TopicTypes.MODEL_CHANGED);
+           } 
+         
+        }
+
+      }), error);
+    }
+
+   this._updateState= function(interfaces, error) {
+      interfaces.xcpmd.battery_state(this.bat_num,
+       dojo.hitch(this, function(newState){
+        if (newState == 0 || !!newState) {
+          this.state = newState;
+          if(this.bat_index>-1)
+          {
+             XUICache.Batteries[this.bat_index].state=newState;
+          }
+          
+        }
+      }), error);
+    }
+
+    this._updateTimeToEmpty= function(interfaces, error) {
+      interfaces.xcpmd.battery_time_to_empty(this.bat_num,
+       dojo.hitch(this, function(tToEmpty){
+        if (tToEmpty == 0 || !!tToEmpty) {
+          this.timetoempty = tToEmpty;
+          if(this.bat_index>-1)
+          {
+            XUICache.Batteries[this.bat_index].timetoempty=tToEmpty;
+          }
+          
+        }
+      }), error);
+    }
+
+    this._updateTimeToFull= function(interfaces, error) {
+      interfaces.xcpmd.battery_time_to_full(this.bat_num,
+       dojo.hitch(this, function(tToFull){
+        if (tToFull == 0 || !!tToFull) {
+          this.timetofull = tToFull;
+          if(this.bat_index>-1)
+          {
+              XUICache.Batteries[this.bat_index].timetofull=tToFull;
+          }
+          
+        }
+      }), error);
+    }
+
+   this._updateAdapterStatus= function(interfaces, error) {
+      interfaces.xcpmd.get_ac_adapter_state(
+       dojo.hitch(this, function(acState){
+        if (acState == 0 || !!acState) {
+          this.adapter_state = acState;
+          if(this.bat_index>-1)
+          {
+                XUICache.Batteries[this.bat_index].adapter_state=acState;
+                self.publish(XenConstants.TopicTypes.MODEL_CHANGED);
+          }
+          
+        }
+      }), error);
+    }
+
+
+   this._updateBattery= function() {
+      this.bat_index = XUICache.Host.available_batteries.indexOf(this.bat_num);
+
+      var error = function(error) {
+          XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
+      };
+      var self=this;
+
+      this._updatePresent(interfaces, error);
+      this._updateState(interfaces, error);
+      this._updatePercent(interfaces,error);
+      this._updateTimeToFull(interfaces, error);
+      this._updateTimeToEmpty(interfaces, error);
+      this._updateAdapterStatus(interfaces, error);
+
+    }
+
+
+ // Repository
+ //   var repository = new XenClient.UI.Repository(this, readOnlyMap);
 
     // Public stuffs
     this.publish = function(type, data) {
         dojo.publish(self.publish_topic, [{ type: type, data: data }]);
     };
 
-    this.load = repository.load;
-    this.refresh = repository.refresh;
+    this.load =this._updateBattery;
+    this.refresh = this._updateBattery;
+ 
 
     this.isCharging = function() {
         return (this.state == 1);
+    };
+
+    this.isPlugged = function() {
+        return (this.adapter_state == 1);
     };
 
     this.getPercent = function() {
@@ -71,6 +185,10 @@ XenClient.UI.BatteryModel = function(device_path) {
 
         return [hours, minutes];
     };
+
+    this.getState = function() {
+      return this.state;
+    };
 };
 
 // Used to encapsulate code for checking if it's a power source the UI should be interested in
@@ -87,17 +205,17 @@ XenClient.UI.PowerModel = function(device_path) {
 
     // Services
     var services = {
-        upower:     new XenClient.DBus.OrgFreedesktopUpowerDeviceClient("org.freedesktop.UPower", device_path)
+        xcpmd:      new XenClient.DBus.XcpmdClient("com.citrix.xenclient.xcpmd", "/")
     };
 
     // Interfaces
     var interfaces = {
-        upower:     services.upower.org.freedesktop.UPower.Device
+        xcpmd:      services.xcpmd.com.citrix.xenclient.xcpmd
     };
 
     // Mappings
     var readOnlyMap = [
-        ["type",    interfaces.upower, "Type"]
+        ["type",    interfaces.xcpmd, "battery_type"]
     ];
 
     // Repository
@@ -112,7 +230,7 @@ XenClient.UI.PowerModel = function(device_path) {
         dojo.publish(self.publish_topic, [{ type: type, data: data }]);
     };
 
-    this.load = repository.load;
+    this.load = function(){};// null function to act as placeholder // repository.load;
 
     this.isBattery = function() {
         return (this.type == 2);

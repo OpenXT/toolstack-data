@@ -17,10 +17,9 @@ define([
 ],
 function(dojo, declare, frameNls, template, _layoutWidget, _templated, _citrixWidget, battery) {
 return declare("citrix.xenclient.Footer", [_layoutWidget, _templated, _citrixWidget], {
-
-	templateString: template,
+  	templateString: template,
     widgetsInTemplate: true,
-
+    created: false,
     postMixInProperties: function() {
         dojo.mixin(this, frameNls);
         this.inherited(arguments);
@@ -48,19 +47,37 @@ return declare("citrix.xenclient.Footer", [_layoutWidget, _templated, _citrixWid
     },
 
     _addBatteries: function() {
-        for(var device_path in XUICache.Batteries) {
-            if(XUICache.Batteries.hasOwnProperty(device_path)) {
-                this.addChild(new battery({ path: device_path }));
-            }
-        }
+        var self = this;
+        var batteries = XUICache.Host.available_batteries; //[0, 1];
+
+        var error = function(error) {
+          XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
+        };
+        var wait = new XenClient.Utils.AsyncWait(function(){});
+        dojo.forEach(batteries,function(bat_num){
+           XUICache.Host.listPowerDevices(parseInt(bat_num),
+              wait.addCallback(function(exists){
+                if (exists) {
+                    if(!this.created)
+                    {
+                        var bat_index =XUICache.Host.available_batteries.indexOf(bat_num);
+                        self.addChild(new battery({num: bat_index}));
+                        this.created = true;// don't add another battery icon to the bar
+                    }
+                }
+               }), error);
+         });
     },
 
     _messageHandler: function(message) {
         switch(message.type) {
             case XenConstants.TopicTypes.UI_BATTERIES_LOADED: {
-                this._addBatteries();
+                if(!this.created)
+                {
+                    this._addBatteries();
+                }
                 break;
-            } 
+            }
             case XenConstants.TopicTypes.MODEL_CHANGED: {
                 this._bindDijit();
                 break;
