@@ -63,7 +63,7 @@ XenClient.UI.BatteryModel = function(bat_num) {
            if(this.bat_index>-1)
            {
              XUICache.Batteries[this.bat_index].percent=percent;
-             self.publish(XenConstants.TopicTypes.MODEL_CHANGED);
+             self.publish(XenConstants.TopicTypes.UI_BATTERIES_CHANGED);
            } 
          
         }
@@ -121,7 +121,7 @@ XenClient.UI.BatteryModel = function(bat_num) {
           if(this.bat_index>-1)
           {
                 XUICache.Batteries[this.bat_index].adapter_state=acState;
-                self.publish(XenConstants.TopicTypes.MODEL_CHANGED);
+                self.publish(XenConstants.TopicTypes.UI_BATTERIES_CHANGED);
           }
           
         }
