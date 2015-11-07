@@ -68,7 +68,7 @@ return declare("citrix.xenclient.AddNic", [dialog, _boundContainerMixin], {
             }
             return false;
         }, this);
-        this.vm.addNetwork(this._network_path, wireless, function() {
+        this.vm.addNetwork(this._network_path, wireless, true, function() {
             XUtils.publish(XenConstants.TopicTypes.UI_HIDE_WAIT);
         }, function(error) {
             XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);

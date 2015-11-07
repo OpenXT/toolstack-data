@@ -344,16 +344,21 @@ XenClient.UI.VMModel = function(vm_path) {
         return networks;
     };
 
-    this.addNetwork = function(network_path, wireless, success, failure) {
+    this.addNetwork = function(network_path, wireless, refresh, success, failure) {
         interfaces.vm.add_nic(function(nic_path) {
             var nic = new XenClient.UI.VMNicModel(nic_path);
             nic.load(function() {
                 nic.save({"network_path": network_path, "wireless": wireless}, function() {
-                    self.refreshNics(nic_path, success, failure);
+                    if(refresh) {
+                        self.refreshNics(nic_path, success, failure);
+                    } else {
+                        success();
+                    }
                 }, failure);
             }, failure);
         }, failure);
     };
+
 
     this.refreshNics = function(nic_path, success, failure) {
         function refreshNic(path, finish) {
