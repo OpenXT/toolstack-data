@@ -309,6 +309,7 @@ XenClient.Resource.TopicTypes = {
 
     // Battery Topics
     UI_BATTERIES_LOADED     : "batteriesloaded",
+    UI_BATTERIES_CHANGED    : "batterieschanged",
     BATTERY_CRITICAL        : "batterycritical"
 };
 

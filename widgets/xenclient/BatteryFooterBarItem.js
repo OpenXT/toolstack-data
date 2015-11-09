@@ -183,6 +183,11 @@ return declare("citrix.xenclient.BatteryFooterBarItem", [footerBarItem], {
                 this._bindDijit();
                 break;
             }
+           case XenConstants.TopicTypes.UI_BATTERIES_CHANGED: {
+                this._bindDijit();
+                break;
+            }
+                                                               //UI_BATTERIES_CHANGED
 
         }
     }
