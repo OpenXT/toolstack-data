@@ -676,6 +676,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
             case XenConstants.TopicTypes.MODEL_NIC_CHANGED: {
                 this.bind(this.vm, this.nicTab.domNode);
                 this.bindTooltips();
+                this._setEnabled(".nicButton", this.vm.canEditNics());
                 break;
             }
             case XenConstants.TopicTypes.MODEL_USB_CHANGED: {
