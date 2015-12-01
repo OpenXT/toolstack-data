@@ -67,24 +67,7 @@ return declare("citrix.xenclient.ConnectDevice", [dialog, _boundContainerMixin],
             XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
         };
 
-        ///TEMPORARY FIX
-        ///ref OXT-116: https://openxt.atlassian.net/browse/OXT-116
-        ///Fix can be removed after rewrite/modification of vusb daemon fixes
-        ///race condition.
-
-        var complete = function(reassign) {
-            if(reassign){
-                for(var dev in vm.usbDevices){
-                    //vm.usbDevices is an object
-                    if (vm.usbDevices.hasOwnProperty(dev)){
-                        //newly reassigned usb device
-                        //is the device with the hightest ID
-                        if (dev > usb.dev_id){
-                            usb.dev_id = dev;
-                        }
-                    }
-                }
-            }
+        var complete = function() {
             vm.assignUsbDevice(usb.dev_id, function() {
                 if (always) {
                     vm.setUsbDeviceSticky(usb.dev_id, true, undefined, onError);
@@ -92,7 +75,7 @@ return declare("citrix.xenclient.ConnectDevice", [dialog, _boundContainerMixin],
             }, onError);
         };
 
-        //We need to explicitly remove the USB during reassign
+       //We need to explicitly remove the USB during reassign
         var removeThenComplete = function() {
             //get vm the device is assigned to
             assignedUuid = usb.assigned_uuid;
@@ -100,12 +83,20 @@ return declare("citrix.xenclient.ConnectDevice", [dialog, _boundContainerMixin],
                 var curVM = XUICache.getVM(XUtils.uuidToPath(assignedUuid));
                 curVM.unassignUsbDevice(usb.dev_id, function(){
                     //Success
-                    //Give some time for the device to be removed
-                    var interval = setInterval(function() {
+                    var interval = setInterval(function(){
                         clearInterval(interval);
-                        complete(true);
-                    }, 2000);
-                }, function(error) {
+                        XUICache.Host.refreshUsb(function(){
+                            var newID=0; // highest ID will be the new ID
+                            for(var i in XUICache.Host.usbDevices)
+                            {
+                                if(i>newID) newID=i;
+                            };
+                            usb.dev_id = newID;
+                            complete();
+                         })
+                        }, 2000);
+
+                    }, function(error) {
                     //error
                     XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
                 });
@@ -120,26 +111,6 @@ return declare("citrix.xenclient.ConnectDevice", [dialog, _boundContainerMixin],
         } else {
             complete();
         }
-        ///END TEMPORARY FIX
-
-        ///ORIGINAL CODE, REPLACE TEMPORARY FIX WITH THIS
-        ///WHEN PERMENANT FIX COMPLETE
-        /*var complete = function() {
-            vm.assignUsbDevice(usb.dev_id, function() {
-                if (always) {
-                    vm.setUsbDeviceSticky(usb.dev_id, true, undefined, onError);
-                }
-            }, onError);
-        };
-
-        if (usb.assignedToOtherVM()) {
-            // Confirm stealing device from another VM
-            var message = (usb.state == 2) ? this.USB_FORCE_REASSIGN : this.USB_REASSIGN;
-            XUICache.messageBox.showConfirmation(message, complete);
-        } else {
-            complete();
-        }*/
-        ///END ORIGINAL CODE
 
         this.inherited(arguments);
     },
