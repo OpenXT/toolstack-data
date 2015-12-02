@@ -57,9 +57,7 @@
                         <span templateType="citrix.common.ValidationTextBox" id="usb_name_%dev_id%" bind="name" maxLength="60" required="true" regExpObject="XenConstants.Regex.USB_NAME" invalidMessage="${NAME_VALERROR}"></span>
                     </td>
                     <td>
-                    <!-- PART OF TEMPORARY FIX, SEE _setUserChanged in ../Devices.js -->
-                        <select class="citrix" templateType="citrix.common.Select" id="usb_select_%dev_id%" optionsKey="usbVMList" bind="assigned_uuid" dojoAttachEvent="onChange: _onUSBAssignmentChange, onFocus: _setUserChanged, onBlur: _unsetUserChanged" ></select>
-                    <!-- END TEMPORARY FIX -->
+                        <select class="citrix" templateType="citrix.common.Select" id="usb_select_%dev_id%" optionsKey="usbVMList" bind="assigned_uuid" dojoAttachEvent="onChange: _onUSBChange"></select>
                     </td>
                     <td class="noWrap" colspan="2">
                         <span templateType="citrix.common.CheckBox" id="usb_check_%dev_id%" bind="getSticky" dojoAttachEvent="onChange: _onUSBChange"></span>

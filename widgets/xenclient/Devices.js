@@ -20,11 +20,6 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
 
     templateString: template,
     widgetsInTemplate: true,
-    ///PART OF TEMPORARY FIX
-    ///ref OXT-116: https://openxt.atlassian.net/browse/OXT-116
-    ///Fix can be removed after rewrite/modification of vusb daemon
-    _userChanged: false,
-    ///END PART OF TEMPORARY FIX
 
     constructor: function(args) {
         this.host = XUICache.Host;
@@ -54,7 +49,6 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
         var forcedDevices = [];
         var usbCDAssigned = false;
         var values = this.unbind();
-
         dojo.forEach(XUICache.Host.available_cds, function(cdrom) {
             dojo.some(values.cdromDevices, function(device) {
                 // Find the matching device
@@ -103,7 +97,11 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
 
         var complete = dojo.hitch(this, function complete() {
             this.saveValues(this.host, values, dojo.hitch(this, function() {
-                XUICache.Host.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
+                // refresh the host which will send MODEL_USB_CHANGED 
+                //but wait first, so that unassigned items show up properly, using this method as it blocks the thread.
+                var ms = 2000 + new Date().getTime();
+                while(new Date() < ms){}
+                this.host.refresh(); 
 
                 if (usbCDAssigned) {
                     XUICache.messageBox.showInformation(this.ASSIGNED_USB_CD);
@@ -167,36 +165,10 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
         }, this);
     },
 
-    ///TEMPORARY FIX
-    ///ref OXT-116: https://openxt.atlassian.net/browse/OXT-116
-    ///Fix can be removed after rewrite/modification of vusb daemon
-    _onUSBAssignmentChange: function() {
-        //Including original function so we don't break anything
-        this._onUSBChange();
-
-        //Save if the dialog is open and the user initiated the value change
-        if (this.open && this._userChanged){
-            this._userChanged = false;
-            this.save();
-        }
-    },
-    ///END TEMPORARY FIX
-
     _onUSBChange: function() {
         dojo.forEach(XUICache.Host.get_usbDevices(), function(usb) {
             this._setControls(usb.dev_id, "usb");
         }, this);
-    },
-
-    // The next two functions are necessary to see if
-    // the select box value is being user changed or
-    // programatically changed
-    _setUserChanged: function() {
-        this._userChanged = true;
-    },
-
-    _unsetUserChanged: function() {
-        this._userChanged = false;
     },
 
     _setControls: function(deviceID, prefix) {
