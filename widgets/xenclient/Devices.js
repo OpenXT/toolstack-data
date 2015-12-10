@@ -99,14 +99,30 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
                     forcedDevices.push(this.ASSIGNED_USB.format(device.name, vm.name));
                 }
             }
+            // clear the disabled dropdown
+            if(this._userChanged)
+            {
+                var select = dijit.byId("usb_select_" + usb.dev_id);
+                this._setEnabled(select, false);
+                this._userChanged = false;
+            }
+
         }, this);
 
         var complete = dojo.hitch(this, function complete() {
             this.saveValues(this.host, values, dojo.hitch(this, function() {
-                XUICache.Host.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
+                // refresh the host which will send MODEL_USB_CHANGED
+                // but wait first, so that unassigned items show up properly,
+                // using this method as it does not block the thread.
+                var interval = setInterval(dojo.hitch(this, function(){
+                     clearInterval(interval);
+                     this.host.refreshUsb(dojo.hitch(this, function(){
+                         this.bind(this.host);
+                     }),true)
+                }),2500);
 
                 if (usbCDAssigned) {
-                    XUICache.messageBox.showInformation(this.ASSIGNED_USB_CD);
+                     XUICache.messageBox.showInformation(this.ASSIGNED_USB_CD);
                 }
 
             }));
@@ -115,7 +131,12 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
         if (forcedDevices.length > 0) {
             // Confirm stealing device from another VM
             var message = this.DEVICE_FORCE_REASSIGN.format(forcedDevices.join("<br/>"));
-            XUICache.messageBox.showConfirmation(message, complete);
+            var cancel = dojo.hitch(this, function resetdrop(){
+             // and refresh the screen to restore the previous values
+               this.bind(this.host);
+
+            });
+            XUICache.messageBox.showConfirmation(message, complete,null,cancel);
         } else {
             complete();
         }
@@ -167,20 +188,21 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
         }, this);
     },
 
-    ///TEMPORARY FIX
-    ///ref OXT-116: https://openxt.atlassian.net/browse/OXT-116
-    ///Fix can be removed after rewrite/modification of vusb daemon
     _onUSBAssignmentChange: function() {
         //Including original function so we don't break anything
         this._onUSBChange();
-
-        //Save if the dialog is open and the user initiated the value change
+        //Disable dropdowns if the dialog is open and the user initiated the value change
         if (this.open && this._userChanged){
-            this._userChanged = false;
-            this.save();
+            //this._userChanged = false;
+            dojo.forEach(XUICache.Host.get_usbDevices(), function(usb) {
+                // as a workaround for timing issue in assignment, disable the dropdowns until a save operation
+                var select = dijit.byId("usb_select_" + usb.dev_id);
+                this._setEnabled(select, false);
+            }, this);
+
         }
+ 
     },
-    ///END TEMPORARY FIX
 
     _onUSBChange: function() {
         dojo.forEach(XUICache.Host.get_usbDevices(), function(usb) {
