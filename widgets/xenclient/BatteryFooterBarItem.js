@@ -63,7 +63,7 @@ return declare("citrix.xenclient.BatteryFooterBarItem", [footerBarItem], {
             {
                var device = XUICache.Batteries[index];
                if (device && device.present) {
-                       this.totalpercent = this.totalpercent + device.percent;
+                       this.totalpercent = device.getAggregatePercent(); // this.totalpercent + device.percent;
                        if(!charging & device.isCharging())
                        {
                         charging = device.isCharging();
@@ -79,10 +79,11 @@ return declare("citrix.xenclient.BatteryFooterBarItem", [footerBarItem], {
                           }
                           case 1: {
                               var times = device.getTimeToFull();
-                              this.totalhours = this.totalhours + times[0];
-                              this.totalminutes = this.totalminutes + times[1];
-
                               stateline =stateline +"<span style='color:green' >"+ this._padstring(times[0]) + ":" + this._padstring(times[1]) +"</span>";
+                              var times = device.getAggregateTimeToFull();
+                              this.totalhours = times[0];
+                              this.totalminutes = times[1];
+
                               full = false;
                               break;
                           }
@@ -92,10 +93,12 @@ return declare("citrix.xenclient.BatteryFooterBarItem", [footerBarItem], {
                           }
                           default: {
                               var times = device.getTimeToEmpty();
-                              this.totalhours = this.totalhours + times[0];
-                              this.totalminutes = this.totalminutes + times[1];
- 
                               stateline =stateline +"<span style='color:red' >"+ this._padstring(times[0]) + ":" + this._padstring(times[1]) +"</span>";
+                              var times = device.getAggregateTimeToEmpty();
+
+                              this.totalhours = times[0];
+                              this.totalminutes = times[1];
+ 
                               full = false;
 
                           }
@@ -106,7 +109,7 @@ return declare("citrix.xenclient.BatteryFooterBarItem", [footerBarItem], {
              }
        }
 
-       percent = this.totalpercent / battery_count;
+       percent = this.totalpercent  // this.totalpercent / battery_count;
        var summary = "";
        if(charging)
        {
@@ -187,8 +190,6 @@ return declare("citrix.xenclient.BatteryFooterBarItem", [footerBarItem], {
                 this._bindDijit();
                 break;
             }
-                                                               //UI_BATTERIES_CHANGED
-
         }
     }
 });
