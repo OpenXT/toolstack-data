@@ -20,11 +20,6 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
 
     templateString: template,
     widgetsInTemplate: true,
-    ///PART OF TEMPORARY FIX
-    ///ref OXT-116: https://openxt.atlassian.net/browse/OXT-116
-    ///Fix can be removed after rewrite/modification of vusb daemon
-    _userChanged: false,
-    ///END PART OF TEMPORARY FIX
 
     constructor: function(args) {
         this.host = XUICache.Host;
@@ -52,6 +47,7 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
 
     save: function() {
         var forcedDevices = [];
+        var reassignUsb = false;
         var usbCDAssigned = false;
         var values = this.unbind();
 
@@ -99,23 +95,30 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
                     forcedDevices.push(this.ASSIGNED_USB.format(device.name, vm.name));
                 }
             }
+            var select = dijit.byId("usb_select_" + usb.dev_id);
+            this._setEnabled(select, false);
+
         }, this);
 
         var complete = dojo.hitch(this, function complete() {
             this.saveValues(this.host, values, dojo.hitch(this, function() {
-                XUICache.Host.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
-
+                // refresh the host which will send MODEL_USB_CHANGED
                 if (usbCDAssigned) {
-                    XUICache.messageBox.showInformation(this.ASSIGNED_USB_CD);
+                     XUICache.messageBox.showInformation(this.ASSIGNED_USB_CD);
                 }
-
             }));
         });
 
         if (forcedDevices.length > 0) {
             // Confirm stealing device from another VM
             var message = this.DEVICE_FORCE_REASSIGN.format(forcedDevices.join("<br/>"));
-            XUICache.messageBox.showConfirmation(message, complete);
+            var cancel = dojo.hitch(this, function resetdrop(){
+             // and refresh the screen to restore the previous values
+               this.bind(this.host);
+
+            });
+
+            XUICache.messageBox.showConfirmation(message, complete, null, cancel);
         } else {
             complete();
         }
@@ -167,45 +170,56 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
         }, this);
     },
 
-    ///TEMPORARY FIX
-    ///ref OXT-116: https://openxt.atlassian.net/browse/OXT-116
-    ///Fix can be removed after rewrite/modification of vusb daemon
     _onUSBAssignmentChange: function() {
         //Including original function so we don't break anything
         this._onUSBChange();
-
-        //Save if the dialog is open and the user initiated the value change
+        //Disable dropdowns if the dialog is open and the user initiated the value change
         if (this.open && this._userChanged){
-            this._userChanged = false;
-            this.save();
+            //this._userChanged = false;
+            dojo.forEach(XUICache.Host.get_usbDevices(), function(usb) {
+                // as a workaround for timing issue in assignment, disable the dropdowns until a save operation
+                var select = dijit.byId("usb_select_" + usb.dev_id);
+                this._setEnabled(select, false);
+
+                var check = dijit.byId("usb_check_" + usb.dev_id);
+                this._setEnabled(check, false);
+            }, this);
         }
     },
-    ///END TEMPORARY FIX
 
     _onUSBChange: function() {
-        dojo.forEach(XUICache.Host.get_usbDevices(), function(usb) {
-            this._setControls(usb.dev_id, "usb");
+        var usbDevices = XUICache.Host.get_usbDevices();
+        var changedDeviceID = 0;
+        try{
+            // find the device ID of the changed device
+            changedDeviceID = usbDevices.filter(function(dev){
+                var select = dijit.byId("usb_select_" + dev.dev_id);
+                var check = dijit.byId("usb_check_" + dev.dev_id);
+                return dev.assigned_uuid != select.value ||
+                       dev.getSticky() != check.checked;
+
+            }).map(function(dev){
+                return dev.dev_id;
+            }).reduce(function(prev, curr){
+                return curr > prev ? curr : prev;
+            }, 0);
+        } catch(error){
+            // do nothing if select or check haven't been instantiated
+        }
+        // disable controls of other usb devices to prevent save errors
+        dojo.forEach(usbDevices, function(usb) {
+            this._setControls(usb.dev_id, "usb", (changedDeviceID && usb.dev_id != changedDeviceID));
         }, this);
+
     },
 
-    // The next two functions are necessary to see if
-    // the select box value is being user changed or
-    // programatically changed
-    _setUserChanged: function() {
-        this._userChanged = true;
-    },
-
-    _unsetUserChanged: function() {
-        this._userChanged = false;
-    },
-
-    _setControls: function(deviceID, prefix) {
+    _setControls: function(deviceID, prefix, disable) {
         var check = dijit.byId(prefix + "_check_" + deviceID);
         var select = dijit.byId(prefix + "_select_" + deviceID);
         var name = dijit.byId(prefix + "_name_" + deviceID);
 
         if (check && select) {
-            if (prefix != "usb" || this.host.policy_modify_usb_settings){
+            if (!disable && (prefix != "usb" || this.host.policy_modify_usb_settings)){
                 if (select.value == "") {
                     this._setEnabled(check, false);
                     check.set("checked", false);

@@ -103,14 +103,17 @@
                         <tbody>
                             <tr template deviceId="%dev_id%">
                                 <td class="deviceRow">
-                                    <span class="deviceName" templateType="citrix.common.EditableWidget" editor="citrix.common.ValidationTextBox" bind="name" editorParams="{maxLength: 60, required: true, regExpObject: 'XenConstants.Regex.USB_NAME', invalidMessage: '${NAME_VALERROR}'}"></span>
+                                    <!--<span class="deviceName" templateType="citrix.common.EditableWidget" editor="citrix.common.ValidationTextBox" bind="name" editorParams="{maxLength: 60, required: true, regExpObject: 'XenConstants.Regex.USB_NAME', invalidMessage: '${NAME_VALERROR}'}"></span>-->
+                                    <span templateType="citrix.common.BoundWidget" bind="id" binding="title">
+                                        <span templateType="citrix.common.BoundWidget" bind="name"></span>
+                                    </span>
                                 </td>
                                 <td class="noWrap">
                                     <span templateType="citrix.common.EditableWidget" editor="citrix.common.CheckBox" editorParams="{id: 'check_%dev_id%'}" readOnlyEditor="true" bind="getSticky"></span>
                                     <label for="check_%dev_id%">${ALWAYS_USE}</label>
                                 </td>
                                 <td>
-                                    <button class="usbButton" templateType="citrix.common.Button" dojoAttachEvent="onClick: onUsbDetach">${DISCONNECT}</button>
+                                    <button id="usb_button_%dev_id%"class="usbButton" templateType="citrix.common.Button" dojoAttachEvent="onClick: onUsbDetach">${DISCONNECT}</button>
                                 </td>
                             </tr>
                             <tr empty>

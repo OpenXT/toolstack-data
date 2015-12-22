@@ -267,11 +267,16 @@ XenClient.UI.VMModel = function(vm_path) {
         for (var i = 0; i < devices.length; i++) {
             var device = devices[i];
             var currentDevice = self.usbDevices[device.dev_id];
+            /*
             if (currentDevice.name != device.name) {
                 self.nameUsbDevice(device.dev_id, device.name);
-            }
+            }*/
             if (currentDevice.getSticky() != device.getSticky) {
-                self.setUsbDeviceSticky(device.dev_id, device.getSticky);
+                self.usbDevices[device.dev_id].state = device.getSticky? 5 : 4;//cleaner UI update
+
+                device.assigned_uuid = self.uuid;
+                XUICache.Host.set_usbDevice(device, self.refreshUsb);
+                //self.setUsbDeviceSticky(device.dev_id, device.getSticky);
             }
         }
     };
@@ -625,9 +630,9 @@ XenClient.UI.VMModel = function(vm_path) {
     };
 
     // USB
-    this.refreshUsb = function(dev_id, finish, failure) {
+    this.refreshUsb = function(dev_id, finish, failure, silent) {
         var wait = new XenClient.Utils.AsyncWait(function() {
-            self.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
+            if (!silent) self.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
             if (finish) {
                 finish();
             }
@@ -667,7 +672,7 @@ XenClient.UI.VMModel = function(vm_path) {
 
         wait.finish();
     };
-
+    /* The hostModel's set_usbDevice should be used for all USB assignments
     this.assignUsbDevice = function(dev_id, success, failure) {
         function onSuccess() {
             self.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
@@ -676,6 +681,10 @@ XenClient.UI.VMModel = function(vm_path) {
             }
         }
         var usb = self.usbDevices[dev_id];
+        if(!usb)
+        {
+            usb = XUICache.Host.usbDevices[dev_id];
+        }
         usb.state = 4;
         interfaces.usb.assign_device(usb.dev_id, self.uuid, onSuccess, failure);
     };
@@ -688,6 +697,10 @@ XenClient.UI.VMModel = function(vm_path) {
             }
         }
         var usb = self.usbDevices[dev_id];
+        if(!usb)
+        {
+            usb = XUICache.Host.usbDevices[dev_id];
+        }
         usb.state = 0;
         interfaces.usb.unassign_device(usb.dev_id, onSuccess, failure);
     };
@@ -700,6 +713,10 @@ XenClient.UI.VMModel = function(vm_path) {
             }
         }
         var usb = self.usbDevices[dev_id];
+        if(!usb)
+        {
+            usb = XUICache.Host.usbDevices[dev_id];
+        }
         usb.state = (self.getState() == XenConstants.VMStates.VM_RUNNING) ? 5 : 6;
         interfaces.usb.set_sticky(usb.dev_id, sticky ? 1 : 0, onSuccess, failure);
     };
@@ -712,10 +729,14 @@ XenClient.UI.VMModel = function(vm_path) {
             }
         }
         var usb = self.usbDevices[dev_id];
+        if(!usb)
+        {
+            usb = XUICache.Host.usbDevices[dev_id];
+        }
         usb.name = name;
         interfaces.usb.name_device(dev_id, name, onSuccess, failure);
     };
-
+*/
     // TIDY FROM HERE
 
     // Image transfer
@@ -953,7 +974,7 @@ XenClient.UI.VMModel = function(vm_path) {
 
     this.deleteVisible = function() {
         return (self.policy_modify_vm && XUICache.Host.policy_delete_vm);
-    };    
+    };
 
     this.canModifyPCI = function() {
         return (self.policy_modify_vm && self.getState() == XenConstants.VMStates.VM_STOPPED);
@@ -1007,7 +1028,7 @@ XenClient.UI.VMModel = function(vm_path) {
     this.getTransferSpeed = function() {
         return 0;
     };
-    
+
     this.getAvailableDevices = function() {
         var devices = [];
         for (var id in self.usbDevices) {

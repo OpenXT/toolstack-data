@@ -253,10 +253,20 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
     onUsbDetach: function(event) {
         var id = this._getDeviceID(event.target);
         var usb = this.vm.usbDevices[id];
+        usb.assigned_uuid = "";
         var disconnect = function() {
-            this.vm.unassignUsbDevice(id, undefined, function(error) {
-                XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
-            });
+            // disable further USB  modifications until after the refresh
+            this.vm.get_connectedDevices().forEach(function(device){
+                dijit.byId('usb_button_' + device.dev_id).set('disabled', true);
+                dijit.byId('check_' + device.dev_id).set('disabled', true);
+            })
+            this.addAction.set('disabled', true);
+
+            XUICache.Host.set_usbDevice(usb, dojo.hitch(this, function(){
+                this.vm.refresh();
+            }));
+
+            usb.state = 0;// cleaner UI rebind
         };
         if ([4, 5].contains(usb.state)) {
             XUICache.messageBox.showConfirmation(this.USB_UNASSIGN, dojo.hitch(this, disconnect));

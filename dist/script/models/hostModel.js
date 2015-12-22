@@ -412,13 +412,18 @@ XenClient.UI.HostModel = function() {
     };
 
     // USB
-    this.refreshUsb = function(callback) {
+    this.refreshUsb = function(callback, silent) {
+
+
         var wait = new XenClient.Utils.AsyncWait(function() {
-            self.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
+            if (!silent){
+                self.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
+            }
             if (callback) {
                 callback();
             }
         });
+
         var updateDevice = function(dev_id) {
             var onSuccess = wait.addCallback(function(name, state, assigned_uuid) {
                 if (state == -1) {
@@ -614,108 +619,187 @@ XenClient.UI.HostModel = function() {
         return devices;
     };
 
-    // usbDevices setter
-    this.set_usbDevices = function(devices) {
-        dojo.forEach(devices, function(device) {
+    this.set_usbDevices = function(devices){
+        devices.forEach(function(device){
+            self.set_usbDevice(device, false);
+        });
+    };
+
+    /*  usbDevices setter
+        Async nightmare due to ctxusb_daemon timing
+        A great case for es6 promise and es7 async
+
+        --- ASSIGNMENT----
+        There are three cases:
+            AssignUsb
+                - Send assign message, wait for response
+                - update sticky
+            UnassignUsb
+                - Send unassign message
+                - wait for USB_DEVICE_ADDED signal
+                - on response, run callback, i.e. refreshUsb
+            ReassignUsb ( or async unassign then reassign)
+                - Call unassignUsb with assignUsb as callback
+                    - "first half" is unassigning withough usbRefresh callback
+                    - "second half" is assigning with reassign param==true
+
+        --- STICKY --
+        When a device is going from sticky->not sticky, the change must be made
+        before any assignment call.
+
+        When not sticky->sticky, we must make the call after any assignment
+
+        -- NAME --
+        Doesn't work at all! Commenting all references for name change out right now.
+        If name IS left in it has the change of breaking the state if the usb daemon
+        is mid assignment
+
+        --- OVERALL ORDERING ---
+        Did assignment change?
+            Currently sticky?
+                Sticky = false
+            Set assignment
+        Did sticky change?
+            Set Sticky
+        Update all vm's usbModels
+        Update the host's vm Model and send MODEL_USB_CHANGED event for UI update
+
+        --- NOTE ---
+        All USB calls should be taken out of the host and put into it's
+        own util class.
+
+        @device: the usbDevice we'll be setting values for
+        @externalCallback: the callback to call after everything else is done.
+    */
+    this.set_usbDevice = function(device, externalCallback) {
+
             var usb = self.usbDevices[device.dev_id];
-            var sticky = (device.getSticky.length > 0 && device.getSticky[0] === true);
+            var sticky = (device.getSticky.length > 0 && device.getSticky[0] === true) ||
+                         device.getSticky === true;
+            var stickyChanged = usb.getSticky() != sticky;
+            var assignmentChanged = usb.assigned_uuid != device.assigned_uuid;
+            var alreadySticky = usb.getSticky();
+            var refreshRequired = assignmentChanged;
 
-            ///TEMPORARY FIX
-            ///ref OXT-116: https://openxt.atlassian.net/browse/OXT-116
-            ///Fix can be removed after rewrite/modification of vusb daemon fixes
-            ///race condition.
+            var finish = function(){
+                if (refreshRequired){
+                    console.log('refreshing USB')
+                    var finishWait = new XUtils.AsyncWait(function(){
+                        if(externalCallback) externalCallback();
+                    })
 
-            //Get the VM the device is currently assigned to if assigned to VM
-            if (usb.assigned_uuid != ""){
-                var curVM = XUICache.getVM(XUtils.uuidToPath(usb.assigned_uuid));
-            }
 
-            var onError = function(error) {
-                XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
-            };
-
-            //Assignment
-            var assignUsb = function(reassigned, newVMPath){
-                if (reassigned){
-                    //After being unassigned, the device has the highest
-                    //available dev_id, so we just need to change the ID
-                    //to it.
-                    for(var dev in curVM.usbDevices){
-                        if (curVM.usbDevices.hasOwnProperty(dev)){
-                            if (dev > device.dev_id &&
-                                curVM.usbDevices[dev].state != 7 &&
-                                curVM.usbDevices[dev].state != 8 &&
-                                curVM.usbDevices[dev].state != 10
-                            ){
-                                device.dev_id = dev;
-                            }
+                    if (assignmentChanged || stickyChanged){
+                        for (var path in XUICache.VMs){
+                            XUICache.VMs[path].refreshUsb(undefined, finishWait.addCallback(), undefined, true);
                         }
                     }
+                    self.refreshUsb(finishWait.addCallback());
+                    finishWait.finish();
+                }else {
+                   if(externalCallback) externalCallback();
                 }
-                //Get the vm the device is going to be assigned to
-                var newVM = XUICache.getVM(XUtils.uuidToPath(newVMPath));
-                newVM.assignUsbDevice(device.dev_id, function() {
-                    if (sticky) {
-                        newVM.setUsbDeviceSticky(device.dev_id, true, undefined, onError);
-                    }
-                }, onError);
+            }
+            // This is the callback used to modify stick, name, and eventually refreshUsb
+            // It should run last
+            var setStickyAndName = function(){
+                var wait = new XUtils.AsyncWait(finish);
+                //Sticky
+                if (stickyChanged) {
+                    console.log('Setting sticky')
+                    refreshRequired = true;
+                    interfaces.usb.set_sticky(device.dev_id, sticky ? 1 : 0, wait.addCallback());
+                }
 
+                // Name
+                /*if (usb.name != device.name) {
+                    refreshRequired = true;
+                    interfaces.usb.name_device(device.dev_id, device.name, wait.addCallback());
+                }*/
+                wait.finish();
             };
 
-            //Check if device is being reassigned
-            if (usb.assigned_uuid != device.assigned_uuid) {
-                //just unassign if being assigned to none
-                if (device.assigned_uuid == "") {
-                    curVM.unassignUsbDevice(device.dev_id, function(){
-                       var interval = setInterval(function () {
-                           clearInterval(interval);
-                       }, 2000);
-                    }, onError);
-                } else if (usb.assigned_uuid == ""){
-                //assign a non-assigned device to a vm
-                    assignUsb(false, device.assigned_uuid);
+            // Called ONLY if an assignment has changed
+            var setAssignment = function(){
+                // Figure out what type of change
+                if (usb.assigned_uuid == ""){
+                    console.log('Assigning usb')
+                    // Assign a usb device that was previously unassigned or 2nd step of reassigning
+                    interfaces.usb.assign_device(device.dev_id, device.assigned_uuid, setStickyAndName);
                 } else {
-                //reassign to new vm
-                    curVM.unassignUsbDevice(usb.dev_id, function(){
-                        var interval = setInterval(function() {
-                            clearInterval(interval);
-                            assignUsb(true, device.assigned_uuid);
-                        }, 2000);
-                    }, onError);
+                    // helper variable to store the next async callback
+                    var unassignCallback = setStickyAndName;
+
+                    // we are either unassigning or first step of reassigning
+                    if (device.assigned_uuid){
+                        //first half reassigning
+                        unassignCallback = function(message){
+                            console.log('reassigning usb');
+                            device.dev_id = message.data[0];
+                            interfaces.usb.assign_device(device.dev_id, device.assigned_uuid, setStickyAndName);
+                        };
+
+                    }
+                    // wrapper for unassign, mocks a normal callback scenario
+                    // Unassigning or first half or reassigning
+                    var handle = dojo.subscribe(XUtils.publishTopic, dojo.hitch(this, function(message){
+                        if(message.type == XenConstants.TopicTypes.MODEL_USB_DEVICE_ADDED){
+                            clearInterval(failInterval);
+                            handle.remove();
+                            console.log('unassign complete signal received');
+                            // We receive the USB_DEVICE_ADDED signal from the USB daemon
+                            // If we need to we can now call refreshUSB ang get the correct state
+                            unassignCallback(message);
+                        }
+                    }));
+
+                    // Sometimes dbus drops the MODEL_USB_DEVICE_ADDED signal.
+                    // This is the failsafe
+                    var failInterval = setInterval(function(){
+                        handle.remove();
+                        clearInterval(failInterval);
+                        console.log('unassign signal lost, falling back');
+                        interfaces.usb.list_devices(function(devices){
+                            if(devices.length){
+                                var newId = devices.filter(function(dev_id){
+                                    // give all the new devices not already cached
+                                    return !(self.usbDevices[dev_id])
+                                }).reduce(function(a, b){
+                                    // only give the highest id
+                                    return  a > b ? a : b;
+                                }, 0);
+                                // Call unassign callback with the same structure as the normal
+                                // dbus signal
+                                unassignCallback({data: [newId]})
+                            } else {
+                                // complete fail, just continue
+                                setStickyAndName();
+                            }
+                        })
+                    }, 15000)
+
+                    // unassign device
+                    console.log('unassigning usb')
+                    interfaces.usb.unassign_device(device.dev_id);
+                }
+            }
+
+            ////  START HERE \\\\
+
+            if (assignmentChanged){
+                if(alreadySticky){
+                    // sticky MUST  be set to false before assignment can change
+
+                    // helper so usb.getSticky() works.
+                    usb.state = 0;
+                    console.log('pre-unassign sticky');
+                    interfaces.usb.set_sticky(device.dev_id, 0, setAssignment);
+                } else {
+                    setAssignment();
                 }
             } else {
-                //check sticky if device isn't being assigned or reassigned
-                if(curVM){
-                    curVM.setUsbDeviceSticky(device.dev_id, sticky, undefined, onError);
-                }
+                setStickyAndName();
             }
-            ///END TEMPORARY FIX
-
-
-            ///ORIGINAL CODE, REPLACE TEMPORARY FIX WITH THIS
-            ///WHEN PERMENANT FIX COMPLETE
-            /*
-            if (usb.assigned_uuid != device.assigned_uuid) {
-                if (device.assigned_uuid == "") {
-                    interfaces.usb.unassign_device(device.dev_id);
-                } else {
-                    interfaces.usb.assign_device(device.dev_id, device.assigned_uuid);
-                }
-            }
-
-            //Sticky
-            if (usb.getSticky() != sticky) {
-                interfaces.usb.set_sticky(device.dev_id, sticky ? 1 : 0);
-            }
-
-            // Name
-            if (usb.name != device.name) {
-                interfaces.usb.name_device(device.dev_id, device.name);
-            }
-            */
-            ///END ORIGINAL CODE
-        });
-
     };
 
     this.getPlatformDevices = function() {

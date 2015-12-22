@@ -20,7 +20,7 @@
                     <td class="deviceRow">
                         <span templateType="citrix.common.BoundWidget" bind="id" binding="title">
                             <span templateType="citrix.common.BoundWidget" bind="name"></span>
-                        </span>                        
+                        </span>
                     </td>
                     <td>
                         <select class="citrix" templateType="citrix.common.Select" id="cd_select_%id%" optionsKey="cdVMList" bind="vm" dojoAttachEvent="onChange: _onCDChange"></select>
@@ -54,12 +54,13 @@
             <tbody dojoAttachPoint="usbDevices" dojoType="citrix.common.Repeater" dojoEventHandler="this" name="usbDevices" unbindDisabled="true" uniqueId="dev_id">
                 <tr template deviceId="%dev_id%">
                     <td class="deviceRow">
-                        <span templateType="citrix.common.ValidationTextBox" id="usb_name_%dev_id%" bind="name" maxLength="60" required="true" regExpObject="XenConstants.Regex.USB_NAME" invalidMessage="${NAME_VALERROR}"></span>
+                        <span class="dijitHidden" templateType="citrix.common.ValidationTextBox" id="usb_name_%dev_id%" bind="name" maxLength="60" required="true" regExpObject="XenConstants.Regex.USB_NAME" readonly invalidMessage="${NAME_VALERROR}"></span>
+                        <span templateType="citrix.common.BoundWidget" bind="id" binding="title">
+                            <span templateType="citrix.common.BoundWidget" bind="name"></span>
+                        </span>
                     </td>
                     <td>
-                    <!-- PART OF TEMPORARY FIX, SEE _setUserChanged in ../Devices.js -->
-                        <select class="citrix" templateType="citrix.common.Select" id="usb_select_%dev_id%" optionsKey="usbVMList" bind="assigned_uuid" dojoAttachEvent="onChange: _onUSBAssignmentChange, onFocus: _setUserChanged, onBlur: _unsetUserChanged" ></select>
-                    <!-- END TEMPORARY FIX -->
+                        <select class="citrix" templateType="citrix.common.Select" id="usb_select_%dev_id%" optionsKey="usbVMList" bind="assigned_uuid" dojoAttachEvent="onChange: _onUSBAssignmentChange" ></select>
                     </td>
                     <td class="noWrap" colspan="2">
                         <span templateType="citrix.common.CheckBox" id="usb_check_%dev_id%" bind="getSticky" dojoAttachEvent="onChange: _onUSBChange"></span>

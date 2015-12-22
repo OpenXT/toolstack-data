@@ -207,6 +207,7 @@ return declare("citrix.xenclient.VM", [_vmButton, _formMixin, _citrixWidgetMixin
                 break;
             }
             case XenConstants.TopicTypes.MODEL_STATE_CHANGED:
+            case XenConstants.TopicTypes.MODEL_USB_CHANGED:
             case XenConstants.TopicTypes.MODEL_CHANGED: {
                 this._bindDijit();
                 break;
