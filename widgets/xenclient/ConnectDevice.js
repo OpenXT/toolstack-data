@@ -29,6 +29,8 @@ return declare("citrix.xenclient.ConnectDevice", [dialog, _boundContainerMixin],
         this.vm = XUICache.getVM(args.path);
         // Refresh when opening dialog
         this.vm.refreshUsb();
+        // keep the host and the local in sync in case new devices have been inserted
+        XUICache.Host.refreshUsb();
     },
 
     postMixInProperties: function() {
