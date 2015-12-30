@@ -746,6 +746,7 @@ XenClient.UI.HostModel = function() {
                         if(message.type == XenConstants.TopicTypes.MODEL_USB_DEVICE_ADDED){
                             clearInterval(failInterval);
                             handle.remove();
+                            self.usbBusy = false;
                             console.log('unassign complete signal received');
                             // We receive the USB_DEVICE_ADDED signal from the USB daemon
                             // If we need to we can now call refreshUSB ang get the correct state
@@ -758,6 +759,7 @@ XenClient.UI.HostModel = function() {
                     var failInterval = setInterval(function(){
                         handle.remove();
                         clearInterval(failInterval);
+                        self.usbBusy = false;
                         console.log('unassign signal lost, falling back');
                         interfaces.usb.list_devices(function(devices){
                             if(devices.length){
@@ -780,6 +782,9 @@ XenClient.UI.HostModel = function() {
 
                     // unassign device
                     console.log('unassigning usb')
+
+                    // TODO move this semaphore (and all usb stuff) to a separate file
+                    self.usbBusy = true;
                     interfaces.usb.unassign_device(device.dev_id);
                 }
             }
