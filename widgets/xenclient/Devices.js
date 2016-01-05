@@ -249,7 +249,9 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
                 }
                 break;
             case XenConstants.TopicTypes.MODEL_USB_CHANGED: {
-                this._bindDijit();
+                if(!XUICache.Host.usbBusy){
+                    this._bindDijit();
+                }
                 break;
             }
             case XenConstants.TopicTypes.UI_VMS_LOADED:

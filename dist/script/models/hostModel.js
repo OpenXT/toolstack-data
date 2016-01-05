@@ -682,9 +682,11 @@ XenClient.UI.HostModel = function() {
             var refreshRequired = assignmentChanged;
 
             var finish = function(){
+                stickyChanged = usb.getSticky() != sticky;
                 if (refreshRequired){
                     console.log('refreshing USB')
                     var finishWait = new XUtils.AsyncWait(function(){
+                        self.usbBusy = false;
                         if(externalCallback) externalCallback();
                     })
 
@@ -697,7 +699,8 @@ XenClient.UI.HostModel = function() {
                     self.refreshUsb(finishWait.addCallback());
                     finishWait.finish();
                 }else {
-                   if(externalCallback) externalCallback();
+                    self.usbBusy = false;
+                    if(externalCallback) externalCallback();
                 }
             }
             // This is the callback used to modify stick, name, and eventually refreshUsb
@@ -705,6 +708,7 @@ XenClient.UI.HostModel = function() {
             var setStickyAndName = function(){
                 var wait = new XUtils.AsyncWait(finish);
                 //Sticky
+                stickyChanged = usb.getSticky() != sticky;
                 if (stickyChanged) {
                     console.log('Setting sticky')
                     refreshRequired = true;
@@ -746,7 +750,6 @@ XenClient.UI.HostModel = function() {
                         if(message.type == XenConstants.TopicTypes.MODEL_USB_DEVICE_ADDED){
                             clearInterval(failInterval);
                             handle.remove();
-                            self.usbBusy = false;
                             console.log('unassign complete signal received');
                             // We receive the USB_DEVICE_ADDED signal from the USB daemon
                             // If we need to we can now call refreshUSB ang get the correct state
@@ -759,7 +762,6 @@ XenClient.UI.HostModel = function() {
                     var failInterval = setInterval(function(){
                         handle.remove();
                         clearInterval(failInterval);
-                        self.usbBusy = false;
                         console.log('unassign signal lost, falling back');
                         interfaces.usb.list_devices(function(devices){
                             if(devices.length){
