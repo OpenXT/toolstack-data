@@ -165,8 +165,24 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
     },
 
     _onCDChange: function() {
+        var changedDevice;
+        try{
+            // find the device ID of the changed device
+            changedDevice = XUICache.Host.available_cds.filter(function(dev){
+                var select = dijit.byId("cd_select_" + dev.id);
+                var check = dijit.byId("cd_check_" + dev.id);
+                return dev.vm != select.value ||
+                       dev.vm-sticky == "1" != check.checked;
+
+            })[0];
+        } catch(error){
+            // do nothing if select or check haven't been instantiated
+        }
         dojo.forEach(XUICache.Host.available_cds, function(cdrom) {
-            this._setControls(cdrom.id, "cd");
+            this._setControls(cdrom.id, "cd", (!!changedDevice && cdrom.id != changedDevice.id));
+        }, this);
+        dojo.forEach(XUICache.Host.get_usbDevices(), function(usb) {
+            this._setControls(usb.dev_id, "usb", !!changedDevice);
         }, this);
     },
 
@@ -189,26 +205,25 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
 
     _onUSBChange: function() {
         var usbDevices = XUICache.Host.get_usbDevices();
-        var changedDeviceID = 0;
+        var changedDevice;
         try{
             // find the device ID of the changed device
-            changedDeviceID = usbDevices.filter(function(dev){
+            changedDevice = usbDevices.filter(function(dev){
                 var select = dijit.byId("usb_select_" + dev.dev_id);
                 var check = dijit.byId("usb_check_" + dev.dev_id);
                 return dev.assigned_uuid != select.value ||
                        dev.getSticky() != check.checked;
 
-            }).map(function(dev){
-                return dev.dev_id;
-            }).reduce(function(prev, curr){
-                return curr > prev ? curr : prev;
-            }, 0);
+            })[0];
         } catch(error){
             // do nothing if select or check haven't been instantiated
         }
         // disable controls of other usb devices to prevent save errors
         dojo.forEach(usbDevices, function(usb) {
-            this._setControls(usb.dev_id, "usb", (changedDeviceID && usb.dev_id != changedDeviceID));
+            this._setControls(usb.dev_id, "usb", (!!changedDevice && usb.dev_id != changedDevice.dev_id));
+        }, this);
+        dojo.forEach(XUICache.Host.available_cds, function(cdrom) {
+            this._setControls(cdrom.id, "cd", !!changedDevice);
         }, this);
 
     },
