@@ -687,7 +687,8 @@ XenClient.UI.HostModel = function() {
                     console.log('refreshing USB')
                     var finishWait = new XUtils.AsyncWait(function(){
                         self.usbBusy = false;
-                        if(externalCallback) externalCallback();
+                        self.refreshUsb(externalCallback);// Remove this line if Chromium is used
+                        //if(externalCallback)externalCallback(); //Uncomment if Chromium is used
                     })
 
 
@@ -696,7 +697,7 @@ XenClient.UI.HostModel = function() {
                             XUICache.VMs[path].refreshUsb(undefined, finishWait.addCallback(), undefined, true);
                         }
                     }
-                    self.refreshUsb(finishWait.addCallback());
+                    //self.refreshUsb(externalCallback); Uncomment if Chromium is used
                     finishWait.finish();
                 }else {
                     self.usbBusy = false;
