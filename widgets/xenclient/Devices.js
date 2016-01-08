@@ -165,65 +165,33 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
     },
 
     _onCDChange: function() {
-        var changedDevice;
-        try{
-            // find the device ID of the changed device
-            changedDevice = XUICache.Host.available_cds.filter(function(dev){
-                var select = dijit.byId("cd_select_" + dev.id);
-                var check = dijit.byId("cd_check_" + dev.id);
-                return dev.vm != select.value ||
-                       dev.vm-sticky == "1" != check.checked;
-
-            })[0];
-        } catch(error){
-            // do nothing if select or check haven't been instantiated
-        }
         dojo.forEach(XUICache.Host.available_cds, function(cdrom) {
-            this._setControls(cdrom.id, "cd", (!!changedDevice && cdrom.id != changedDevice.id));
+            this._setControls(cdrom.id, "cd");
         }, this);
-        dojo.forEach(XUICache.Host.get_usbDevices(), function(usb) {
-            this._setControls(usb.dev_id, "usb", !!changedDevice);
-        }, this);
-    },
-
-    _onUSBAssignmentChange: function() {
-        //Including original function so we don't break anything
-        this._onUSBChange();
-        //Disable dropdowns if the dialog is open and the user initiated the value change
-        if (this.open && this._userChanged){
-            //this._userChanged = false;
-            dojo.forEach(XUICache.Host.get_usbDevices(), function(usb) {
-                // as a workaround for timing issue in assignment, disable the dropdowns until a save operation
-                var select = dijit.byId("usb_select_" + usb.dev_id);
-                this._setEnabled(select, false);
-
-                var check = dijit.byId("usb_check_" + usb.dev_id);
-                this._setEnabled(check, false);
-            }, this);
-        }
     },
 
     _onUSBChange: function() {
         var usbDevices = XUICache.Host.get_usbDevices();
-        var changedDevice;
+        var changedDeviceID = 0;
         try{
             // find the device ID of the changed device
-            changedDevice = usbDevices.filter(function(dev){
+            changedDeviceID = usbDevices.filter(function(dev){
                 var select = dijit.byId("usb_select_" + dev.dev_id);
                 var check = dijit.byId("usb_check_" + dev.dev_id);
                 return dev.assigned_uuid != select.value ||
                        dev.getSticky() != check.checked;
 
-            })[0];
+            }).map(function(dev){
+                return dev.dev_id;
+            }).reduce(function(prev, curr){
+                return curr > prev ? curr : prev;
+            }, 0);
         } catch(error){
             // do nothing if select or check haven't been instantiated
         }
         // disable controls of other usb devices to prevent save errors
         dojo.forEach(usbDevices, function(usb) {
-            this._setControls(usb.dev_id, "usb", (!!changedDevice && usb.dev_id != changedDevice.dev_id));
-        }, this);
-        dojo.forEach(XUICache.Host.available_cds, function(cdrom) {
-            this._setControls(cdrom.id, "cd", !!changedDevice);
+            this._setControls(usb.dev_id, "usb", (changedDeviceID && usb.dev_id != changedDeviceID));
         }, this);
 
     },
@@ -240,7 +208,7 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
                     check.set("checked", false);
                 } else {
                     this._setEnabled(check, true);
-                    this._setEnabled(select, !check.checked);
+                    //this._setEnabled(select, !check.checked);
                 }
             } else {
                 this._setEnabled(check, false);
