@@ -85,8 +85,8 @@ XenClient.UI.VMModel = function(vm_path) {
     // Services
     var services = {
         vm:     new XenClient.DBus.XenmgrVmClient("com.citrix.xenclient.xenmgr", vm_path),
-        host:   new XenClient.DBus.XenmgrHostClient("com.citrix.xenclient.xenmgr", "/host"),
-        usb:    new XenClient.DBus.CtxusbDaemonClient("com.citrix.xenclient.usbdaemon", "/")
+        host:   new XenClient.DBus.XenmgrHostClient("com.citrix.xenclient.xenmgr", "/host")
+        //usb:    new XenClient.DBus.CtxusbDaemonClient("com.citrix.xenclient.usbdaemon", "/")
     };
 
     // Interfaces
@@ -96,7 +96,8 @@ XenClient.UI.VMModel = function(vm_path) {
         pci:        services.vm.com.citrix.xenclient.xenmgr.vm.pci,
         product:    services.vm.com.citrix.xenclient.xenmgr.vm.product,
         host:       services.host.com.citrix.xenclient.xenmgr.host,
-        usb:        services.usb.com.citrix.xenclient.usbdaemon
+        usb:        XUICache.USB
+        //usb:        services.usb.com.citrix.xenclient.usbdaemon
     };
 
     // Mappings
@@ -275,7 +276,7 @@ XenClient.UI.VMModel = function(vm_path) {
                 self.usbDevices[device.dev_id].state = device.getSticky? 5 : 4;//cleaner UI update
 
                 device.assigned_uuid = self.uuid;
-                XUICache.Host.set_usbDevice(device, self.refreshUsb);
+                interfaces.usb.set_usbDevice(device, self.refreshUsb);
                 //self.setUsbDeviceSticky(device.dev_id, device.getSticky);
             }
         }
@@ -672,72 +673,6 @@ XenClient.UI.VMModel = function(vm_path) {
 
         wait.finish();
     };
-    /* The hostModel's set_usbDevice should be used for all USB assignments
-    this.assignUsbDevice = function(dev_id, success, failure) {
-        function onSuccess() {
-            self.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
-            if (success) {
-                success();
-            }
-        }
-        var usb = self.usbDevices[dev_id];
-        if(!usb)
-        {
-            usb = XUICache.Host.usbDevices[dev_id];
-        }
-        usb.state = 4;
-        interfaces.usb.assign_device(usb.dev_id, self.uuid, onSuccess, failure);
-    };
-
-    this.unassignUsbDevice = function(dev_id, success, failure) {
-        function onSuccess() {
-            self.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
-            if (success) {
-                success();
-            }
-        }
-        var usb = self.usbDevices[dev_id];
-        if(!usb)
-        {
-            usb = XUICache.Host.usbDevices[dev_id];
-        }
-        usb.state = 0;
-        interfaces.usb.unassign_device(usb.dev_id, onSuccess, failure);
-    };
-
-    this.setUsbDeviceSticky = function(dev_id, sticky, success, failure) {
-        function onSuccess() {
-            self.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
-            if (success) {
-                success();
-            }
-        }
-        var usb = self.usbDevices[dev_id];
-        if(!usb)
-        {
-            usb = XUICache.Host.usbDevices[dev_id];
-        }
-        usb.state = (self.getState() == XenConstants.VMStates.VM_RUNNING) ? 5 : 6;
-        interfaces.usb.set_sticky(usb.dev_id, sticky ? 1 : 0, onSuccess, failure);
-    };
-
-    this.nameUsbDevice = function(dev_id, name, success, failure) {
-        function onSuccess() {
-            self.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
-            if (success) {
-                success();
-            }
-        }
-        var usb = self.usbDevices[dev_id];
-        if(!usb)
-        {
-            usb = XUICache.Host.usbDevices[dev_id];
-        }
-        usb.name = name;
-        interfaces.usb.name_device(dev_id, name, onSuccess, failure);
-    };
-*/
-    // TIDY FROM HERE
 
     // Image transfer
     this.pause_transfer = function() {

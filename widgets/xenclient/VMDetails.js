@@ -262,7 +262,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
             })
             this.addAction.set('disabled', true);
 
-            XUICache.Host.set_usbDevice(usb, dojo.hitch(this, function(){
+            XUICache.USB.set_usbDevice(usb, dojo.hitch(this, function(){
                 this.vm.refresh();
             }));
 
@@ -690,8 +690,10 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
                 break;
             }
             case XenConstants.TopicTypes.MODEL_USB_CHANGED: {
-                this.bind(this.vm, this.usbTab.domNode);
-                this.bindTooltips();
+                if (!XUICache.USB.isUsbBusy){
+                    this.bind(this.vm, this.usbTab.domNode);
+                    this.bindTooltips();
+                }
                 break;
             }
             case XenConstants.TopicTypes.MODEL_TRANSFER_CHANGED: {

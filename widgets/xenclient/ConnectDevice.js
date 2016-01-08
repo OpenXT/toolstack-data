@@ -72,7 +72,7 @@ return declare("citrix.xenclient.ConnectDevice", [dialog, _boundContainerMixin],
         };
 
         var complete = function() {
-            XUICache.Host.set_usbDevice(usb, dojo.hitch(this, function(){
+            XUICache.USB.set_usbDevice(usb, dojo.hitch(this, function(){
                 this.vm.refresh();
             }));
         };
@@ -100,8 +100,12 @@ return declare("citrix.xenclient.ConnectDevice", [dialog, _boundContainerMixin],
 
     _messageHandler: function(message) {
         switch(message.type) {
-            case XenConstants.TopicTypes.MODEL_STATE_CHANGED:
             case XenConstants.TopicTypes.MODEL_USB_CHANGED:
+                if(!XUICache.USB.isUsbBusy){
+                    this._bindDijit();
+                }
+                break;
+            case XenConstants.TopicTypes.MODEL_STATE_CHANGED:
             case XenConstants.TopicTypes.MODEL_CHANGED: {
                 this._bindDijit();
                 break;

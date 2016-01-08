@@ -404,6 +404,7 @@ XenClient.UI.Cache = (function() {
         NDVMs: {},
         ServiceVMs: {},
         Batteries: {},
+        USB: new XenClient.UI.USBServiceModel(),
         Host: new XenClient.UI.HostModel(),
         Update: new XenClient.UI.UpdateModel(),
         messageBox: null,

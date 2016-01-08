@@ -258,13 +258,13 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
     _messageHandler: function(message) {
         switch(message.type) {
             case XenConstants.TopicTypes.MODEL_USB_DEVICE_ADDED:
-                // TODO Move this to a new XUICache.USBDaemon file
-                if(!XUICache.Host.usbBusy){
+                // don't update mid operation
+                if(!XUICache.USB.isUsbBusy){
                     XUICache.Host.refreshUsb();
                 }
                 break;
             case XenConstants.TopicTypes.MODEL_USB_CHANGED: {
-                if(!XUICache.Host.usbBusy){
+                if(!XUICache.USB.isUsbBusy){
                     this._bindDijit();
                 }
                 break;
