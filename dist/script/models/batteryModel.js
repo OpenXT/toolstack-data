@@ -197,7 +197,10 @@ XenClient.UI.BatteryModel = function(bat_num) {
       this.bat_index = XUICache.Host.available_batteries.indexOf(this.bat_num);
 
       var error = function(error) {
-          XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
+        if(this.bat_num!=undefined)
+        {// suppress errors if the batteries are in the midst of being refreshed
+           XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
+        }
       };
       var self=this;
 
