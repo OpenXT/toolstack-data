@@ -176,7 +176,7 @@ XenClient.UI.USBServiceModel = function() {
                         if(devices.length){
                             var newId = devices.filter(function(dev_id){
                                 // give all the new devices not already cached
-                                return !(self.usbDevices[dev_id])
+                                return !(XUICache.Host.usbDevices[dev_id])
                             }).reduce(function(a, b){
                                 // only give the highest id
                                 return  a > b ? a : b;
