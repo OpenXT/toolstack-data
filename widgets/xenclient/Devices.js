@@ -104,7 +104,7 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
             this.saveValues(this.host, values, dojo.hitch(this, function() {
                 // refresh the host which will send MODEL_USB_CHANGED
                 if (usbCDAssigned) {
-                     XUICache.messageBox.showInformation(this.ASSIGNED_USB_CD);
+                    XUICache.messageBox.showInformation(this.ASSIGNED_USB_CD);
                 }
             }));
         });
@@ -223,7 +223,6 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
                     check.set("checked", false);
                 } else {
                     this._setEnabled(check, true);
-                    //this._setEnabled(select, !check.checked);
                 }
             } else {
                 this._setEnabled(check, false);

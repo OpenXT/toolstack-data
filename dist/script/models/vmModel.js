@@ -268,16 +268,11 @@ XenClient.UI.VMModel = function(vm_path) {
         for (var i = 0; i < devices.length; i++) {
             var device = devices[i];
             var currentDevice = self.usbDevices[device.dev_id];
-            /*
-            if (currentDevice.name != device.name) {
-                self.nameUsbDevice(device.dev_id, device.name);
-            }*/
             if (currentDevice.getSticky() != device.getSticky) {
                 self.usbDevices[device.dev_id].state = device.getSticky? 5 : 4;//cleaner UI update
 
                 device.assigned_uuid = self.uuid;
                 interfaces.usb.set_usbDevice(device, self.refreshUsb);
-                //self.setUsbDeviceSticky(device.dev_id, device.getSticky);
             }
         }
     };
