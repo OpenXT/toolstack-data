@@ -119,8 +119,8 @@ XenClient.UI.HostModel = function() {
         surfman:    services.surfman.com.citrix.xenclient.surfman,
         network:    services.network.com.citrix.xenclient.networkdaemon,
         xcpmd:      services.xcpmd.com.citrix.xenclient.xcpmd
-        // the usb interface is new used through XUICache.USB
-        // and is instantiated in this.load
+        // the usb interface is now used through XUICache.USB
+        // and is instantiated in this.load()
         //usb:        services.usb.com.citrix.xenclient.usbdaemon
     };
 
