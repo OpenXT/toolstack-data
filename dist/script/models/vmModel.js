@@ -86,7 +86,6 @@ XenClient.UI.VMModel = function(vm_path) {
     var services = {
         vm:     new XenClient.DBus.XenmgrVmClient("com.citrix.xenclient.xenmgr", vm_path),
         host:   new XenClient.DBus.XenmgrHostClient("com.citrix.xenclient.xenmgr", "/host")
-        //usb:    new XenClient.DBus.CtxusbDaemonClient("com.citrix.xenclient.usbdaemon", "/")
     };
 
     // Interfaces
@@ -97,7 +96,6 @@ XenClient.UI.VMModel = function(vm_path) {
         product:    services.vm.com.citrix.xenclient.xenmgr.vm.product,
         host:       services.host.com.citrix.xenclient.xenmgr.host,
         usb:        XUICache.USB
-        //usb:        services.usb.com.citrix.xenclient.usbdaemon
     };
 
     // Mappings

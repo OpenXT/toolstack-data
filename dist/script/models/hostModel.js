@@ -103,7 +103,6 @@ XenClient.UI.HostModel = function() {
         input:      new XenClient.DBus.InputDaemonClient("com.citrix.xenclient.input", "/"),
         surfman:    new XenClient.DBus.SurfmanClient("com.citrix.xenclient.surfman", "/"),
         network:    new XenClient.DBus.NetworkDaemonClient("com.citrix.xenclient.networkdaemon", "/"),
-//      usb:        new XenClient.DBus.CtxusbDaemonClient("com.citrix.xenclient.usbdaemon", "/"),
         xcpmd:      new XenClient.DBus.XcpmdClient("com.citrix.xenclient.xcpmd", "/")
     };
 
@@ -120,6 +119,8 @@ XenClient.UI.HostModel = function() {
         surfman:    services.surfman.com.citrix.xenclient.surfman,
         network:    services.network.com.citrix.xenclient.networkdaemon,
         xcpmd:      services.xcpmd.com.citrix.xenclient.xcpmd
+        // the usb interface is new used through XUICache.USB
+        // and is instantiated in this.load
         //usb:        services.usb.com.citrix.xenclient.usbdaemon
     };
 
