@@ -646,7 +646,21 @@ XenClient.UI.VMModel = function(vm_path) {
                     self.usbDevices[dev_id] = new XenClient.UI.UsbModel(dev_id, name, state, assigned_uuid);
                 }
             });
-            interfaces.usb.get_device_info(dev_id, self.uuid, onSuccess, wait.error);
+            function getDeviceInfoError(error){
+                // if the device no longer exists on the host we want to make sure
+                // that we can safely ignore the error
+                interfaces.usb.list_devices(wait.addCallback(function(result){
+                    var deviceExists = result.some(function(device){
+                        return device == dev_id;
+                    });
+                    if(deviceExists){
+                        // if the device really does exist on the host but it can't be
+                        // queried then we really do have an error
+                        wait.error(error);
+                    }
+                }));
+            }
+            interfaces.usb.get_device_info(dev_id, self.uuid, onSuccess, getDeviceInfoError);
         };
         if (dev_id === undefined) {
             // Update all USB
