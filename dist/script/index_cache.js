@@ -370,6 +370,10 @@ XenClient.UI.Cache = (function() {
                                     findVM(path).refreshUsb((params && params[0]) ? params[0] : undefined);
                                 });
                                 break;
+                            case "device_added":
+                                // only used when unassigning and reassigning usb devices
+                                XUtils.publish(XenConstants.TopicTypes.MODEL_USB_DEVICE_ADDED, params);
+                                break;
                         }
                         break;
                     case "com.citrix.xenclient.updatemgr":
@@ -400,6 +404,7 @@ XenClient.UI.Cache = (function() {
         NDVMs: {},
         ServiceVMs: {},
         Batteries: {},
+        USB: new XenClient.UI.USBServiceModel(),
         Host: new XenClient.UI.HostModel(),
         Update: new XenClient.UI.UpdateModel(),
         messageBox: null,

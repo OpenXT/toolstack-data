@@ -280,9 +280,11 @@ XenClient.Resource.TopicTypes = {
     MODEL_STATE_CHANGED     : "statechanged",
     MODEL_TRANSFER_CHANGED  : "transferchanged",
     MODEL_USB_CHANGED       : "usbchanged",
+    MODEL_USB_ASSIGMNENT_COMPLETE: "usbassignmentcomplete",
     MODEL_NIC_CHANGED       : "nicchanged",
     MODEL_DISK_CHANGED      : "diskchanged",
     MODEL_DISK_USAGE_CHANGED: "diskusagechanged",
+    MODEL_USB_DEVICE_ADDED  : "usbdeviceadded",
 
     // UI Topics
     UI_READY                : "uiready",

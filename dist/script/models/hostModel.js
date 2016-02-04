@@ -103,7 +103,6 @@ XenClient.UI.HostModel = function() {
         input:      new XenClient.DBus.InputDaemonClient("com.citrix.xenclient.input", "/"),
         surfman:    new XenClient.DBus.SurfmanClient("com.citrix.xenclient.surfman", "/"),
         network:    new XenClient.DBus.NetworkDaemonClient("com.citrix.xenclient.networkdaemon", "/"),
-        usb:        new XenClient.DBus.CtxusbDaemonClient("com.citrix.xenclient.usbdaemon", "/"),
         xcpmd:      new XenClient.DBus.XcpmdClient("com.citrix.xenclient.xcpmd", "/")
     };
 
@@ -119,8 +118,10 @@ XenClient.UI.HostModel = function() {
         input:      services.input.com.citrix.xenclient.input,
         surfman:    services.surfman.com.citrix.xenclient.surfman,
         network:    services.network.com.citrix.xenclient.networkdaemon,
-        xcpmd:      services.xcpmd.com.citrix.xenclient.xcpmd,
-        usb:        services.usb.com.citrix.xenclient.usbdaemon
+        xcpmd:      services.xcpmd.com.citrix.xenclient.xcpmd
+        // the usb interface is now used through XUICache.USB
+        // and is instantiated in this.load()
+        //usb:        services.usb.com.citrix.xenclient.usbdaemon
     };
 
     // Mappings
@@ -254,6 +255,10 @@ XenClient.UI.HostModel = function() {
     };
 
     this.load = function(finish) {
+        // get usb semaphore
+        if(!interfaces.usb){
+            interfaces.usb = XUICache.USB;
+        }
         var wait = new XUtils.AsyncWait(function() {
             repository.load(function() {
 
@@ -412,13 +417,18 @@ XenClient.UI.HostModel = function() {
     };
 
     // USB
-    this.refreshUsb = function(callback) {
+    this.refreshUsb = function(callback, silent) {
+
+
         var wait = new XenClient.Utils.AsyncWait(function() {
-            self.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
+            if (!silent){
+                self.publish(XenConstants.TopicTypes.MODEL_USB_CHANGED);
+            }
             if (callback) {
                 callback();
             }
         });
+
         var updateDevice = function(dev_id) {
             var onSuccess = wait.addCallback(function(name, state, assigned_uuid) {
                 if (state == -1) {
@@ -614,109 +624,12 @@ XenClient.UI.HostModel = function() {
         return devices;
     };
 
-    // usbDevices setter
-    this.set_usbDevices = function(devices) {
-        dojo.forEach(devices, function(device) {
-            var usb = self.usbDevices[device.dev_id];
-            var sticky = (device.getSticky.length > 0 && device.getSticky[0] === true);
-
-            ///TEMPORARY FIX
-            ///ref OXT-116: https://openxt.atlassian.net/browse/OXT-116
-            ///Fix can be removed after rewrite/modification of vusb daemon fixes
-            ///race condition.
-
-            //Get the VM the device is currently assigned to if assigned to VM
-            if (usb.assigned_uuid != ""){
-                var curVM = XUICache.getVM(XUtils.uuidToPath(usb.assigned_uuid));
-            }
-
-            var onError = function(error) {
-                XUICache.messageBox.showError(error, XenConstants.ToolstackCodes);
-            };
-
-            //Assignment
-            var assignUsb = function(reassigned, newVMPath){
-                if (reassigned){
-                    //After being unassigned, the device has the highest
-                    //available dev_id, so we just need to change the ID
-                    //to it.
-                    for(var dev in curVM.usbDevices){
-                        if (curVM.usbDevices.hasOwnProperty(dev)){
-                            if (dev > device.dev_id &&
-                                curVM.usbDevices[dev].state != 7 &&
-                                curVM.usbDevices[dev].state != 8 &&
-                                curVM.usbDevices[dev].state != 10
-                            ){
-                                device.dev_id = dev;
-                            }
-                        }
-                    }
-                }
-                //Get the vm the device is going to be assigned to
-                var newVM = XUICache.getVM(XUtils.uuidToPath(newVMPath));
-                newVM.assignUsbDevice(device.dev_id, function() {
-                    if (sticky) {
-                        newVM.setUsbDeviceSticky(device.dev_id, true, undefined, onError);
-                    }
-                }, onError);
-
-            };
-
-            //Check if device is being reassigned
-            if (usb.assigned_uuid != device.assigned_uuid) {
-                //just unassign if being assigned to none
-                if (device.assigned_uuid == "") {
-                    curVM.unassignUsbDevice(device.dev_id, function(){
-                       var interval = setInterval(function () {
-                           clearInterval(interval);
-                       }, 2000);
-                    }, onError);
-                } else if (usb.assigned_uuid == ""){
-                //assign a non-assigned device to a vm
-                    assignUsb(false, device.assigned_uuid);
-                } else {
-                //reassign to new vm
-                    curVM.unassignUsbDevice(usb.dev_id, function(){
-                        var interval = setInterval(function() {
-                            clearInterval(interval);
-                            assignUsb(true, device.assigned_uuid);
-                        }, 2000);
-                    }, onError);
-                }
-            } else {
-                //check sticky if device isn't being assigned or reassigned
-                if(curVM){
-                    curVM.setUsbDeviceSticky(device.dev_id, sticky, undefined, onError);
-                }
-            }
-            ///END TEMPORARY FIX
-
-
-            ///ORIGINAL CODE, REPLACE TEMPORARY FIX WITH THIS
-            ///WHEN PERMENANT FIX COMPLETE
-            /*
-            if (usb.assigned_uuid != device.assigned_uuid) {
-                if (device.assigned_uuid == "") {
-                    interfaces.usb.unassign_device(device.dev_id);
-                } else {
-                    interfaces.usb.assign_device(device.dev_id, device.assigned_uuid);
-                }
-            }
-
-            //Sticky
-            if (usb.getSticky() != sticky) {
-                interfaces.usb.set_sticky(device.dev_id, sticky ? 1 : 0);
-            }
-
-            // Name
-            if (usb.name != device.name) {
-                interfaces.usb.name_device(device.dev_id, device.name);
-            }
-            */
-            ///END ORIGINAL CODE
+    this.set_usbDevices = function(devices){
+        devices.forEach(function(device){
+            interfaces.usb.set_usbDevice(device, false);
         });
-
     };
+
 
     this.getPlatformDevices = function() {
         var devices = [];
