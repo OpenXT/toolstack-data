@@ -32,7 +32,7 @@ IDLS=	xenmgr.xml \
 	vm_nic.xml \
 	vm_disk.xml \
 	input_daemon.xml \
-	ctxusb_daemon.xml \
+	vusb_daemon.xml \
 	xenvm.xml \
 	surfman.xml \
 	updatemgr.xml \
