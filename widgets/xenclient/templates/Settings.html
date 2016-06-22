@@ -255,8 +255,8 @@
             </div>
             <div dojoType="citrix.common.ContentPane" title="${SYS_INFO_AUTH_TITLE}">
                 <h1>${AUTH_PASSWORD_HEADER}</h1>
-                <p class="auth none">${AUTH_SET_PASSWORD_TEXT}</p>
-                <button class="actionButton auth none" dojoType="citrix.common.Button" dojoAttachEvent="onClick: changePassword">${SET_PASSWORD_ACTION}</button>
+                <p class="auth none">${AUTH_SET_PASSWORD_TEXT} (disabled)</p>
+                <button class="actionButton auth none" dojoType="citrix.common.Button" dojoAttachEvent="onClick: changePassword" disabled="disabled">${SET_PASSWORD_ACTION}</button>
                 <p class="auth managed">${AUTH_MANAGED_TEXT}</p>
                 <div class="citrixTabPaneField auth local">
                     <label for="auth_on_boot">${AUTH_REQUIRED_TEXT}</label>
