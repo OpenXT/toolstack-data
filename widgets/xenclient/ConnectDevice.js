@@ -101,7 +101,7 @@ return declare("citrix.xenclient.ConnectDevice", [dialog, _boundContainerMixin],
     _messageHandler: function(message) {
         switch(message.type) {
             case XenConstants.TopicTypes.MODEL_USB_CHANGED:
-                if(!XUICache.USB.isUsbBusy){
+                if(!XUICache.USB.isUsbBusy()){
                     this._bindDijit();
                 }
                 break;

@@ -241,12 +241,12 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
         switch(message.type) {
             case XenConstants.TopicTypes.MODEL_USB_DEVICE_ADDED:
                 // don't update mid operation
-                if(!XUICache.USB.isUsbBusy){
+                if(!XUICache.USB.isUsbBusy()){
                     XUICache.Host.refreshUsb();
                 }
                 break;
             case XenConstants.TopicTypes.MODEL_USB_CHANGED: {
-                if(!XUICache.USB.isUsbBusy){
+                if(!XUICache.USB.isUsbBusy()){
                     this._bindDijit();
                 }
                 break;

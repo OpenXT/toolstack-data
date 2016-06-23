@@ -17,9 +17,9 @@ XenClient.UI.USBServiceModel = function() {
 
     // Properties & Defaults
     var usbBusy = false;
-    this.__defineGetter__('isUsbBusy', function(){
+    this.isUsbBusy = function(){
         return usbBusy;
-    });
+    };
     
     // Services
     var services = {

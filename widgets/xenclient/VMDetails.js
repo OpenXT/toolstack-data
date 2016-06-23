@@ -690,7 +690,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
                 break;
             }
             case XenConstants.TopicTypes.MODEL_USB_CHANGED: {
-                if (!XUICache.USB.isUsbBusy){
+                if (!XUICache.USB.isUsbBusy()){
                     this.bind(this.vm, this.usbTab.domNode);
                     this.bindTooltips();
                 }
