@@ -261,14 +261,18 @@ return declare("citrix.xenclient.MediaWizard", [_wizard], {
         this._setDisplay(this.isoControl, assignableISOs);
 
         // CDs
-        var availableCD = (XUICache.Host.available_cds.length > 0);
+        //var availableCD = (XUICache.Host.available_cds.length > 0);
+        // OXT-661: WORKAROUND: disable CD-ROM boot since it doesn't do anything
+        var availableCD = false;
         var assignableCD = false;
-        dojo.some(this.host.available_cds, function(cd) {
-            if (cd.vm == "" && cd["vm-sticky"] == "0") {
-                assignableCD = true;
-                return true;
-            }
-        }, this);
+        if (availableCD) {
+            dojo.some(this.host.available_cds, function(cd) {
+                if (cd.vm == "" && cd["vm-sticky"] == "0") {
+                    assignableCD = true;
+                    return true;
+                }
+            }, this);
+        }
           
         // Hide dropdown
         this._setDisplay(this.cds, false);
@@ -277,7 +281,7 @@ return declare("citrix.xenclient.MediaWizard", [_wizard], {
         this._setEnabled(this.autoStart_cd, assignableCD);
         this._setDisplay(this.cdWarning, (availableCD && !assignableCD));
 
-        var defaultBoot = assignableISOs ? "autoStart_iso" : assignableCD ? "autoStart_cd": "autoStart_network";
+        var defaultBoot = assignableISOs ? "autoStart_iso" : assignableCD ? "autoStart_cd": "autoStart_off";
         this[defaultBoot].set("checked", true);
         this._onBootChange();
     },
