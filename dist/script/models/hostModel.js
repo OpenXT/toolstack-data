@@ -552,7 +552,9 @@ XenClient.UI.HostModel = function() {
         var devices = [];
         dojo.forEach(self.available_cds, function(item, i){
             // XC-10237 - USB CD-ROM drives cannot be made sticky
-            var canMakeSticky = (item["usb-id"] == "");
+            // var canMakeSticky = (item["usb-id"] == "");
+            // OXT-661 - Enable stickyness all CD-ROM drives
+            var canMakeSticky = true;
             devices[i] = { "id": item.id, "name": item.name, "vm": item.vm, sticky: item["vm-sticky"], canMakeSticky: canMakeSticky };
         });
         return devices;

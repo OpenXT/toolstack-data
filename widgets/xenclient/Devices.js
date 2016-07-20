@@ -223,6 +223,10 @@ return declare("citrix.xenclient.Devices", [dialog, _boundContainerMixin, _citri
                     check.set("checked", false);
                 } else {
                     this._setEnabled(check, true);
+		    // OXT-661 - Make CDs sticky by default
+		    if (prefix == "cd") {
+			check.set("checked", true);
+		    }
                 }
             } else {
                 this._setEnabled(check, false);
