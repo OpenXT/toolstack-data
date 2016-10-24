@@ -33,8 +33,8 @@ XenClient.UI.VMModel = function(vm_path) {
     this.hidden_in_switcher = false;
     this.memory = 0;
     this.vcpus = 1;
-    this.acpi_pt = false;
-    this.smbios_pt = false;
+    this.acpi_path = "";
+    this.smbios = "";
     this.oem_acpi_features = false;
     this.boot = "cd";
     this.download_progress = 0;
@@ -131,8 +131,8 @@ XenClient.UI.VMModel = function(vm_path) {
         ["amt_pt",                              interfaces.vm],
         ["memory",                              interfaces.vm],
         ["vcpus",                               interfaces.vm],
-        ["acpi_pt",                             interfaces.vm],
-        ["smbios_pt",                           interfaces.vm],
+        ["acpi_path",                           interfaces.vm],
+        ["smbios",                              interfaces.vm],
         ["boot",                                interfaces.vm],
         ["hidden_in_switcher",                  interfaces.vm],
         ["start_on_boot",                       interfaces.vm],
