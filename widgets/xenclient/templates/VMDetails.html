@@ -350,12 +350,12 @@
                     </div>
                     <h1>${HARDWARE_TITLE}</h1>
                     <div class="citrixTabPaneField">
-                        <label dojoType="citrix.common.Label" for="acpi_pt" title="${ACPI_PT_TOOLTIP}">${ALLOW_OEM}</label>
-                        <span class="value" dojoType="citrix.common.EditableWidget" editor="citrix.common.Select" map="{'${ENABLED}': true, '${DISABLED}': false}" name="acpi_pt"></span>
+                        <label dojoType="citrix.common.Label" for="acpi_path" title="${ACPI_PT_TOOLTIP}">${ALLOW_OEM}</label>
+                        <span class="value" dojoType="citrix.common.EditableWidget" editor="citrix.common.ValidationTextBox" name="acpi_path"></span>
                     </div>
                     <div class="citrixTabPaneField">
-                        <label dojoType="citrix.common.Label" for="smbios_pt" title="${SMBIOS_PT_TOOLTIP}">${EXPOSE_HARDWARE_INFO}</label>
-                        <span class="value" dojoType="citrix.common.EditableWidget" editor="citrix.common.Select" map="{'${ENABLED}': true, '${DISABLED}': false}" name="smbios_pt"></span>
+                        <label dojoType="citrix.common.Label" for="smbios" title="${SMBIOS_PT_TOOLTIP}">${EXPOSE_HARDWARE_INFO}</label>
+                        <span class="value" dojoType="citrix.common.EditableWidget" editor="citrix.common.ValidationTextBox" name="smbios"></span>
                     </div>
                     <div class="citrixTabPaneField">
                         <label dojoType="citrix.common.Label" for="oem_acpi_features" title="${OEM_ACPI_PT_TOOLTIP}">${OEM_ACPI_PASSTHROUGH}</label>
