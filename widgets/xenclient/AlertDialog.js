@@ -83,7 +83,11 @@ return declare("citrix.xenclient.AlertDialog", [dialog], {
             message = this._getErrorMessage(error, sourceHint);
         }
         xc_debug.log(message);
-        this._showDialog(message, args, onContinue);
+        if (error.code == 223) {
+            this._showDialog(error.message, args, onContinue);
+        } else {
+            this._showDialog(message, args, onContinue);
+        }
     },
 
     showWarning: function(message, onContinue, overrideArguments) {
