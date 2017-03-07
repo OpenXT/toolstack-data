@@ -131,7 +131,6 @@
     DISK_SPACE_TOOLTIP: "Privé : quantité d'espace disque utilisée par cette machine virtuelle.<br/>Partagé : quantité d'espace disque partagée avec d'autres machine virtuelles sur ce système.",
     AMT_PT_TOOLTIP: "L'activation d'Intel Active Management Technology (AMT) Management Engine (ME) offre une gestion de réseau au niveau matériel qui permet l'accès hors bande aux périphériques OpenXT à des fins d'administration. Cette fonctionnalité ne peut être activée que sur une MV.",
     ACPI_PT_TOOLTIP: "Expose la table ACPI SLIC hôte à la MV afin de déverrouiller les éditions OEM de Windows.",
-    SMBIOS_PT_TOOLTIP: "Expose les types d'enregistrement SMBIOS décrivant le matériel hôte à la MV plutôt que ceux fournis par OpenXT.",
     OEM_ACPI_PT_TOOLTIP: "Expose le matériel OEM directement à la MV. Cette fonctionnalité ne peut être activée que sur une MV.",
     POWER: "Alimentation",
     COMMUNICATION: "Prise en charge des applications transparentes :",
