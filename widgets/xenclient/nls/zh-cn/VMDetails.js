@@ -131,7 +131,6 @@
     DISK_SPACE_TOOLTIP: "专用: 仅由此虚拟机使用的磁盘空间量。<br/>共享: 与系统中的其他虚拟机共享的磁盘空间量。",
     AMT_PT_TOOLTIP: "启用 Intel Active Management Technology (AMT) Management Engine (ME) 可提供基于硬件的网络管理功能，允许用户出于管理目的对 OpenXT 设备进行带外访问。只有一台 VM 可以启用此功能。",
     ACPI_PT_TOOLTIP: "向 VM 公开主机 ACPI SLIC 表以解除 Windows OEM 版的锁定。",
-    SMBIOS_PT_TOOLTIP: "向 VM 公开用于描述主机硬件的 SMBIOS 记录类型而非 OpenXT 提供的记录类型。",
     OEM_ACPI_PT_TOOLTIP: "直接向 VM 公开 OEM 硬件。只有一台 VM 能够启用此功能。",
     POWER: "电源",
     COMMUNICATION: "无缝应用程序支持:",

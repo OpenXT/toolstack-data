@@ -152,7 +152,6 @@
     DISK_SPACE_TOOLTIP: "Private: Amount of disk space used only by this virtual machine.<br/>Shared: Amount of disk space shared with other virtual machines on the system.",
     AMT_PT_TOOLTIP: "Enabling the Intel Active Management Technology (AMT) Management Engine (ME) provides hardware-based network management that allows out-of-band access to OpenXT devices for administration purposes. Only one VM can have this enabled.",
     ACPI_PT_TOOLTIP: "Expose the host ACPI SLIC table to the VM to unlock OEM editions of Windows.",
-    SMBIOS_PT_TOOLTIP: "Expose the SMBIOS record types describing host hardware to the VM instead of those supplied by OpenXT.",
     OEM_ACPI_PT_TOOLTIP: "Expose the OEM hardware directly to the VM. Only one VM can have this enabled.",
     POWER: "Power",
     COMMUNICATION: "Seamless Application Support:",

@@ -131,7 +131,6 @@
     DISK_SPACE_TOOLTIP: "プライベート: この仮想マシンによってのみ使用されるディスク領域です。<br/>共有: システム上の他の仮想マシンと共有されるディスク領域です。",
     AMT_PT_TOOLTIP: "Intel Active Management Technology (AMT) Management Engine (ME) が有効になり、ハードウェア ベースのネットワーク管理が提供されます。これにより、OpenXT デバイスにアウトオブバンド (IP ネットワークを使わない) でアクセスして管理できます。この機能を有効にできるのは、1 つの VM だけです。",
     ACPI_PT_TOOLTIP: "ホスト ACPI SLIC テーブルを VM に公開して、Windows の OEM 版をアンロックします。",
-    SMBIOS_PT_TOOLTIP: "OpenXT によるものではなく、ホスト ハードウェアを説明する SMBIOS レコードの種類を VM に公開します。",
     OEM_ACPI_PT_TOOLTIP: "OEM ハードウェアを直接 VM に公開します。この機能を有効にできるのは、1 つの VM だけです。",
     POWER: "電源",
     COMMUNICATION: "シームレス アプリケーション サポート:",
