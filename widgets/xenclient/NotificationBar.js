@@ -37,7 +37,6 @@ return declare("citrix.xenclient.NotificationBar", [_widget, _contained, _templa
         }
         this._setDisplay(this.autoStartAuthNode, authReq);
         this._setDisplay(this.safeGraphicsNode, XUICache.Host.safe_graphics);
-        this._setDisplay(this.unlicensedNode, !XUICache.Host.licensed);
     },
 
     _messageHandler: function(message) {
