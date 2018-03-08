@@ -86,9 +86,9 @@ clean:
 	rm -rf dist/lib
 	rm -rf ${BUILT}
 
-${IDL_GENSRC_DIR}/%_client.js: ${IDL_DIR}/%.xml
+${IDL_GENSRC_DIR}/%_client.js: ${STAGING_IDLDATADIR}/%.xml
 	mkdir -p ${IDL_GENSRC_DIR}
-	${RPCGEN} --javascript --client -o ${IDL_GENSRC_DIR} $< || rm -f $@
+	${RPCGEN} --templates-dir=${STAGING_RPCGENDATADIR_NATIVE} --javascript --client -o ${IDL_GENSRC_DIR} $< || rm -f $@
 
 
 
