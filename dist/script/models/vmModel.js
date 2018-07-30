@@ -57,7 +57,7 @@ XenClient.UI.VMModel = function(vm_path) {
     this.usb_enabled = true;
     this.stubdom = false;
     this.viridian = true;
-    this.hvm = true;
+    this.virt_type= "hvm";
     this.kernel = "";
     this.kernel_extract = "";
     this.cmd_line = "";
@@ -150,7 +150,7 @@ XenClient.UI.VMModel = function(vm_path) {
         ["policy_audio_recording",              interfaces.vm],
         ["stubdom",                             interfaces.vm],
         ["viridian",                            interfaces.vm],
-        ["hvm",                                 interfaces.vm],
+        ["virt_type",                           interfaces.vm],
         ["kernel",                              interfaces.vm],
         ["kernel_extract",                      interfaces.vm],
         ["cmd_line",                            interfaces.vm],
