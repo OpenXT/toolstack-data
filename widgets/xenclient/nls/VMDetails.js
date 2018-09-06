@@ -107,7 +107,7 @@
     HVM: "Hardware Virtual Machine:",
     BIOS: "BIOS:",
     BIOS_OVMF: "UEFI",
-    BIOS_SEABIOS: "SeaBIOS",
+    BIOS_SEABIOS: "Legacy",
     KERNEL: "Kernel Path:",
     KERNEL_EXTRACT: "Kernel Extraction Path:",
     COMMAND_LINE: "Command Line:",
