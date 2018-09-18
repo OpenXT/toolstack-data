@@ -371,8 +371,8 @@
                         <span class="value" dojoType="citrix.common.EditableWidget" editor="citrix.common.Select" map="{'${ENABLED}': true, '${DISABLED}': false}" name="viridian"></span>
                     </div>
                     <div class="citrixTabPaneField">
-                        <label for="hvm">${HVM}</label>
-                        <span class="value" dojoType="citrix.common.EditableWidget" editor="citrix.common.Select" map="{'${ENABLED}': true, '${DISABLED}': false}" name="hvm"></span>
+                        <label for="virt_type">${VIRT_TYPE}</label>
+			<span class='value' dojoType='citrix.common.EditableWidget' editor='citrix.common.Select' map="{'${HVM}': 'hvm', '${PV}': 'pv', '${PVH}': 'pvh'}" name='virt_type'></span>
                     </div>
                     <div class="citrixTabPaneField">
                         <label for="bios">${BIOS}</label>

@@ -58,7 +58,7 @@ XenClient.UI.VMModel = function(vm_path) {
     this.stubdom = false;
     this.viridian = true;
     this.bios = "seabios";
-    this.hvm = true;
+    this.virt_type= "hvm";
     this.kernel = "";
     this.kernel_extract = "";
     this.cmd_line = "";
@@ -151,7 +151,7 @@ XenClient.UI.VMModel = function(vm_path) {
         ["policy_audio_recording",              interfaces.vm],
         ["stubdom",                             interfaces.vm],
         ["viridian",                            interfaces.vm],
-        ["hvm",                                 interfaces.vm],
+        ["virt_type",                           interfaces.vm],
         ["bios",                                interfaces.vm],
         ["kernel",                              interfaces.vm],
         ["kernel_extract",                      interfaces.vm],
