@@ -375,6 +375,10 @@
 			<span class='value' dojoType='citrix.common.EditableWidget' editor='citrix.common.Select' map="{'${HVM}': 'hvm', '${PV}': 'pv', '${PVH}': 'pvh'}" name='virt_type'></span>
                     </div>
                     <div class="citrixTabPaneField">
+                        <label for="bios">${BIOS}</label>
+                        <span class="value" dojoType="citrix.common.EditableWidget" editor="citrix.common.Select" map="{'${BIOS_SEABIOS}': 'seabios', '${BIOS_OVMF}': 'ovmf'}" name="bios"></span>
+                    </div>
+                    <div class="citrixTabPaneField">
                         <label for="kernel">${KERNEL}</label>
                         <span class="value" dojoType="citrix.common.EditableWidget" editor="citrix.common.ValidationTextBox" name="kernel"></span>
                     </div>

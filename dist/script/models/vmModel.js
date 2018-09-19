@@ -57,6 +57,7 @@ XenClient.UI.VMModel = function(vm_path) {
     this.usb_enabled = true;
     this.stubdom = false;
     this.viridian = true;
+    this.bios = "seabios";
     this.virt_type= "hvm";
     this.kernel = "";
     this.kernel_extract = "";
@@ -151,6 +152,7 @@ XenClient.UI.VMModel = function(vm_path) {
         ["stubdom",                             interfaces.vm],
         ["viridian",                            interfaces.vm],
         ["virt_type",                           interfaces.vm],
+        ["bios",                                interfaces.vm],
         ["kernel",                              interfaces.vm],
         ["kernel_extract",                      interfaces.vm],
         ["cmd_line",                            interfaces.vm],
