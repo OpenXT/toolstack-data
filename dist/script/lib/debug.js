@@ -39,7 +39,7 @@ XenClient.UI.Debug = (function() {
 
                 XUIXhr.post(
                     "/log/0",
-                    "UI: " + message,
+                    "UI: " + message + "\r\n\r\n",
                     null,
                     null,
                     {
