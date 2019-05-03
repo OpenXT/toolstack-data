@@ -207,7 +207,7 @@
             <div dojoAttachPoint="powerTab" dojoType="citrix.common.ContentPane" title="${SYS_INFO_POWER_TITLE}">
                 <h1>${SYSTEM_SLEEP_HEADER}</h1>
                 <p>${SYSTEM_SLEEP_LABEL}</p>
-                <div dojoType="citrix.common.Timeout" smallDelta="1" largeDelta="5" max="60" name="idle_time_threshold" onLabel="${SYSTEM_SLEEP_ON_LABEL}" unitLabelPlural="${MINUTES}" unitLabelSingular="${MINUTE}" offLabel="${SYSTEM_SLEEP_OFF_LABEL}"></div>
+                <div dojoType="citrix.common.Timeout" smallDelta="1" largeDelta="5" max="60" name="idle_time_threshold" onLabel="${SYSTEM_SLEEP_ON_LABEL}" unitLabelPlural="${MINUTES}" unitLabelSingular="${MINUTE}" offLabel="${SYSTEM_SLEEP_OFF_LABEL}" disabled="true"></div>
                 <h1 class="laptop">${LID_CLOSE_LABEL}</h1>
                 <p class="laptop">${LID_CLOSE_AC_POWER_LABEL}</p>
                 <input class="laptop" id="acRadioSleep" type="radio" dojoType="citrix.common.RadioButton" value="sleep" name="ac_lid_close_action" />
