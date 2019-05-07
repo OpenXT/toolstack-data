@@ -6,7 +6,7 @@
             <div dojoType="citrix.common.Menu">
                 <div dojoType="citrix.common.MenuItem" dojoAttachEvent="onClick: onRestartClick">${RESTART_ACTION}</div>
                 <div dojoType="citrix.common.MenuItem" dojoAttachEvent="onClick: onRestartNoUpdateClick" dojoAttachPoint="restartNoUpdateNode">${RESTART_NO_UPDATE_ACTION}</div>
-                <div dojoType="citrix.common.MenuItem" dojoAttachEvent="onClick: onSleepClick">${SLEEP_ACTION}</div>
+                <div dojoType="citrix.common.MenuItem" disabled="true" dojoAttachEvent="onClick: onSleepClick">${SLEEP_ACTION}</div>
                 <div dojoType="citrix.common.MenuItem" dojoAttachEvent="onClick: onHibernateClick">${HIBERNATE_ACTION}</div>
                 <div dojoType="citrix.common.MenuItem" dojoAttachEvent="onClick: onLockClick" dojoAttachPoint="lockNode">${LOCK_SCREEN_ACTION}</div>
                 <div dojoType="citrix.common.MenuSeparator"></div>
