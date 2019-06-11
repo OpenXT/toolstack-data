@@ -457,6 +457,7 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
         this._setEnabled(this.addAction, this.vm.canAddDevice());
         this._setEnabled(this.deleteAction, this.vm.canDelete());
         this._setDisplay(this.deleteAction, this.vm.deleteVisible());
+		this._setDisabled(this.suspendAction, true);
         this._setEnabled(".nicButton", this.vm.canEditNics());
         this._setEnabled(".diskButton", this.vm.canEditDisk());
         this._setEnabled(".usbButton", this.vm.canAddDevice());
