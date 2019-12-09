@@ -23,7 +23,7 @@ XUI=${DESTDIR}/usr/lib/xui
 BUILT=built
 IDL_GENSRC_DIR=${BUILT}/script/services
 
-DOJO=dojo-1.7.2
+DOJO=dojo-1.7.12
 RPCGEN=xc-rpcgen
 
 IDLS=	xenmgr.xml \
