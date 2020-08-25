@@ -499,10 +499,10 @@ return declare("citrix.xenclient.VMDetails", [dialog, _boundContainerMixin, _edi
         this.isos.set("map", isoMap);
 
         var gpuMap = {};
-        var discrete_gpus = XUICache.Host.available_gpus.slice(1);
+        var discrete_gpus = XUICache.Host.available_gpus
         gpuMap[this.DISABLED] = "";
         dojo.forEach(discrete_gpus, function(gpu) {
-            gpuMap[(discrete_gpus.length == 1) ? this.ENABLED : gpu.name] = gpu.addr;
+            gpuMap[gpu.name] = gpu.addr;
         }, this);
 
         this.threed.set("map", gpuMap);
