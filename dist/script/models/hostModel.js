@@ -101,7 +101,6 @@ XenClient.UI.HostModel = function() {
         manager:    new XenClient.DBus.XenmgrClient("com.citrix.xenclient.xenmgr", "/"),
         host:       new XenClient.DBus.XenmgrHostClient("com.citrix.xenclient.xenmgr", "/host"),
         input:      new XenClient.DBus.InputDaemonClient("com.citrix.xenclient.input", "/"),
-        surfman:    new XenClient.DBus.SurfmanClient("com.citrix.xenclient.surfman", "/"),
         network:    new XenClient.DBus.NetworkDaemonClient("com.citrix.xenclient.networkdaemon", "/"),
         xcpmd:      new XenClient.DBus.XcpmdClient("com.citrix.xenclient.xcpmd", "/")
     };
@@ -116,7 +115,6 @@ XenClient.UI.HostModel = function() {
         power:      services.host.com.citrix.xenclient.xenmgr.powersettings,
         installer:  services.host.com.citrix.xenclient.xenmgr.installer,
         input:      services.input.com.citrix.xenclient.input,
-        surfman:    services.surfman.com.citrix.xenclient.surfman,
         network:    services.network.com.citrix.xenclient.networkdaemon,
         xcpmd:      services.xcpmd.com.citrix.xenclient.xcpmd
         // the usb interface is now used through XUICache.USB
@@ -335,8 +333,6 @@ XenClient.UI.HostModel = function() {
     this.authSetContextFlags = interfaces.input.auth_set_context_flags;
     this.createVMWithUI = interfaces.manager.create_vm_with_ui;
     this.createVhd = interfaces.manager.create_vhd;
-    this.increaseBrightness = interfaces.surfman.increase_brightness;
-    this.decreaseBrightness = interfaces.surfman.decrease_brightness;
     this.listBatteries = interfaces.xcpmd.batteries_present; 
     this.listPowerDevices = interfaces.xcpmd.battery_is_present;
     this.listNDVMs = interfaces.network.list_backends;
