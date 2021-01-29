@@ -67,7 +67,6 @@ XenClient.UI.HostModel = function() {
     this.safe_graphics = false;
     this.measured_boot_enabled = true;
     this.measured_boot_successful = false;
-    this.drm_enabled = false;
     this.licensed = true;
     this.available_isos = [];
     this.available_gpus = [];
@@ -188,7 +187,6 @@ XenClient.UI.HostModel = function() {
         ["wallpaper",                           interfaces.ui],
         ["pointer_trail_timeout",               interfaces.ui],
         ["show_msg_measured_boot",              interfaces.ui, "show-mboot-warning"],
-        ["drm_enabled",                         interfaces.ui, "drm-graphics"],
         ["ac_lid_close_action",                 interfaces.power.get_ac_lid_close_action,       interfaces.power.set_ac_lid_close_action],
         ["battery_lid_close_action",            interfaces.power.get_battery_lid_close_action,  interfaces.power.set_battery_lid_close_action],
         ["auth_on_boot",                        interfaces.input.get_auth_on_boot,              interfaces.input.set_auth_on_boot],

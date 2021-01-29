@@ -80,10 +80,6 @@ return declare("citrix.xenclient.Settings", [dialog, _boundContainerMixin, _citr
                 // A guest VM is running and we have changed an audio setting
                 XUICache.messageBox.showWarning(this.AUDIO_CHANGED);
             }
-
-            if (typeof(values.drm_enabled) !== "undefined") {
-                XUICache.messageBox.showInformation(this.DRM_CHANGED);
-            }
         }));
 	},
 

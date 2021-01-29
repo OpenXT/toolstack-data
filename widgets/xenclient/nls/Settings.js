@@ -68,9 +68,6 @@
     SCREEN_LOCK_OFF_LABEL: "Do not lock the screen",
     SCREEN_LOCK_HELP: "To enable screen lock settings please set a local password.",
     PLUGINS_HEADER: "Display Plugins",
-    ENABLE_DRM: "Use DRM Plugin:",
-    DRM_ENABLED: "Always",
-    DRM_DISABLED: "Haswell platform and newer",
     STATUS_REPORT: "Creating a status report will collect diagnostic information from this device and package it into a single file.<br/><br/>This can be done at any time by pressing CTRL+ALT+R",
     CREATE_STATUS_REPORT: "Create Status Report",
     STATUS_SERVER_HEADER: "Report Download",
@@ -96,7 +93,6 @@
     AUDIO_MASK_SW: "{0}",
     AUDIO_MASK_EN: "{0}",
     AUDIO_CHANGED: "Audio changes will not apply to running VMs until they are restarted.",
-    DRM_CHANGED: "DRM plugin changes will not take effect until the host has been rebooted.\n\nIf 'Measured Launch' is enabled, this will also require a reseal.",
     LANGUAGE_WARNING: "The language setting has been changed and the user interface needs to restart.",
     // Other
     AUTH_MANAGED_TEXT: "Please use your Synchronizer credentials to log in.",
