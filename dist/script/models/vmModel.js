@@ -561,12 +561,7 @@ XenClient.UI.VMModel = function(vm_path) {
             if (self.startMultipleAction && !self.tools_installed && XUICache.runningVMCount() >= 2) {
                 fn = fn.decorate(self.startMultipleAction);
             }
-            // Warn about 3d graphics
-            if (self.isHdxEnabled() && self.startThreedAction) {
-                self.startThreedAction(fn);
-            } else {
-                fn();
-            }
+            fn();
         }
     };
 
@@ -710,14 +705,6 @@ XenClient.UI.VMModel = function(vm_path) {
         repository.load("download_progress", function() {
             self.publish(XenConstants.TopicTypes.MODEL_TRANSFER_CHANGED);
         });
-    };
-
-    this.isHdxEnabled = function() {
-        return (self.gpu != "");
-    };
-
-    this.isHdxRunning = function() {
-        return (self.isHdxEnabled() && self.isRunning());
     };
 
     this.isPublishEnabled = function() {

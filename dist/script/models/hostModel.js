@@ -67,7 +67,6 @@ XenClient.UI.HostModel = function() {
     this.safe_graphics = false;
     this.measured_boot_enabled = true;
     this.measured_boot_successful = false;
-    this.drm_enabled = false;
     this.licensed = true;
     this.available_isos = [];
     this.available_gpus = [];
@@ -101,7 +100,6 @@ XenClient.UI.HostModel = function() {
         manager:    new XenClient.DBus.XenmgrClient("com.citrix.xenclient.xenmgr", "/"),
         host:       new XenClient.DBus.XenmgrHostClient("com.citrix.xenclient.xenmgr", "/host"),
         input:      new XenClient.DBus.InputDaemonClient("com.citrix.xenclient.input", "/"),
-        surfman:    new XenClient.DBus.SurfmanClient("com.citrix.xenclient.surfman", "/"),
         network:    new XenClient.DBus.NetworkDaemonClient("com.citrix.xenclient.networkdaemon", "/"),
         xcpmd:      new XenClient.DBus.XcpmdClient("com.citrix.xenclient.xcpmd", "/")
     };
@@ -116,7 +114,6 @@ XenClient.UI.HostModel = function() {
         power:      services.host.com.citrix.xenclient.xenmgr.powersettings,
         installer:  services.host.com.citrix.xenclient.xenmgr.installer,
         input:      services.input.com.citrix.xenclient.input,
-        surfman:    services.surfman.com.citrix.xenclient.surfman,
         network:    services.network.com.citrix.xenclient.networkdaemon,
         xcpmd:      services.xcpmd.com.citrix.xenclient.xcpmd
         // the usb interface is now used through XUICache.USB
@@ -190,7 +187,6 @@ XenClient.UI.HostModel = function() {
         ["wallpaper",                           interfaces.ui],
         ["pointer_trail_timeout",               interfaces.ui],
         ["show_msg_measured_boot",              interfaces.ui, "show-mboot-warning"],
-        ["drm_enabled",                         interfaces.ui, "drm-graphics"],
         ["ac_lid_close_action",                 interfaces.power.get_ac_lid_close_action,       interfaces.power.set_ac_lid_close_action],
         ["battery_lid_close_action",            interfaces.power.get_battery_lid_close_action,  interfaces.power.set_battery_lid_close_action],
         ["auth_on_boot",                        interfaces.input.get_auth_on_boot,              interfaces.input.set_auth_on_boot],
@@ -335,8 +331,6 @@ XenClient.UI.HostModel = function() {
     this.authSetContextFlags = interfaces.input.auth_set_context_flags;
     this.createVMWithUI = interfaces.manager.create_vm_with_ui;
     this.createVhd = interfaces.manager.create_vhd;
-    this.increaseBrightness = interfaces.surfman.increase_brightness;
-    this.decreaseBrightness = interfaces.surfman.decrease_brightness;
     this.listBatteries = interfaces.xcpmd.batteries_present; 
     this.listPowerDevices = interfaces.xcpmd.battery_is_present;
     this.listNDVMs = interfaces.network.list_backends;

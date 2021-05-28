@@ -34,7 +34,6 @@ IDLS=	xenmgr.xml \
 	input_daemon.xml \
 	ctxusb_daemon.xml \
 	xenvm.xml \
-	surfman.xml \
 	updatemgr.xml \
 	network.xml \
 	network_daemon.xml \

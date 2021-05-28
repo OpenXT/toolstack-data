@@ -265,13 +265,6 @@
                 <p class="auth local">${CHANGE_PASSWORD_HELP}</p>
                 <button class="actionButton auth local" dojoType="citrix.common.Button" dojoAttachEvent="onClick: changePassword">${CHANGE_PASSWORD_ACTION}</button>
             </div>
-            <div dojoType="citrix.common.ContentPane" title="${SYS_INFO_ADVANCED}">
-                <h1>${PLUGINS_HEADER}</h1>
-                <div class="citrixTabPaneField">
-                    <label dojoType="citrix.common.Label" for="drm_enabled">${ENABLE_DRM}</label>
-                    <span class="citrix value" dojoType="citrix.common.Select" options="[{'label': '${DRM_ENABLED}', 'value': true}, {'label': '${DRM_DISABLED}', 'value': false}]" name="drm_enabled"></span>
-                </div>
-            </div>
         </div>
     </div>
     <div dojoAttachPoint="footerNode" class="citrixDialogFooterContent">
